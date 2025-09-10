@@ -197,6 +197,21 @@ GROUP BY
 HAVING
 	SUM(T02F07) > 100000;
     
+# LIMIT OFFSET
+# To fetch employee with third highest salary
+SELECT
+	T02F02,
+    T02F01,
+    T02F07
+FROM
+	T02
+ORDER BY
+	T02F07
+LIMIT 
+	1
+OFFSET
+	2;
+    
 # SUM, COUNT, AVG, MIN, MAX
 
 # SUM
