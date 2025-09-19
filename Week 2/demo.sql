@@ -416,3 +416,125 @@ FROM
 ORDER BY 
 	avg_timer_wait DESC
 LIMIT 5;
+
+
+-- Recursion using CTE
+WITH RECURSIVE numbers AS (
+    SELECT 1 AS n      -- Base case: Start with 1
+    UNION ALL
+    SELECT n + 1       -- Recursive case: Add 1 each time
+    FROM numbers
+    WHERE n < 10       -- Stopping condition
+)
+SELECT * FROM numbers;
+
+-- Procedures Extra
+DROP PROCEDURE IF EXISTS FETCH_EMPLOYEE;
+DELIMITER $$
+CREATE PROCEDURE FETCH_EMPLOYEE(OUT p_employee TEXT)
+BEGIN
+	DECLARE v_done INT DEFAULT FALSE;
+    DECLARE v_name VARCHAR(100);
+    
+    DECLARE cur_employee CURSOR FOR SELECT CONCAT(T02F02, T02F03) FROM T02;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_done = TRUE;
+    
+    SET p_employee = '';
+    
+    OPEN cur_employee;
+    
+    READ_LOOP: LOOP
+		FETCH cur_employee INTO v_name;
+		IF v_done THEN 
+			LEAVE READ_LOOP;
+		END IF;
+        
+        IF p_employee = '' THEN
+			SET p_employee = v_name;
+		ELSE 
+			SET p_employee = CONCAT(p_employee, ", ", v_name);
+		END IF;
+        
+	END LOOP;
+    
+    CLOSE cur_employee;
+END$$
+DELIMITER ;
+
+CALL FETCH_EMPLOYEE(@list);
+SELECT @list;
+
+
+-- PREPARE EXECUTE
+SET @salary = "100000";
+PREPARE GET_EMPLOYEE FROM 'SELECT T02F02, T02F03, T02F07 FROM T02 WHERE T02F07 > ?';
+EXECUTE GET_EMPLOYEE USING @salary;
+DEALLOCATE PREPARE GET_EMPLOYEE;
+
+
+CREATE OR REPLACE VIEW T01_VIEW AS
+(SELECT * FROM T01);
+
+
+DROP PROCEDURE IF EXISTS GET_T01;
+DELIMITER $$
+CREATE PROCEDURE GET_T01()
+BEGIN
+	-- SELECT TEST();
+    -- SELECT * FROM T01;
+    SELECT * FROM T01_VIEW;
+	-- SELECT T01F02 FROM T01_VIEW WHERE T01F01 = 1;
+END$$
+DELIMITER ;
+
+CALL GET_T01;
+
+DROP FUNCTION IF EXISTS TEST;
+DELIMITER $$
+CREATE FUNCTION TEST()
+RETURNS VARCHAR(50)
+DETERMINISTIC
+BEGIN
+	-- SELECT T01F02 FROM T01 WHERE T01F01 = 1;
+    DECLARE v_temp VARCHAR(50) DEFAULT "NOT FOUND";
+    SELECT T01F02 FROM T01_VIEW WHERE T01F01 = 1;
+    --  CALL GET_T01;  -- Error
+    RETURN v_temp;
+END$$
+DELIMITER ;
+
+SELECT TEST();
+
+
+
+-- JSON function
+
+-- creating json
+SELECT JSON_OBJECT('ID', 1, 'NAME', 'ABC');  -- create json object
+SELECT JSON_ARRAY(1, NULL, 'ABC', 3.14); -- create json array
+
+-- search json
+SELECT JSON_EXTRACT('{"user": {"name": "Bob"}}', '$.user.name');  -- find at given path  $ is document
+SELECT JSON_UNQUOTE(JSON_EXTRACT('{"user": {"name": "Bob"}}', '$.user.name'));  -- to unquote
+
+SELECT JSON_CONTAINS('[1, 2, 3]', '2');  -- check if array containt
+SELECT JSON_CONTAINS_PATH('{"a": 1, "b": {"c": 2}}', 'one', '$.a', '$.d');  -- check if json contain given one or all paths
+
+SELECT JSON_KEYS('{"id": 1, "name": "Alice"}');   -- give array of keys
+SELECT JSON_SEARCH('{"a": "hello", "b": ["world"]}', 'one', 'world'); -- give path given string
+
+-- modify json
+SELECT JSON_SET('{"a": 1, "b": 2}', '$.a', 10, '$.c', 3);  -- replace old one add if not exists
+SELECT JSON_INSERT('{"a": 1}', '$.a', 10, '$.b', 2);  -- don't replace add only if not exists
+SELECT JSON_REPLACE('{"a": 1}', '$.a', 10, '$.b', 2);   -- only replace don't add new
+SELECT JSON_REMOVE('{"a": 1, "b": [2, 3]}', '$.b');  -- remove 
+SELECT JSON_ARRAY_APPEND('[1, 2]', '$', 3);   -- apped into json array
+SELECT JSON_MERGE_PRESERVE('{"a": 1, "b": 2}', '{"a": 3, "c": 4}');  -- merge two json preserving both's data
+
+
+-- other
+SELECT JSON_TYPE('{"a": 1}');  -- check typr OBJECT, ARRAY, STRING, INTERGER, NULL
+SELECT JSON_VALID('{"a": 1}'); -- check if json is valid or not
+SELECT JSON_LENGTH('{"a": 1, "b": [10, 20]}', '$.b');  -- find number of keys for object and number of element for array
+SELECT JSON_DEPTH('{"a": {"b": {"c": 1}}}'); -- find depth of json
+
