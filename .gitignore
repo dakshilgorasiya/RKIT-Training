@@ -6,3 +6,37 @@ Guideline for Trainee.docx
 Naming Convention Guidline.pdf
 Pre_Joining_Topics_with_Weeks (1).xlsx
 Week 1 & 2 MySQL Database Assignments.docx
+Pre-join C# Training – Assignments (weeks 3–5).pdf
+
+
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Publish output
+*.Publish.xml
+
+# Others
+*.log
+*.vs/
+TestResults/
+node_modules/
+wwwroot/lib/

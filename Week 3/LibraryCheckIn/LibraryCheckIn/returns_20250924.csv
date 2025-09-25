@@ -1,0 +1,50 @@
+Id,Title,Author,Condition
+1,Clean Code: A Handbook of Agile Software Craftsmanship,Robert C. Martin,Worn
+2,The Pragmatic Programmer: Your Journey to Mastery,Andrew Hunt and David Thomas,Damaged
+3,Code Complete: A Practical Handbook of Software Construction,Steve McConnell,Good
+4,Refactoring: Improving the Design of Existing Code,Martin Fowler,Damaged
+5,Head First Design Patterns,Eric Freeman and Elisabeth Robson,New
+6,Effective Java,Joshua Bloch,Damaged
+7,Structure and Interpretation of Computer Programs,Harold Abelson and Gerald Jay Sussman,Good
+1,Clean Code: A Handbook of Agile Software Craftsmanship,Robert C. Martin,New
+2,The Pragmatic Programmer: Your Journey to Mastery,Andrew Hunt and David Thomas,New
+3,Code Complete: A Practical Handbook of Software Construction,Steve McConnell,Good
+4,Refactoring: Improving the Design of Existing Code,Martin Fowler,New
+3,Code Complete: A Practical Handbook of Software Construction,Steve McConnell,Good
+4,Refactoring: Improving the Design of Existing Code,Martin Fowler,New
+5,Head First Design Patterns,Eric Freeman and Elisabeth Robson,Good
+5,Head First Design Patterns,Eric Freeman and Elisabeth Robson,Good
+6,Effective Java,Joshua Bloch,Worn
+7,Structure and Interpretation of Computer Programs,Harold Abelson and Gerald Jay Sussman,Good
+1,Clean Code: A Handbook of Agile Software Craftsmanship,Robert C. Martin,New
+2,The Pragmatic Programmer: Your Journey to Mastery,Andrew Hunt and David Thomas,Worn
+3,Code Complete: A Practical Handbook of Software Construction,Steve McConnell,Damaged
+1,Clean Code: A Handbook of Agile Software Craftsmanship,Robert C. Martin,Worn
+2,The Pragmatic Programmer: Your Journey to Mastery,Andrew Hunt and David Thomas,Good
+3,Code Complete: A Practical Handbook of Software Construction,Steve McConnell,Damaged
+4,Refactoring: Improving the Design of Existing Code,Martin Fowler,Worn
+3,Code Complete: A Practical Handbook of Software Construction,Steve McConnell,Worn
+4,Refactoring: Improving the Design of Existing Code,Martin Fowler,Worn
+3,Code Complete: A Practical Handbook of Software Construction,Steve McConnell,Good
+4,Refactoring: Improving the Design of Existing Code,Martin Fowler,New
+5,Head First Design Patterns,Eric Freeman and Elisabeth Robson,Worn
+6,Effective Java,Joshua Bloch,Worn
+7,Structure and Interpretation of Computer Programs,Harold Abelson and Gerald Jay Sussman,Good
+1,Clean Code: A Handbook of Agile Software Craftsmanship,Robert C. Martin,Good
+2,The Pragmatic Programmer: Your Journey to Mastery,Andrew Hunt and David Thomas,Damaged
+3,Code Complete: A Practical Handbook of Software Construction,Steve McConnell,New
+4,Refactoring: Improving the Design of Existing Code,Martin Fowler,Damaged
+3,Code Complete: A Practical Handbook of Software Construction,Steve McConnell,Worn
+3,Code Complete: A Practical Handbook of Software Construction,Steve McConnell,Good
+4,Refactoring: Improving the Design of Existing Code,Martin Fowler,Good
+3,Code Complete: A Practical Handbook of Software Construction,Steve McConnell,Damaged
+4,Refactoring: Improving the Design of Existing Code,Martin Fowler,Good
+3,Code Complete: A Practical Handbook of Software Construction,Steve McConnell,New
+4,Refactoring: Improving the Design of Existing Code,Martin Fowler,New
+5,Head First Design Patterns,Eric Freeman and Elisabeth Robson,Good
+6,Effective Java,Joshua Bloch,New
+7,Structure and Interpretation of Computer Programs,Harold Abelson and Gerald Jay Sussman,Damaged
+1,Clean Code: A Handbook of Agile Software Craftsmanship,Robert C. Martin,Damaged
+4,Refactoring: Improving the Design of Existing Code,Martin Fowler,Damaged
+5,Head First Design Patterns,Eric Freeman and Elisabeth Robson,Good
+6,Effective Java,Joshua Bloch,New
