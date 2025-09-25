@@ -35,7 +35,7 @@
             //Console.WriteLine($"Parsed day: {parsed} value is {(int)parsed}");
 
             FileAccess permission = FileAccess.Read | FileAccess.Write;
-            Console.WriteLine($"Permission: {permission} value is ");
+            Console.WriteLine($"Permission: {permission} value is  { (int)permission }");
 
             if((permission & FileAccess.Write) == FileAccess.Write)
             {
