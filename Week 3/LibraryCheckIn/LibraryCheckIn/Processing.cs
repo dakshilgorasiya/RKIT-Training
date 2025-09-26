@@ -4,6 +4,8 @@ using System.Text;
 
 namespace LibraryCheckIn
 {
+    // Internal class to process book return data
+    // Reason : Not required outside this assembly
     internal static class Processing
     {
         /// <summary>
@@ -11,7 +13,7 @@ namespace LibraryCheckIn
         /// </summary>
         /// <param name="content">Content of comma seperated CSV file</param>
         /// <param name="table">DataTable reference in which data will be return</param>
-        public static void ParseCSV(string content, DataTable table)
+        internal static void ParseCSV(string content, DataTable table)
         {
             try
             {
@@ -74,7 +76,7 @@ namespace LibraryCheckIn
         /// </summary>
         /// <param name="table">DataTable having four columns Id, Title, Author, BookCondition</param>
         /// <returns>List of Book containing all records of table</returns>
-        public static List<Book> MapDataTableToBooks(DataTable table)
+        internal static List<Book> MapDataTableToBooks(DataTable table)
         {
             List<Book> books = new List<Book>();
 
@@ -104,7 +106,7 @@ namespace LibraryCheckIn
         /// </summary>
         /// <param name="books">List of books containing book return records</param>
         /// <returns>List of string representing book title, author and penalty between 1 to 100</returns>
-        public static List<string> ProcessByBook(List<Book> books)
+        internal static List<string> ProcessByBook(List<Book> books)
         {
             List<string> summaries = new List<string>();
 
@@ -133,7 +135,7 @@ namespace LibraryCheckIn
         /// </summary>
         /// <param name="books">List of books containing book return records</param>
         /// <returns>Dictionary containing total books by condition</returns>
-        public static Dictionary<BookCondition, int> CountByCondition(List<Book> books)
+        internal static Dictionary<BookCondition, int> CountByCondition(List<Book> books)
         {
             Dictionary<BookCondition, int> conditionCounts = new Dictionary<BookCondition, int>();
             foreach (BookCondition bookCondition in Enum.GetValues(typeof(BookCondition)))
@@ -148,7 +150,7 @@ namespace LibraryCheckIn
         /// </summary>
         /// <param name="books">List of books containing book return records</param>
         /// <returns>List of at most 5 book containing book title, author and totalpenalty</returns>
-        public static List<string> TopFivePenaltyBook(List<Book> books)
+        internal static List<string> TopFivePenaltyBook(List<Book> books)
         {
             List<string> topFivePenalty = new List<string>();
 
@@ -189,7 +191,7 @@ namespace LibraryCheckIn
         /// <param name="countByBookCondition">Dictionary having total book by their condition</param>
         /// <param name="topFivePenalty">List of string representing top 5 book by penalty</param>
         /// <returns></returns>
-        public static string GenerateReportContent(DateTime time, int totalReturn, Dictionary<BookCondition, int> countByBookCondition, List<string> topFivePenalty)
+        internal static string GenerateReportContent(DateTime time, int totalReturn, Dictionary<BookCondition, int> countByBookCondition, List<string> topFivePenalty)
         {
             StringBuilder sb = new StringBuilder("Report generated using Library Check In Command Utility");
 

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
+    // Public
+    // Reason: Required outside this assembly
     public class Book
     {
         public int Id { get; set; }

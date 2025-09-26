@@ -2,6 +2,8 @@
 
 namespace IO
 {
+    // public
+    // Reason: Required outside this assembly
     public static class IOHandler
     {
         /// <summary>
