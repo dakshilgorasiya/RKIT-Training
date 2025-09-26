@@ -35,6 +35,7 @@ namespace LibraryCheckIn
                     // Summary of book with total pentalty
                     List<string> summaryByBook = Processing.ProcessByBook(Books);
 
+                    Console.WriteLine();
                     foreach (string summary in summaryByBook)
                     {
                         Console.WriteLine(summary);
@@ -48,7 +49,7 @@ namespace LibraryCheckIn
                     List<string> topFivePenaltyBooks = Processing.TopFivePenaltyBook(Books);
 
                     // Content to write in report
-                    string contentOfReport = Processing.GenerateReportContent(DateTime.Now, Books.Count(), summaryByCondition, topFivePenaltyBooks);
+                    string contentOfReport = Processing.GenerateReportContent(DateTime.Now, Books.Count, summaryByCondition, topFivePenaltyBooks);
 
                     // File name of report
                     string reportFileName = $"daily_summary_{DateTime.Now.ToString("yyyyMMdd")}.txt";
@@ -59,7 +60,7 @@ namespace LibraryCheckIn
                     // Write report content to .txt file
                     IOHandler.writeFile(reportFilePath, contentOfReport);
 
-                    Console.WriteLine($"Report saved at {reportFileName}");
+                    Console.WriteLine($"Report saved at {reportFilePath}");
                 }
                 else
                 {
@@ -68,7 +69,7 @@ namespace LibraryCheckIn
             }
             catch(Exception ex)
             {
-                Console.WriteLine("An error occurred: " + ex.Message);
+                Console.WriteLine("\n\nAn error occurred:: " + ex.Message);
             }
         }
     }

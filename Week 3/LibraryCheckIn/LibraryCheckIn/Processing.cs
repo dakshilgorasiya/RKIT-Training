@@ -62,9 +62,10 @@ namespace LibraryCheckIn
                     }
                 }
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentNullException)
             {
-                Console.WriteLine("File is empty" + ex.Message);
+                Console.WriteLine("Given file is empty");
+                throw;
             }
         }
 

@@ -20,6 +20,9 @@ namespace DateMathString
             //Console.WriteLine(dt.ToString("D")); // Wednesday, 01 January 2026
             //Console.WriteLine(DateTime.Now.ToString("dd-mm-yyyy HH:mm:ss tt")); // Custom format -> 22-07-2025 15:07:06 pm
 
+            // alternative for custom format 
+            Console.WriteLine($"{DateTime.Now:dd-MM-yyyy hh:mm:ss tt}");
+
             //bool isValid = DateTime.TryParse("01/01/01 15:01:20", out DateTime parsedDate);
             //if (isValid)
             //{
