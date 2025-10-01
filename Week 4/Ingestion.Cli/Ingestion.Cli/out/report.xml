@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProcessingTime>2025-10-01T20:59:17.4076147+05:30</ProcessingTime>
+  <TotalBooksProcessed>122</TotalBooksProcessed>
+  <TopProblematicBooks>
+    <BookSummary>
+      <Id>4</Id>
+      <Title>Refactoring: Improving the Design of Existing Code</Title>
+      <Author>Martin Fowler</Author>
+      <BookCondition>New</BookCondition>
+      <TotalPenalty>96</TotalPenalty>
+    </BookSummary>
+    <BookSummary>
+      <Id>5</Id>
+      <Title>Head First Design Patterns</Title>
+      <Author>Eric Freeman and Elisabeth Robson</Author>
+      <BookCondition>New</BookCondition>
+      <TotalPenalty>91</TotalPenalty>
+    </BookSummary>
+    <BookSummary>
+      <Id>3</Id>
+      <Title>Code Complete: A Practical Handbook of Software Construction</Title>
+      <Author>Steve McConnell</Author>
+      <BookCondition>New</BookCondition>
+      <TotalPenalty>87</TotalPenalty>
+    </BookSummary>
+  </TopProblematicBooks>
+  <BookConditionCounts>
+    <Condition Condition="New">
+      <Count>28</Count>
+    </Condition>
+    <Condition Condition="Good">
+      <Count>35</Count>
+    </Condition>
+    <Condition Condition="Damaged">
+      <Count>35</Count>
+    </Condition>
+    <Condition Condition="Worn">
+      <Count>24</Count>
+    </Condition>
+  </BookConditionCounts>
+</Report>

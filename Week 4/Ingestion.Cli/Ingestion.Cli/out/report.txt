@@ -1,0 +1,14 @@
+Processing Time: 01/10/2025 8:59:17 pm
+
+Total Books Processed: 122
+
+Book Condition Counts:
+  New: 28
+  Good: 35
+  Damaged: 35
+  Worn: 24
+
+Top 3 Problematic Books:
+  Id: 4, Title: Refactoring: Improving the Design of Existing Code, Author: Martin Fowler, Total Penalty: 96
+  Id: 5, Title: Head First Design Patterns, Author: Eric Freeman and Elisabeth Robson, Total Penalty: 91
+  Id: 3, Title: Code Complete: A Practical Handbook of Software Construction, Author: Steve McConnell, Total Penalty: 87

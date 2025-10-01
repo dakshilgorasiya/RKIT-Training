@@ -1,0 +1,44 @@
+[
+  {
+    "Id": 3,
+    "Title": "Code Complete: A Practical Handbook of Software Construction",
+    "Author": "Steve McConnell",
+    "Condition": "Damaged"
+  },
+  {
+    "Id": 4,
+    "Title": "Refactoring: Improving the Design of Existing Code",
+    "Author": "Martin Fowler",
+    "Condition": "Good"
+  },
+  {
+    "Id": 5,
+    "Title": "Head First Design Patterns",
+    "Author": "Eric Freeman and Elisabeth Robson",
+    "Condition": "Damaged"
+  },
+  {
+    "Id": 5,
+    "Title": "Head First Design Patterns",
+    "Author": "Eric Freeman and Elisabeth Robson",
+    "Condition": "Good"
+  },
+  {
+    "Id": 6,
+    "Title": "Effective Java",
+    "Author": "Joshua Bloch",
+    "Condition": "New"
+  },
+  {
+    "Id": 7,
+    "Title": "Structure and Interpretation of Computer Programs",
+    "Author": "Harold Abelson and Gerald Jay Sussman",
+    "Condition": "Good"
+  },
+  {
+    "Id": 1,
+    "Title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+    "Author": "Robert C. Martin",
+    "Condition": "Good"
+  }
+]

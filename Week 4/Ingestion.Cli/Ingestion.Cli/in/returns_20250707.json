@@ -1,0 +1,146 @@
+[
+  {
+    "Id": 1,
+    "Title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+    "Author": "Robert C. Martin",
+    "Condition": "Damaged"
+  },
+  {
+    "Id": 2,
+    "Title": "The Pragmatic Programmer: Your Journey to Mastery",
+    "Author": "Andrew Hunt and David Thomas",
+    "Condition": "New"
+  },
+  {
+    "Id": 3,
+    "Title": "Code Complete: A Practical Handbook of Software Construction",
+    "Author": "Steve McConnell",
+    "Condition": "New"
+  },
+  {
+    "Id": 4,
+    "Title": "Refactoring: Improving the Design of Existing Code",
+    "Author": "Martin Fowler",
+    "Condition": "Damaged"
+  },
+  {
+    "Id": 5,
+    "Title": "Head First Design Patterns",
+    "Author": "Eric Freeman and Elisabeth Robson",
+    "Condition": "Damaged"
+  },
+  {
+    "Id": 6,
+    "Title": "Effective Java",
+    "Author": "Joshua Bloch",
+    "Condition": "Worn"
+  },
+  {
+    "Id": 7,
+    "Title": "Structure and Interpretation of Computer Programs",
+    "Author": "Harold Abelson and Gerald Jay Sussman",
+    "Condition": "Worn"
+  },
+  {
+    "Id": 1,
+    "Title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+    "Author": "Robert C. Martin",
+    "Condition": "Good"
+  },
+  {
+    "Id": 2,
+    "Title": "The Pragmatic Programmer: Your Journey to Mastery",
+    "Author": "Andrew Hunt and David Thomas",
+    "Condition": "Damaged"
+  },
+  {
+    "Id": 3,
+    "Title": "Code Complete: A Practical Handbook of Software Construction",
+    "Author": "Steve McConnell",
+    "Condition": "New"
+  },
+  {
+    "Id": 4,
+    "Title": "Refactoring: Improving the Design of Existing Code",
+    "Author": "Martin Fowler",
+    "Condition": "New"
+  },
+  {
+    "Id": 3,
+    "Title": "Code Complete: A Practical Handbook of Software Construction",
+    "Author": "Steve McConnell",
+    "Condition": "Damaged"
+  },
+  {
+    "Id": 4,
+    "Title": "Refactoring: Improving the Design of Existing Code",
+    "Author": "Martin Fowler",
+    "Condition": "Good"
+  },
+  {
+    "Id": 5,
+    "Title": "Head First Design Patterns",
+    "Author": "Eric Freeman and Elisabeth Robson",
+    "Condition": "Damaged"
+  },
+  {
+    "Id": 5,
+    "Title": "Head First Design Patterns",
+    "Author": "Eric Freeman and Elisabeth Robson",
+    "Condition": "Good"
+  },
+  {
+    "Id": 6,
+    "Title": "Effective Java",
+    "Author": "Joshua Bloch",
+    "Condition": "New"
+  },
+  {
+    "Id": 7,
+    "Title": "Structure and Interpretation of Computer Programs",
+    "Author": "Harold Abelson and Gerald Jay Sussman",
+    "Condition": "Good"
+  },
+  {
+    "Id": 1,
+    "Title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+    "Author": "Robert C. Martin",
+    "Condition": "Good"
+  },
+  {
+    "Id": 2,
+    "Title": "The Pragmatic Programmer: Your Journey to Mastery",
+    "Author": "Andrew Hunt and David Thomas",
+    "Condition": "Worn"
+  },
+  {
+    "Id": 3,
+    "Title": "Code Complete: A Practical Handbook of Software Construction",
+    "Author": "Steve McConnell",
+    "Condition": "Damaged"
+  },
+  {
+    "Id": 1,
+    "Title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+    "Author": "Robert C. Martin",
+    "Condition": "Good"
+  },
+  {
+    "Id": 2,
+    "Title": "The Pragmatic Programmer: Your Journey to Mastery",
+    "Author": "Andrew Hunt and David Thomas",
+    "Condition": "New"
+  },
+  {
+    "Id": 3,
+    "Title": "Code Complete: A Practical Handbook of Software Construction",
+    "Author": "Steve McConnell",
+    "Condition": "Good"
+  },
+  {
+    "Id": "4",
+    "Title": "Refactoring: Improving the Design of Existing Code",
+    "Author": "Martin Fowler",
+    "Condition": "Damaged"
+  }
+]

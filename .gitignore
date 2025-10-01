@@ -12,7 +12,6 @@ Pre-join C# Training – Assignments (weeks 3–5).pdf
 # Build results
 bin/
 obj/
-out/
 
 # User-specific files
 *.user
