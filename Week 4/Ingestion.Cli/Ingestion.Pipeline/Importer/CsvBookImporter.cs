@@ -7,12 +7,22 @@ using Domain;
 
 namespace Ingestion.Pipeline.Importer
 {
+    /// <summary>
+    /// Class to import book data from CSV files.
+    /// </summary>
     public class CsvBookImporter : FileImporter<Book>
     {
+        /// <summary>
+        /// Parse csv file and return list of books.
+        /// </summary>
+        /// <param name="filePath">Path of .csv file to read</param>
+        /// <returns>IEnumerable of Book representing parsed data of .csv file</returns>
         public override IEnumerable<Book> Import(string filePath)
         {
+            // To store all book data from the file
             List<Book> books = new List<Book>();
 
+            // Extract file name from the file path for logging purposes
             string fileName = Path.GetFileName(filePath);
 
             try
@@ -34,6 +44,8 @@ namespace Ingestion.Pipeline.Importer
                     while (!reader.EndOfStream)
                     {
                         string line = reader.ReadLine().Trim();
+
+                        // Columns of a row
                         string[] fields = line.Split(',');
 
                         if (fields.Length != 4)
@@ -42,6 +54,7 @@ namespace Ingestion.Pipeline.Importer
                             continue;
                         }
 
+                        // Extract and validate each field
                         bool isIdValid = int.TryParse(fields[0], out int Id);
                         string Title = fields[1];
                         string Author = fields[2];
@@ -56,6 +69,8 @@ namespace Ingestion.Pipeline.Importer
                                 Author = Author,
                                 BookCondition = BookCondition
                             };
+
+                            // Add the book to the list
                             books.Add(book);
                         }
                         else

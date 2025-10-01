@@ -67,13 +67,16 @@ namespace Ingestion.Cli
                 returnBookData.AddRange(books);
             }
 
+            // Display the total number of book entries found
             Console.WriteLine($"\n\nTotal {returnBookData.Count} book entries found\n\n");
 
+            // Generate condition counts
             Dictionary<BookCondition, int> conditionCount = returnBookData.ToConditionCounts();
-            
 
+            // Identify the top 3 books with the highest penalties
             List<BookSummary> top3PenaltyBooks = returnBookData.TopBy(BookExtension.GetPenalty, 3);
 
+            // Create a report with the collected data
             Report report = new Report
             {
                 ProcessingTime = DateTime.Now,
@@ -82,6 +85,7 @@ namespace Ingestion.Cli
                 TopProblematicBooks = top3PenaltyBooks
             };
 
+            // Write the report in text, XML, and JSON formats
             IReportWriter<Report> textReportWriter = new TextReportWriter();
             IReportWriter<Report> xmlReportWriter = new XmlReportWriter();
             IReportWriter<Report> jsonReportWriter = new JsonReportWriter();

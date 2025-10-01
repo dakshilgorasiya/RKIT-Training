@@ -7,10 +7,18 @@ using System.Threading.Tasks;
 
 namespace Ingestion.Pipeline.Report
 {
+    /// <summary>
+    /// A class to write report in plain text format.
+    /// </summary>
     public class TextReportWriter : IReportWriter<Report>
     {
+        /// <summary>
+        /// A method to write report in plain text format.
+        /// </summary>
+        /// <param name="report">Report which will be written to file</param>
         public void Write(Report report)
         {
+            // Build the report content as a string
             StringBuilder content = new ();
 
             content.AppendLine($"Processing Time: {report.ProcessingTime}");
@@ -35,8 +43,10 @@ namespace Ingestion.Pipeline.Report
                 content.AppendLine($"  Id: {book.Id}, Title: {book.Title}, Author: {book.Author}, Total Penalty: {book.TotalPenalty}");
             }
 
+            // Extract string to write
             string reportContent = content.ToString();
 
+            // Path where report will be written
             string reportPath = "./out/report.txt";
 
             using (StreamWriter writer = new StreamWriter(reportPath))
