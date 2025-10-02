@@ -11,7 +11,8 @@ namespace Ingestion.Pipeline.Report
     /// <summary>
     /// Class to write report in JSON format.
     /// </summary>
-    public class JsonReportWriter : IReportWriter<Report>
+    /// Sealed because it provide functionality to write json report and not intended to extend
+    public sealed class JsonReportWriter : IReportWriter<Report>
     {
         /// <summary>
         /// Method to write report in JSON format.

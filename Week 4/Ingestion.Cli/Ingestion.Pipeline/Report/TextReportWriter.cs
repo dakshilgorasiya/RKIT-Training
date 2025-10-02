@@ -10,7 +10,8 @@ namespace Ingestion.Pipeline.Report
     /// <summary>
     /// A class to write report in plain text format.
     /// </summary>
-    public class TextReportWriter : IReportWriter<Report>
+    /// Sealed because it provide functionality to write text report and not intended to extend
+    public sealed class TextReportWriter : IReportWriter<Report>
     {
         /// <summary>
         /// A method to write report in plain text format.

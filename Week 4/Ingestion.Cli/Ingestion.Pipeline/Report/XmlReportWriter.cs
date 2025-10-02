@@ -10,7 +10,8 @@ namespace Ingestion.Pipeline.Report
     /// <summary>
     /// A class to write report in XML format.
     /// </summary>
-    public class XmlReportWriter : IReportWriter<Report>
+    /// Sealed because it provide functionality to write xml report and not intended to extend
+    public sealed class XmlReportWriter : IReportWriter<Report>
     {
         /// <summary>
         /// A method to write report in XML format.

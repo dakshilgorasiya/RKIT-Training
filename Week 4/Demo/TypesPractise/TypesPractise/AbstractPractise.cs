@@ -1,4 +1,6 @@
-﻿namespace TypesPractise
+﻿using System.Diagnostics;
+
+namespace TypesPractise
 {
     public abstract class BaseClass
     {

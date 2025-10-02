@@ -74,7 +74,7 @@ namespace Ingestion.Cli
             Dictionary<BookCondition, int> conditionCount = returnBookData.ToConditionCounts();
 
             // Identify the top 3 books with the highest penalties
-            List<BookSummary> top3PenaltyBooks = returnBookData.TopBy(BookExtension.GetPenalty, 3);
+            List<BookSummary> top3PenaltyBooks = returnBookData.TopBy(BookExtension.GetPenalty, 5);
 
             // Create a report with the collected data
             Report report = new Report

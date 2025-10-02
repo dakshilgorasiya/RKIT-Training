@@ -12,7 +12,8 @@ namespace Ingestion.Pipeline.Importer
     /// <summary>
     /// Class to import book data from JSON files.
     /// </summary>
-    public class JsonBookImporter : FileImporter<Book>
+    /// Sealed because it provide crical functionality to parse json file and not intented to extend
+    public sealed class JsonBookImporter : FileImporter<Book>
     {
         /// <summary>
         /// Parse json file and return list of books.

@@ -35,6 +35,7 @@ namespace Ingestion.Pipeline.Report
         /// <summary>
         /// Top books with highest penalty.
         /// </summary>
+        [XmlArrayItem("Book")]
         public List<DTO.BookSummary> TopProblematicBooks { get; set; }
 
         /// <summary>

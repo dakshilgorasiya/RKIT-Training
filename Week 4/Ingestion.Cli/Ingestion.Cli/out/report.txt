@@ -1,4 +1,4 @@
-Processing Time: 01/10/2025 8:59:17 pm
+Processing Time: 02/10/2025 3:32:13 pm
 
 Total Books Processed: 122
 
@@ -8,7 +8,9 @@ Book Condition Counts:
   Damaged: 35
   Worn: 24
 
-Top 3 Problematic Books:
+Top 5 Problematic Books:
   Id: 4, Title: Refactoring: Improving the Design of Existing Code, Author: Martin Fowler, Total Penalty: 96
   Id: 5, Title: Head First Design Patterns, Author: Eric Freeman and Elisabeth Robson, Total Penalty: 91
   Id: 3, Title: Code Complete: A Practical Handbook of Software Construction, Author: Steve McConnell, Total Penalty: 87
+  Id: 2, Title: The Pragmatic Programmer: Your Journey to Mastery, Author: Andrew Hunt and David Thomas, Total Penalty: 50
+  Id: 7, Title: Structure and Interpretation of Computer Programs, Author: Harold Abelson and Gerald Jay Sussman, Total Penalty: 34

@@ -11,7 +11,8 @@ namespace Ingestion.Pipeline.DTO
     /// <summary>
     /// Used to proxy the count of books by their condition for XML serialization.
     /// </summary>
-    public class BookConditionCount
+    /// Sealed because BookConditionCount is a DTO and not intented to extend
+    public sealed class BookConditionCount
     {
         /// <summary>
         /// Represents the condition of the book (e.g., New, Used, etc.).

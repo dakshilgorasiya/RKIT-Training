@@ -1,5 +1,5 @@
 {
-  "ProcessingTime": "2025-10-01T20:59:17.4076147+05:30",
+  "ProcessingTime": "2025-10-02T15:32:13.5666684+05:30",
   "TotalBooksProcessed": 122,
   "ConditionCounts": {
     "New": 28,
@@ -9,25 +9,34 @@
   },
   "TopProblematicBooks": [
     {
-      "TotalPenalty": 96,
       "Id": 4,
       "Title": "Refactoring: Improving the Design of Existing Code",
       "Author": "Martin Fowler",
-      "BookCondition": 0
+      "TotalPenalty": 96
     },
     {
-      "TotalPenalty": 91,
       "Id": 5,
       "Title": "Head First Design Patterns",
       "Author": "Eric Freeman and Elisabeth Robson",
-      "BookCondition": 0
+      "TotalPenalty": 91
     },
     {
-      "TotalPenalty": 87,
       "Id": 3,
       "Title": "Code Complete: A Practical Handbook of Software Construction",
       "Author": "Steve McConnell",
-      "BookCondition": 0
+      "TotalPenalty": 87
+    },
+    {
+      "Id": 2,
+      "Title": "The Pragmatic Programmer: Your Journey to Mastery",
+      "Author": "Andrew Hunt and David Thomas",
+      "TotalPenalty": 50
+    },
+    {
+      "Id": 7,
+      "Title": "Structure and Interpretation of Computer Programs",
+      "Author": "Harold Abelson and Gerald Jay Sussman",
+      "TotalPenalty": 34
     }
   ]
 }

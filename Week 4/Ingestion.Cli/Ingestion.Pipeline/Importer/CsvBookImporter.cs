@@ -10,7 +10,8 @@ namespace Ingestion.Pipeline.Importer
     /// <summary>
     /// Class to import book data from CSV files.
     /// </summary>
-    public class CsvBookImporter : FileImporter<Book>
+    /// Sealed because it provide crical functionality to parse csv file and not intented to extend
+    public sealed class CsvBookImporter : FileImporter<Book>
     {
         /// <summary>
         /// Parse csv file and return list of books.
@@ -33,7 +34,6 @@ namespace Ingestion.Pipeline.Importer
                 }
                 using (StreamReader reader = new StreamReader(filePath))
                 {
-                    // Read complete file and trim any trailing new line or space characters
                     if(!reader.EndOfStream)
                     {
                         string header = reader.ReadLine();
@@ -44,6 +44,13 @@ namespace Ingestion.Pipeline.Importer
                     while (!reader.EndOfStream)
                     {
                         string line = reader.ReadLine().Trim();
+
+                        if(String.IsNullOrWhiteSpace(line))
+                        {
+                            // Skip empty lines
+                            i++;
+                            continue;
+                        }
 
                         // Columns of a row
                         string[] fields = line.Split(',');
