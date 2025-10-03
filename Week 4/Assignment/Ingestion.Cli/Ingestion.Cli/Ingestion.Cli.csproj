@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Week 3\Assignment\LibraryCheckIn\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Ingestion.Pipeline\Ingestion.Pipeline.csproj" />
   </ItemGroup>
 

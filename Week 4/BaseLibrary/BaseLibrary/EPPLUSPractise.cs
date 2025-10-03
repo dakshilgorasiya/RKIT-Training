@@ -1,9 +1,10 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OfficeOpenXml;
 
 namespace BaseLibrary
 {
@@ -11,10 +12,7 @@ namespace BaseLibrary
     {
         static void Main(string[] args)
         {
-            ExcelPackage.License = new Licence()
-            {
-                LicenseContext = LicenseContext.NonCommercial
-            };
+            ExcelPackage.License.SetNonCommercialPersonal("Dakshil");
 
             string filePath = "example.xlsx";
             FileInfo fileInfo = new FileInfo(filePath);
@@ -39,11 +37,29 @@ namespace BaseLibrary
 
                 // Formating
                 worksheet.Cells["A1:C1"].Style.Font.Bold = true;
-                worksheet.Cells["B2:B3"].Style.Numberformat.Format = "$#,##0.00";
                 worksheet.Cells["A:C"].AutoFitColumns();
 
                 // Save the package
                 package.Save();
+            }
+
+            using (ExcelPackage package = new ExcelPackage(fileInfo))
+            {
+                ExcelWorksheet workSheet = package.Workbook.Worksheets["Sheet1"];
+
+                int startRow = workSheet.Dimension.Start.Row;
+                int endRow = workSheet.Dimension.End.Row;
+                int startColumn = workSheet.Dimension.Start.Column;
+                int endColumn = workSheet.Dimension.End.Column;
+
+                for (int row = startRow; row <= endRow; row++)
+                {
+                    for (int col = startColumn; col <= endColumn; col++)
+                    {
+                        Console.Write($"{workSheet.Cells[row, col].Value}\t");
+                    }
+                    Console.WriteLine();
+                }
             }
         }
     }

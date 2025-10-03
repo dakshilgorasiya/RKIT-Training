@@ -1,8 +1,8 @@
-﻿using Domain;
+﻿using Ingestion.Pipeline.DTO;
 using Ingestion.Pipeline.Extension;
 using Ingestion.Pipeline.Importer;
 using Ingestion.Pipeline.Report;
-using Ingestion.Pipeline.DTO;
+using Domain;
 
 namespace Ingestion.Cli
 {
@@ -13,7 +13,7 @@ namespace Ingestion.Cli
             // Flag to indicate whether to perform a dry run (no file processing)
             bool IsDryRun = args.Contains("--dry-run");
 
-            if(IsDryRun)
+            if (IsDryRun)
             {
                 Console.WriteLine("Dry run mode enabled. No file will be processed");
             }
@@ -35,7 +35,7 @@ namespace Ingestion.Cli
             {
                 Console.WriteLine($"{file.Name}");
             }
-            foreach(FileInfo file in jsonFiles)
+            foreach (FileInfo file in jsonFiles)
             {
                 Console.WriteLine($"{file.Name}");
             }
