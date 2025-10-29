@@ -1,0 +1,221 @@
+{
+	"info": {
+		"_postman_id": "a4382dad-c147-43b1-9991-7f57839e8954",
+		"name": "ReadingRoom",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31105795",
+		"_collection_link": "https://bvmcp8.postman.co/workspace/My-Workspace~5db41655-a15e-43ab-8ccb-650f22b2768d/collection/31105795-a4382dad-c147-43b1-9991-7f57839e8954?action=share&source=collection_link&creator=31105795"
+	},
+	"item": [
+		{
+			"name": "Room",
+			"item": [
+				{
+					"name": "GetRooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/rooms",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateRooms",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"string\",\r\n  \"capacity\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/rooms",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateRooms",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 10,\r\n  \"name\": \"string\",\r\n  \"capacity\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/rooms",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteRooms",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/rooms/:id",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"rooms",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reservation",
+			"item": [
+				{
+					"name": "GetReservation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/reservations?roomId=1&start=2025-10-15T04:43:25.837Z&end=2025-10-18T04:43:25.837Z",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reservations"
+							],
+							"query": [
+								{
+									"key": "roomId",
+									"value": "1"
+								},
+								{
+									"key": "start",
+									"value": "2025-10-15T04:43:25.837Z"
+								},
+								{
+									"key": "end",
+									"value": "2025-10-18T04:43:25.837Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateReservation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"roomId\": 1,\r\n  \"patronName\": \"string\",\r\n  \"startTime\": \"2025-10-17T04:44:06.852Z\",\r\n  \"endTime\": \"2025-10-17T04:44:06.852Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/reservations",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateReservation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"roomId\": 0,\r\n  \"patronName\": \"string\",\r\n  \"startTime\": \"2025-10-17T04:44:56.780Z\",\r\n  \"endTime\": \"2025-10-17T04:44:56.780Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/reservations",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteReservation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/reservations/:reservationId",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reservations",
+								":reservationId"
+							],
+							"variable": [
+								{
+									"key": "reservationId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

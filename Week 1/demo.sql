@@ -18,6 +18,10 @@ CREATE TABLE T01
     T01F03 VARCHAR(50) # Location of department
 );
 
+desc t01;
+
+alter table t01 modify column t01f02 varchar(40);
+
 # Employees
 CREATE TABLE T02
 (
@@ -41,6 +45,17 @@ CREATE TABLE T03
     T03F04 DATE NOT NULL # When employee left
 );
 
+select t01f03, group_concat(t01f02) from t01 where t01f02 like "h%s" group by t01f03;
+select t01f03, group_concat(t01f02) from t01 group by t01f03 having t01f02 like "h%s";
+select * from t01;
+
+select t01f03 from t01 as t1 where t01f03 = (select t01f02 from t01 where t01f02 like "h&s" group by t1.t01f03);
+
+select t02f02, t02f07 from t02 where t02f07 < all (select avg(t02f07) from t02 group by t02f08 having 2);
+
+select avg(t02f07) from t02 group by t02f08 having 2;
+
+insert into t01(t01f01, t01f02, t01f03) values (9, "Human resours", "Mumbai");
 
 # Alter table
 
