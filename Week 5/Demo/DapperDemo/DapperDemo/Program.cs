@@ -119,6 +119,47 @@ namespace DapperDemo
                 Console.WriteLine("Count = " + count);
 
 
+
+                // Multiple query
+                string q1 = "select * from t01 inner join t02 on t01f01 = t02f08";
+
+                IEnumerable<T02> emps1 = await connection.QueryAsync<T01, T02, T02>(q1, (t01, t02) => 
+                {
+                    t02.T01 = t01;
+                    return t02;
+                }, transaction: transaction, splitOn: "T02F01");
+
+                foreach( T02 e in emps1 )
+                {
+                    Console.WriteLine($"{e.T02F01}, {e.T02F02}, {e.T01.T01F02}");
+                }
+
+
+                Console.WriteLine();
+
+                string q2 = @"
+                    SELECT * FROM T01;
+                    SELECT * FROM T02;
+                ";
+                using(var gridReader = connection.QueryMultiple(q2, transaction: transaction))
+                {
+                    var t01s = gridReader.Read<T01>();
+
+                    var t02s = gridReader.Read<T02>();
+
+                    foreach( T01 d in t01s )
+                    {
+                        Console.WriteLine($"{d.T01F01}, {d.T01F02}");
+                    }
+
+                    foreach( T02 e in t02s )
+                    {
+                        Console.WriteLine($"{e.T02F01}, {e.T02F02}, {e.T02F03}");
+                    }
+                }
+
+
+
                 // Transaction
                 string deleteAll = "DELETE FROM T01";
 

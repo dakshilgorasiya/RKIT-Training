@@ -79,3 +79,6 @@ EF Core is Microsoft's official, full-featured ORM. It's designed to maximize de
     * You are starting a **new project ("Code-First")** and want your code to be the source of truth for the database schema (using Migrations).
     * Your object model is complex, and you benefit from change tracking and relationship management.
 
+
+--- 
+Video Link : https://drive.google.com/file/d/1aEQguyi5TfbIBDtkJA3crXbRsCPWIhjS/view?usp=sharing

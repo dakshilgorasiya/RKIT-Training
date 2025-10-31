@@ -16,5 +16,6 @@ namespace DapperDemo.Models
         public string T02F06 { get; set; }
         public decimal T02F07 { get; set; }
         public int T02F08 { get; set; }
+        public T01 T01 { get; set; }
     }
 }

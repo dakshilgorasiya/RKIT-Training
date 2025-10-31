@@ -156,6 +156,34 @@
                                                 books.Where(b => b.AuthorId == a.Id)
                                                 .Select(b => b.Title))
             });
+
+
+
+            // Conversion
+            //List<Book> bookBefore1950 = books.Where(b => b.PublicationYear <= 1950).ToList();
+            //foreach (var book in bookBefore1950)
+            //{
+            //    Console.WriteLine(book.Title);
+            //}
+
+            Dictionary<string, List<string>> genereDict = genres
+                                                            .ToDictionary(
+                                                            g => g.Name,
+                                                            g => books
+                                                                .Where(b => b.GenreIds.Contains(g.Id))
+                                                                .Select(b => b.Title)
+                                                                .ToList());
+
+            foreach(var genere in genereDict.Keys)
+            {
+                Console.Write(genere + " : ");
+                foreach (var book in genereDict[genere])
+                {
+                    Console.Write(book + ", ");
+                }
+                Console.WriteLine();
+            }
+
         }
     }
 }

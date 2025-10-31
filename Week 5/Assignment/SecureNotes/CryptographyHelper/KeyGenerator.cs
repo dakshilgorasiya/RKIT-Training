@@ -47,7 +47,7 @@ namespace CryptographyHelper
             {
                 if (salt == null || salt.Length != 16)
                 {
-                    throw new ArgumentException("Key must be 32 bytes (256 bits) long.");
+                    throw new ArgumentException("Salt must be 16 bytes (128 bits) long.");
                 }
 
                 // Using PBKDF2 with SHA256 to derive a key from the password and salt

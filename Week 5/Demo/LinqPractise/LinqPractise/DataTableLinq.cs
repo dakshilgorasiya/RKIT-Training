@@ -34,6 +34,7 @@ namespace LinqPractise
             employeesTable.Rows.Add(104, "David", 2, 82000, new DateTime(2022, 11, 5));
             employeesTable.Rows.Add(105, "Eve", 1, 120000, new DateTime(2020, 8, 22));
             employeesTable.Rows.Add(106, "Frank", 3, 75000, new DateTime(2023, 5, 10));
+            employeesTable.Rows.Add(107, "Alice", 1, 95000, new DateTime(2022, 6, 1));
 
             var employees = employeesTable.AsEnumerable();
             var departments = departmentsTable.AsEnumerable();
@@ -118,10 +119,40 @@ namespace LinqPractise
                                           Salary = e.Field<decimal>("Salary")
                                       }).Skip(1).Take(2);
 
-            foreach (var emp in pagedEmployeeQuery)
-            {
-                Console.WriteLine($"Name: {emp.Name}, Salary: {emp.Salary}");
-            }
+            //foreach (var emp in pagedEmployeeQuery)
+            //{
+            //    Console.WriteLine($"Name: {emp.Name}, Salary: {emp.Salary}");
+            //}
+
+            var dupligateEntry = from e1 in employees
+                                 join e2 in employees on e1 equals e2
+                                 where e1 == e2
+                                 select e1;
+
+
+            //foreach( var e in dupligateEntry )
+            //{
+            //    Console.WriteLine($"{e.Table.Rows.Count}");
+            //}
+
+
+            // Quantifiable operator
+
+            // ANY
+            bool isQaDepartment = departments.Any(d => d.Field<string>("DepartmentName") == "QA");
+            Console.WriteLine(isQaDepartment);
+
+            bool isAllEmployeeReceiveMoreThan50000 = employees.All(d => d.Field<decimal>("Salary") > 50000);
+            Console.WriteLine(isAllEmployeeReceiveMoreThan50000);
+
+
+            // Conversion
+            DataTable engineeringEmployeeTable = employees.Where(e => e.Field<int>("DepartmentId") == 1).CopyToDataTable();
+
+            //foreach(DataRow row in engineeringEmployeeTable.Rows)
+            //{
+            //    Console.WriteLine($"{row["Name"]}");
+            //}
         }
     }
 }
