@@ -20,14 +20,14 @@ namespace DapperDemo
             {
 
 
-                string getT01 = "SELECT * FROM T01";
+                string getT01 = "SELECT T01F01, T01F02, T01F03 FROM T01";
 
                 var allDepartments = await connection.QueryAsync<T01>(getT01, transaction: transaction);
 
-                //foreach (var department in allDepartments)
-                //{
-                //    Console.WriteLine($"{department.T01F01}, {department.T01F02}, {department.T01F03}");
-                //}
+                foreach (var department in allDepartments)
+                {
+                    Console.WriteLine($"{department.T01F01}, {department.T01F02}, {department.T01F03}");
+                }
 
                 string getOne = "SELECT * FROM T01 WHERE T01F01 = @DepartmentId";
 
@@ -116,7 +116,7 @@ namespace DapperDemo
 
                 int count = parameters.Get<int>("@p_count");
 
-                Console.WriteLine("Count = " + count);
+                //Console.WriteLine("Count = " + count);
 
 
 
@@ -129,10 +129,10 @@ namespace DapperDemo
                     return t02;
                 }, transaction: transaction, splitOn: "T02F01");
 
-                foreach( T02 e in emps1 )
-                {
-                    Console.WriteLine($"{e.T02F01}, {e.T02F02}, {e.T01.T01F02}");
-                }
+                //foreach( T02 e in emps1 )
+                //{
+                //    Console.WriteLine($"{e.T02F01}, {e.T02F02}, {e.T01.T01F02}");
+                //}
 
 
                 Console.WriteLine();
@@ -147,15 +147,15 @@ namespace DapperDemo
 
                     var t02s = gridReader.Read<T02>();
 
-                    foreach( T01 d in t01s )
-                    {
-                        Console.WriteLine($"{d.T01F01}, {d.T01F02}");
-                    }
+                    //foreach( T01 d in t01s )
+                    //{
+                    //    Console.WriteLine($"{d.T01F01}, {d.T01F02}");
+                    //}
 
-                    foreach( T02 e in t02s )
-                    {
-                        Console.WriteLine($"{e.T02F01}, {e.T02F02}, {e.T02F03}");
-                    }
+                    //foreach( T02 e in t02s )
+                    //{
+                    //    Console.WriteLine($"{e.T02F01}, {e.T02F02}, {e.T02F03}");
+                    //}
                 }
 
 
