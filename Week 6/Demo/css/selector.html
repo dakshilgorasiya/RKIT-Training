@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selector</title>
+    <style>
+      main {
+        background-color: lightgray;
+        padding: 20px;
+        border-radius: 5px;
+        color: darkblue;
+      }
+      .para {
+        font-size: 18px;
+        line-height: 1.6;
+        /* It will override main color */
+        color: darkgreen;
+      }
+      #firstPara {
+        font-weight: bold;
+        color: darkred; /* It will override .para color */
+      }
+
+      section > ul > li {
+        background-color: aqua;
+      }
+
+      a[target="_blank"] {
+        text-decoration: none;
+        color: darkorange;
+      }
+
+      ul li:nth-child(2){
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <h1>Heading 1</h1>
+        <p class="para" id="firstPara" style="color: blueviolet">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse cum
+          incidunt laborum ab voluptas distinctio officia, magni nemo quos
+          placeat? Rem provident quisquam veritatis corrupti. Officia possimus
+          laborum cumque perferendis!
+        </p>
+      </section>
+
+      <section>
+        <ul>
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+        </ul>
+      </section>
+
+      <section>
+        <a href="#" target="_blank">This is a link</a>
+      </section>
+    </main>
+  </body>
+</html>

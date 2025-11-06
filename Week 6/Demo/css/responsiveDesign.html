@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Design</title>
+    <style>
+      /* Mobile first design */
+      #navBar {
+        width: 100%;
+        height: auto;
+        background-color: red;
+        font-size: 1rem;
+      }
+      #navBar::before {
+        content: "Mobile";
+      }
+
+      /* Tablet styles */
+      @media (min-width: 768px) and (max-width: 1024px) {
+        #navBar {
+          background-color: brown;
+        }
+        #navBar::before {
+          content: "Tablet";
+        }
+      }
+
+      /* Desktop styles */
+      @media (min-width: 1024px) {
+        #navBar {
+          background-color: chartreuse;
+        }
+        #navBar::before {
+          content: "Large Screen";
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="navBar">
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio totam et
+        eius. Distinctio aspernatur excepturi ipsum repellendus repudiandae
+        molestias velit recusandae accusamus eos omnis error repellat
+        consectetur ab, nobis vel.
+      </p>
+    </nav>
+  </body>
+</html>
