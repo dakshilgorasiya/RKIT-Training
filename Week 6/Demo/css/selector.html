@@ -5,34 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Selector</title>
     <style>
+      /* Element selector */
       main {
         background-color: lightgray;
         padding: 20px;
         border-radius: 5px;
         color: darkblue;
       }
+
+      /* Class selector */
       .para {
         font-size: 18px;
         line-height: 1.6;
         /* It will override main color */
         color: darkgreen;
       }
+
+      /* ID selector */
       #firstPara {
         font-weight: bold;
         color: darkred; /* It will override .para color */
       }
 
+      /* Descendant selector */
       section > ul > li {
         background-color: aqua;
       }
 
+      /* Attribute selector */
       a[target="_blank"] {
         text-decoration: none;
         color: darkorange;
       }
 
-      ul li:nth-child(2){
+      /* Pseudo-class selector */
+      ul li:nth-child(2) {
         color: red;
+      }
+
+      /* Pseudo-element selector */
+      h1::after {
+        content: " - Welcome!";
+        color: purple;
+        font-size: 16px;
+      }
+
+      /* Universal selector */
+      * {
+        font-family: Arial, sans-serif;
+      }
+
+      /* Grouping selector */
+      h1,
+      p,
+      li,
+      a {
+        margin-bottom: 10px;
+      }
+
+      /* Child combinator selector */
+      section > h1 {
+        text-transform: uppercase;
+      }
+
+      /* Sibling combinator selector */
+      h1 + p {
+        border: 1px solid black;
+        padding: 10px;
+      }
+
+      /* Pseudo-element selector */
+      p::first-letter {
+        font-size: 200%;
+        color: teal;
+      }
+
+      /* Adjacent sibling combinator selector (select div that immediately follows another div) */
+      #thirdSection > div + div {
+        background-color: lightyellow;
+        padding: 5px;
+      }
+
+      /* sibling combinator selector (select div that follows another div) */
+      #thirdSection > div ~ div {
+        font-style: italic;
+        border: 1px dashed gray;
+      }
+
+      #fourthSection {
+        margin: 10px;
+      }
+
+      #fourthSection > button {
+        background-color: lightcoral;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 10px;
+      }
+
+
+      /* Pseudo-class selectors for button states */
+      #fourthSection > button:hover {
+        background-color: coral;
+      }
+
+      /* enabled and disabled states */
+      #fourthSection > button:disabled {
+        background-color: gray;
+        cursor: not-allowed;
+      }
+
+      #fourthSection > button:enabled {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
     </style>
   </head>
@@ -58,6 +144,27 @@
 
       <section>
         <a href="#" target="_blank">This is a link</a>
+      </section>
+
+      <section id="thirdSection">
+        <div>
+          <p>This is a paragraph inside a div.</p>
+        </div>
+        <p>hi</p>
+        <div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
+            dignissimos aspernatur sed quia dicta possimus, ad inventore. Natus,
+            quidem, in saepe aliquid provident distinctio odit at, fugiat velit
+            sed eos?
+          </p>
+        </div>
+      </section>
+
+      <section id="fourthSection">
+        <button>Button 1</button>
+
+        <button disabled>Button 2 (Disabled)</button>
       </section>
     </main>
   </body>

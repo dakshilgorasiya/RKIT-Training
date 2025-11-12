@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flex</title>
+
+    <style>
+      .container {
+        margin: 10px;
+        border: 2px solid black;
+
+        height: 100vh;
+        display: flex; /* Enable flexbox layout */
+        flex-wrap: wrap; /* Allow items to wrap onto multiple lines */
+        gap: 10px; /* space between items */
+
+        /* 
+          other possible values for justify-content:
+          flex-start (default): items align to the start of the container
+          flex-end: items align to the end of the container
+          space-between: items are evenly distributed, first item at start, last item at end
+          space-around: items are evenly distributed with equal space around them (start and end have half space)
+          space-evenly: items are evenly distributed with equal space between them (including start and end)
+        */
+        justify-content:center; /* Center items horizontally */
+        
+        /* 
+        other possible values for align-items:
+        flex-start: items align to the start of the cross axis
+        flex-end: items align to the end of the cross axis
+        stretch (default): items stretch to fill the container along the cross axis
+        */
+        align-items: center;
+
+
+        /*
+        Other values
+        row, row-reverse, column-reverse
+        */
+        flex-direction: column;
+
+        /* flex-flow: column wrap; /* shorthand for flex-direction and flex-wrap */
+
+
+      }
+      .box {
+        height: 100px;
+        width: 100px;
+        border: 2px solid black;
+        background-color: red;
+        margin: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+      }
+
+      #id1{
+        flex-grow: 1;
+        align-self: flex-start; /* override align-items for this item only */
+      }
+
+      #id2{
+        flex-basis: 150px;
+
+        /*
+        items are placed with smallest order to largest order
+        default order is 0
+        if same order first come first serve
+        */
+        order: 2; /* change the order of this item */
+      }
+
+      #id3{
+        flex-shrink: 1;
+        order: 10;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="id1" class="box">item1</div>
+      <div id="id2" class="box">item2</div>
+      <div id="id3" class="box">item3</div>
+      <!-- <div id="id4" class="box">item4</div>
+      <div id="id5" class="box">item5</div>
+      <div id="id6" class="box">item6</div> -->
+    </div>
+  </body>
+</html>

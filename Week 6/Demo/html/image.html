@@ -6,6 +6,17 @@
   <title>Image</title>
 </head>
 <body>
-  <img src="img/antelope-canyon-9391418_1280.jpg" alt="Antelope canyon" width="50%" height="500px"> 
+  <!-- 
+  src: path to the image file
+  alt: alternative text for accessibility
+  width: width of the image
+  height: height of the image
+  crossorigin: handles CORS settings for the image(anonymous, use-credentials)
+  fetchpriority: indicates the priority of the image loading(high, low, auto)
+  loading: specifies whether a browser should load an image immediately or to defer loading(lazy, eager, auto)
+  
+  -->
+
+  <img src="img/antelope-canyon-9391418_1280.jpg" alt="Antelope canyon" width="50%" height="500px" crossorigin="anonymous" fetchpriority="high" loading="lazy"> 
 </body>
 </html>

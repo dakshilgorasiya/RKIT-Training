@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!--
+    autoplay: starts playing the video as soon as it is ready (default is no autoplay)
+    loop: makes the video start over again, every time it is finished (default is no loop)
+    muted: mutes the video by default(default is unmuted)
+    controls: displays video controls like play, pause, and volume
+    preload: specifies if and how the author thinks the video should be loaded when the page loads(auto, metadata, none)
+    poster: specifies an image to be shown while the video is downloading, or until the user plays the video
+    controlslist: provides a hint to the browser about which controls to show or hide(nodownload, nofullscreen, noremoteplayback)
+    disablepictureinpicture: prevents the video from being played in picture-in-picture mode
+    disableremoteplayback: prevents the video from being played on remote playback devices
+    -->
+
+    <video
+      controls
+      poster="./img/antelope-canyon-9391418_1280.jpg"
+      controlslist="nodownload"
+      width="500px"
+      height="300px"
+    >
+      <source src="./video/sample.mp4" type="video/mp4" />
+      Your browser does not support the video element.
+    </video>
+  </body>
+</html>

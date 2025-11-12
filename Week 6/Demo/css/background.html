@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        border: 2px solid black;
+
+        height: 1000px;
+        width: 1500px;
+        /* background: red; */
+
+        /* background: url("../html/img/antelope-canyon-9391418_1280.jpg") no-repeat; */
+
+        background: border-box red;
+
+        /* background: no-repeat
+          url("../html/img/antelope-canyon-9391418_1280.jpg") center/cover; */
+
+        /*background-blend-mode: difference; /* overlay, multiply, screen, difference */
+
+        background-color: red;
+        background-color: #ff0000ff;
+        background-color: rgba(255, 0, 0, 0.5);
+        background-color: hsl(0, 42%, 36%);
+        background-color: hsl(124, 44%, 25%);
+
+        background-image: url("../html/img/antelope-canyon-9391418_1280.jpg");
+        background-repeat: no-repeat; /* repeat-x, repeat-y, no-repeat, round, space */
+
+        /* position of image */
+        background-position: 25% 75%;  /* x-offset y-offset */
+        background-position: 0 0;
+        background-position: center center;
+
+        background-position-x: 0;
+
+        background-size: cover; /* contain, auto, <length> <length> */
+      }
+
+      .box {
+        height: 200px;
+        width: 200px;
+        background: unset;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box"></div>
+    </div>
+  </body>
+</html>

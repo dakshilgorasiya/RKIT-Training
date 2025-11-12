@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .wrapper {
+        display: grid;
+
+        /* this will create 3 equal columns */
+        grid-template-columns: 200px 200px 200px;
+
+        /* alternative way to create 3 equal columns
+        we can also mix fr and px */
+        grid-template-columns: 1fr 1fr 1fr;
+
+        /* 1fr 2fr 1fr 2fr */
+        grid-template-columns: repeat(2, 1fr 2fr);
+
+        grid-auto-rows: minmax(100px, auto);
+      }
+
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: lightblue;
+        border: 2px solid navy;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #i1 {
+        height: 200px;
+      }
+
+      #i9{
+        /* To set item at specific grid position */
+        grid-row-start: 2;
+        grid-column-start: 2;
+      }
+
+      #i10{
+        grid-column-start: 1;
+        grid-column-end: 4;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="box" id="i1">One</div>
+      <div class="box" id="i2">Two</div>
+      <div class="box" id="i3">Three</div>
+      <div class="box" id="i4">Four</div>
+      <div class="box" id="i5">Five</div>
+      <div class="box" id="i6">Six</div>
+      <div class="box" id="i7">Seven</div>
+      <div class="box" id="i8">Eight</div>
+      <div class="box" id="i9">Nine</div>
+      <div class="box" id="i10">Ten</div>
+    </div>
+  </body>
+</html>

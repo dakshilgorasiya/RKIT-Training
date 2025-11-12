@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .btn {
+        background-color: royalblue;
+        color: white;
+
+        /* property, duration, timing-function, delay */
+        /* transition: background-color 0.5s ease, transform 0.3s; */
+
+        transition-property: background-color, transform;
+        transition-duration: 0.5s, 0.3s;
+
+        /*
+        ease: starts slow, speeds up, ends slow
+        ease-in: starts slow, ends fast
+        ease-out: starts fast, ends slow
+        ease-in-out: starts slow, speeds up, ends slow
+        linear: constant speed
+        step-start: jumps to end value at start of duration
+        step-end: jumps to end value at end of duration
+        */
+        transition-timing-function: ease, ease;
+        transition-delay: 0s, 0s;
+      }
+
+      .btn:hover {
+        background-color: orange;
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <button class="btn">Hover Me</button>
+  </body>
+</html>
