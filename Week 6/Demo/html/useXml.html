@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script type="text/xml" id="myData">
+      <students>
+          <student>
+              <name>Dakshil</name>
+              <id>22CP013</id>
+          </student>
+      </students>
+    </script>
+
+    <div id="Box"></div>
+
+    <script>
+      const xmlText = document.getElementById("myData").textContent;
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+
+      const name = xmlDoc.getElementsByTagName("name")[0].textContent;
+      const id = xmlDoc.getElementsByTagName("id")[0].textContent;
+      document.getElementById("Box").textContent = `Name: ${name}, ID: ${id}`;
+    </script>
+  </body>
+</html>

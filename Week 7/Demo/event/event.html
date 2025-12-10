@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS Events Demo</title>
+  </head>
+  <body>
+    <h3>Click Event</h3>
+    <button id="clickBtn">Click Me</button>
+    <p id="clickOutput"></p>
+
+    <hr />
+
+    <h3>Change Event</h3>
+    <select id="country">
+      <option disabled>Select Country</option>
+      <option>India</option>
+      <option>USA</option>
+    </select>
+    <p id="changeOutput"></p>
+
+    <hr />
+
+    <h3>Input Event</h3>
+    <input type="text" id="name" placeholder="Type your name" />
+    <p id="inputOutput"></p>
+
+    <hr />
+
+    <h3>Mouse Over Event</h3>
+    <div
+      id="box"
+      style="width: 100px; height: 100px; border: 1px solid black"
+    ></div>
+
+    <hr />
+
+    <h3>Key Down Event</h3>
+    <input type="text" id="keyInput" placeholder="Press any key" />
+    <p id="keyOutput"></p>
+
+    <hr />
+
+    <h3>Form Submit Event</h3>
+    <form id="myForm">
+      <input type="text" placeholder="Enter something" required />
+      <button type="submit">Submit</button>
+    </form>
+    <p id="submitOutput"></p>
+
+    <script>
+      // click
+      document.getElementById("clickBtn").onclick = function () {
+        document.getElementById("clickOutput").innerText = "Button Clicked!";
+      };
+
+      // change
+      // document.getElementById("country").onchange = function () {
+      //  document.getElementById("changeOutput").innerText =
+      //    "Selected: " + this.value;
+      // };
+
+      document.getElementById("country").addEventListener("change", function (e) {
+        document.getElementById("changeOutput").innerText =
+          "Selected: " + e.target.value;
+      });
+
+      // input
+      document.getElementById("name").oninput = function () {
+        document.getElementById("inputOutput").innerText =
+          "Typing: " + this.value;
+      };
+
+      // mouseover
+      document.getElementById("box").onmouseover = function () {
+        this.style.backgroundColor = "lightblue";
+      };
+
+      // keydown
+      document.getElementById("keyInput").onkeydown = function (event) {
+        document.getElementById("keyOutput").innerText =
+          "Key Pressed: " + event.key;
+      };
+
+      // submit
+      document.getElementById("myForm").onsubmit = function (event) {
+        event.preventDefault();
+        document.getElementById("submitOutput").innerText = "Form Submitted!";
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      ul {
+        /*
+        other options:
+        disc, square, none, url('path/to/image')
+        */
+        /* list-style: square; */
+      }
+
+      ol {
+        /*
+      Other options:
+      decimal, lower-alpha, upper-alpha, lower-roman
+      */
+
+        list-style-type: upper-alpha;
+        
+      }
+
+      li {
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <ul type="disc">
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+      <li>
+        <ol start="3">
+          <li>Subitem 1</li>
+          <li>Subitem 2</li>
+          <li>Subitem 3</li>
+        </ol>
+      </li>
+    </ul>
+  </body>
+</html>

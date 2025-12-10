@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      #delegation {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: 100px;
+
+        border: 2px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="bubbleDiv">
+      <button id="bubbleButton">click me</button>
+    </div>
+
+    <div id="captureDiv">
+      <button id="captureButton">click me</button>
+    </div>
+
+    <div id="output"></div>
+
+    <div id="delegation">
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+    </div>
+
+    <script>
+      bubbleDiv = document.getElementById("bubbleDiv");
+      bubbleButton = document.getElementById("bubbleButton");
+      output = document.getElementById("output");
+
+      function showInfo(event) {
+        newP = document.createElement("p");
+
+        newP.innerHTML = `Target: ${event.target.tagName}, currTarget: ${event.currentTarget.tagName}`;
+
+        output.appendChild(newP);
+      }
+
+      bubbleButton.addEventListener("click", showInfo);
+      bubbleDiv.addEventListener("click", showInfo);
+
+      captureDiv = document.getElementById("captureDiv");
+      captureButton = document.getElementById("captureButton");
+
+      captureDiv.addEventListener("click", showInfo, { capture: true });
+      captureButton.addEventListener("click", showInfo, { capture: true });
+
+      function random(number) {
+        return Math.floor(Math.random() * number);
+      }
+      function bgChange() {
+        const color = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+        return color;
+      }
+
+      delegation = document.getElementById("delegation");
+      delegation.addEventListener("click", (event) => {
+        event.target.style.backgroundColor = bgChange();
+      });
+    </script>
+  </body>
+</html>
