@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      #cookieBanner {
+        border: 2px solid black;
+        position: absolute;
+        bottom: 0px;
+        padding: 5px;
+        border-radius: 10px;
+        margin: 10px;
+      }
+
+      .btn {
+        padding: 5px;
+        border-radius: 10px;
+        margin: 2px;
+        cursor: pointer;
+      }
+
+      #btnDiv {
+        display: flex;
+        justify-content: end;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <label for="usernameInput">Username : </label>
+      <input id="usernameInput" />
+      <button id="usernameSaveBtn">Save</button>
+    </div>
+
+    <div>
+      <output id="clickCount">Total clicks : 0</output>
+    </div>
+
+    <div id="cookieBanner">
+      <h3>Cookie preference</h3>
+      <p>We use cookies to improve your experience.</p>
+      <div id="btnDiv">
+        <button class="btn" id="rejectcookieBtn">Reject cookie</button>
+        <button class="btn" id="acceptcookieBtn">Accept cookie</button>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("usernameSaveBtn")
+        .addEventListener("click", function () {
+          const username = document.getElementById("usernameInput").value;
+          localStorage.setItem("username", username);
+        });
+
+      window.addEventListener("load", function () {
+        sessionStorage.setItem("click", String(0));
+
+        const username = localStorage.getItem("username");
+
+        if (username != null) {
+          document.getElementById("usernameInput").value = username;
+        }
+
+        if (getCookie("consent") == String(true)) {
+          document.getElementById("cookieBanner").style.display = "none";
+        }
+      });
+
+      window.addEventListener("click", function () {
+        let clickCount = Number(sessionStorage.getItem("click"));
+
+        if (Number.isNaN(clickCount)) {
+          clickCount = 0;
+          sessionStorage.setItem("click", String(0));
+        }
+
+        clickCount += 1;
+
+        document.getElementById(
+          "clickCount"
+        ).innerHTML = `Total clicks : ${clickCount}`;
+
+        sessionStorage.setItem("click", String(clickCount));
+      });
+
+      document
+        .getElementById("acceptcookieBtn")
+        .addEventListener("click", function () {
+          let maxAge = 60 * 60 * 24 * 7;
+          document.cookie = `consent=true; max-age=${maxAge};`;
+          document.getElementById("cookieBanner").style.display = "none";
+        });
+
+      document
+        .getElementById("rejectcookieBtn")
+        .addEventListener("click", function () {
+          document.getElementById("cookieBanner").style.display = "none";
+        });
+
+      function getCookie(name) {
+        const cookies = document.cookie.split("; ");
+
+        for (const cookie of cookies) {
+          const [key, value] = cookie.split("=");
+
+          if (key === name) {
+            return value;
+          }
+        }
+
+        return null; // not found
+      }
+    </script>
+  </body>
+</html>

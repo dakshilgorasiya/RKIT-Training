@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Events Demo</title>
+  </head>
+  <body>
+    <form id="myForm">
+      <input type="text" id="textInput" placeholder="Type something" />
+
+      <br /><br />
+
+      <textarea id="textArea" placeholder="Type in textarea"></textarea>
+
+      <br /><br />
+
+      <button type="submit">Submit</button>
+      <button type="reset">Reset</button>
+    </form>
+
+    <script>
+      const input = document.getElementById("textInput");
+      const textArea = document.getElementById("textArea");
+      const form = document.getElementById("myForm");
+
+      // input events
+      input.addEventListener("input", () => console.log("input event"));
+      input.addEventListener("change", () => console.log("change event"));
+      input.addEventListener("focus", () => console.log("focus event"));
+      input.addEventListener("blur", () => console.log("blur event"));
+      input.addEventListener("beforeinput", () =>
+        console.log("beforeinput event")
+      );
+      input.addEventListener("select", () => console.log("select event"));
+
+      // textarea events
+      textArea.addEventListener("input", () => console.log("textarea input"));
+      textArea.addEventListener("change", () => console.log("textarea change"));
+
+      // form events
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        console.log("form submit");
+      });
+
+      form.addEventListener("reset", () => console.log("form reset"));
+
+      form.addEventListener("formdata", (e) => {
+        console.log("formdata event fired", e.formData);
+      });
+    </script>
+  </body>
+</html>

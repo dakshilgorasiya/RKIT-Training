@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <button id="alertBtn">Alert</button>
+    </div>
+
+    <div>
+      <button id="confirmBtn">Confirm</button>
+
+      <p id="confirmText"></p>
+    </div>
+
+    <div>
+      <button id="promptBtn">Prompt</button>
+
+      <p id="promptText"></p>
+    </div>
+
+    <script>
+      // Alert
+      alertBtn = document.getElementById("alertBtn");
+      alertBtn.addEventListener("click", function () {
+        alert("Alert");
+      });
+
+      // Confirm
+      confirmBtn = document.getElementById("confirmBtn");
+      confirmBtn.addEventListener("click", function () {
+        state = confirm("Do you confirm ?");
+        document.getElementById("confirmText").innerText = state;
+      });
+
+      // Prompt
+      promptBtn = document.getElementById("promptBtn");
+      promptBtn.addEventListener("click", function () {
+        input = prompt("Enter your name: ", "Bob"); // If click cancel it return null
+        document.getElementById("promptText").innerText = input;
+      });
+    </script>
+  </body>
+</html>

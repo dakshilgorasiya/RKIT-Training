@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      #lightBlub {
+        background-color: yellow;
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+      }
+
+      #lightSwitch {
+        margin-top: 10px;
+        padding: 5px;
+        border-radius: 5px;
+        width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="lightBlub"></div>
+      <button id="lightSwitch">Turn off</button>
+    </div>
+
+    <output id="clickCount">Total clicks : 0</output>
+
+    <script>
+      // div that represent lightBlub
+      const lightBlub = document.querySelector("#lightBlub");
+
+      // button that acts as switch for lightBlub
+      const lightSwitch = document.querySelector("#lightSwitch");
+
+      // state of lightBlub
+      let state = true; // true->light on, false->light off
+
+      // number of times user clicked switch
+      let clickCount = 0;
+
+      lightSwitch.addEventListener("click", function (e) {
+        if (state) {
+          // When blub is on so turn it off
+          lightBlub.style.backgroundColor = "gray";
+
+          // change text of button
+          lightSwitch.innerHTML = "Turn on";
+        } else {
+          // When blub is off so turn it on
+          lightBlub.style.backgroundColor = "yellow";
+
+          // change text of button
+          lightSwitch.innerHTML = "Turn off";
+        }
+
+        // change state from on to off and vice versa when user click switch
+        state = !state;
+        // e.stopPropagation();
+      });
+
+      // Event listener to count total clicks
+      document.body.addEventListener("click", function (e) {
+        clickCount += 1;
+        document.getElementById(
+          "clickCount"
+        ).innerHTML = `Total clicks : ${clickCount}`;
+      });
+    </script>
+  </body>
+</html>

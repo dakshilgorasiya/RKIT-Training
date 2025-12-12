@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navigation Events Demo</title>
+  </head>
+  <body>
+    <button id="setHash">Change Hash</button>
+    <button id="pushState">Push State</button>
+    <button id="back">Go Back</button>
+
+    <script>
+      // HASHCHANGE EVENT
+      window.addEventListener("hashchange", (event) => {
+        console.log("Hash changed!");
+        console.log("Old URL:", event.oldURL);
+        console.log("New URL:", event.newURL);
+      });
+
+      // POPSTATE EVENT
+      window.addEventListener("popstate", (event) => {
+        console.log("Popstate fired!");
+        console.log("State:", event.state);
+      });
+
+      // BUTTON ACTIONS
+      document.getElementById("setHash").addEventListener("click", () => {
+        location.hash = "test" + Math.floor(Math.random() * 100);
+      });
+
+      document.getElementById("pushState").addEventListener("click", () => {
+        history.pushState(
+          { msg: "Hello" },
+          "",
+          "?id=" + Math.floor(Math.random() * 100)
+        );
+        console.log("pushState called");
+      });
+
+      document.getElementById("back").addEventListener("click", () => {
+        history.back();
+      });
+    </script>
+  </body>
+</html>

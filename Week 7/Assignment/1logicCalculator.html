@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Array of mark to process
+      marks = [45, 78, 92, 30, 65, "fifty"];
+
+      // Loop through each mark and calculate status
+      for (let mark of marks) {
+        calculateStatus(mark);
+      }
+
+      /// Function to calculate pass/fail status
+      /// <param name="mark">The mark to evaluate</param>
+      /// <returns>None</returns>
+      function calculateStatus(mark) {
+        markInt = Number(mark);
+
+        if (isNaN(markInt)) {
+          console.log(mark + " : Invalid mark");
+          return;
+        }
+
+        if (markInt > 50) {
+          console.log(markInt + " : Pass");
+        } else {
+          console.log(markInt + " : Fail");
+        }
+      }
+    </script>
+  </body>
+</html>

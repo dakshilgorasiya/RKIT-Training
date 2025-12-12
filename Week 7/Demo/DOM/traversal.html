@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="container">
+      <div id="firstDiv">
+        <h1>Hi</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Reprehenderit, tempore. Blanditiis deserunt esse explicabo laudantium
+          fuga molestias iure illum consequatur, excepturi, voluptates totam
+          aliquid, expedita ab labore minus nisi harum?
+        </p>
+      </div>
+
+      <div>
+        <button class="btn btn-danger border border-2 border-black">
+          Click me
+        </button>
+        <input />
+      </div>
+    </div>
+
+    <div>
+      <ul>
+        <li class="list">l1</li>
+        <li class="list">l2</li>
+        <li class="">l3</li>
+        <li class="">l4</li>
+        <li class="list">l5</li>
+      </ul>
+    </div>
+
+    <footer>footer</footer>
+
+    <script>
+      container = document.getElementById("container");
+
+      // Difference between children and childNodes
+      // Children returns only element nodes
+      // childNodes returns all child nodes (element nodes, text nodes, comment nodes, etc.)
+      console.log(container.children);
+      console.log(container.childNodes);
+
+      console.log(container.firstElementChild); // first element node
+      console.log(container.firstChild); // first child node
+
+      console.log(container.lastElementChild); // last element node
+      console.log(container.lastChild); // last child node
+
+      // querySelectorAll -> returns all matching elements as a NodeList
+      const listItems = document.querySelectorAll(".list");
+      console.log(listItems);
+
+      // querySelector -> returns the first matching element
+      const firstListItem = document.querySelector(".list");
+      console.log(firstListItem);
+
+      // Accessing parent node
+      // parentNode and parentElement are similar, both return the parent element
+      const firstDiv = document.getElementById("firstDiv");
+      console.log(firstDiv.parentNode);
+      console.log(firstDiv.parentElement);
+
+      // Accessing sibling nodes
+      console.log(firstDiv.nextElementSibling); // next element node
+      console.log(firstDiv.nextSibling); // next child node
+
+      console.log(firstDiv.previousElementSibling); // previous element node
+      console.log(firstDiv.previousSibling); // previous child node
+
+      // closest() method -> returns the closest ancestor that matches the selector
+      const paragraph = document.getElementsByTagName("p")[0];
+      console.log(paragraph.closest("div")); // closest ancestor div
+      console.log(paragraph.closest("#container")); // closest ancestor with id 'container'
+
+      // classlist property -> to manipulate classes
+      const button = document.querySelector("button");
+      console.log(button.classList);
+      button.classList.add("btn-lg");
+      console.log(button.classList);
+      button.classList.remove("btn-danger");
+
+      // Using className to add a class (not recommended use classList instead)
+      button.className += " btn-success";
+      console.log(button.className);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        height: 50px;
+        width: 100px;
+        border: 2px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box" id="clickBox">click</div>
+      <div class="box" id="dblClickBox">double click</div>
+      <div class="box" id="mousedownBox">mousedown</div>
+      <div class="box" id="mouseupBox">mouseup</div>
+      <div class="box" id="mousemoveBox">mousemove</div>
+      <div class="box" id="mouseenterBox">mouseenter</div>
+      <div class="box" id="mouseleaveBox">mouseleave</div>
+      <div class="box" id="mouseoverBox">mouseover</div>
+      <div class="box" id="mouseoutBox">mouseout</div>
+      <div class="box" id="contextmenuBox">right click (contextmenu)</div>
+      <div class="box" id="wheelBox">wheel scroll</div>
+    </div>
+
+    <script>
+      document.getElementById("clickBox").addEventListener("click", (e) => {
+        console.log("Mouse click event detected!");
+      });
+
+      document
+        .getElementById("dblClickBox")
+        .addEventListener("dblclick", (e) => {
+          console.log("Mouse double-click event detected!");
+        });
+
+      document
+        .getElementById("mousedownBox")
+        .addEventListener("mousedown", (e) => {
+          console.log("Mouse down event detected!");
+        });
+
+      document.getElementById("mouseupBox").addEventListener("mouseup", (e) => {
+        console.log("Mouse up event detected!");
+      });
+
+      document
+        .getElementById("mousemoveBox")
+        .addEventListener("mousemove", (e) => {
+          console.log("Mouse move event detected!");
+        });
+
+      document
+        .getElementById("mouseenterBox")
+        .addEventListener("mouseenter", (e) => {
+          console.log("Mouse enter event detected!");
+        });
+
+      document
+        .getElementById("mouseleaveBox")
+        .addEventListener("mouseleave", (e) => {
+          console.log("Mouse leave event detected!");
+        });
+
+      document
+        .getElementById("mouseoverBox")
+        .addEventListener("mouseover", (e) => {
+          console.log("Mouse over event detected!");
+        });
+
+      document
+        .getElementById("mouseoutBox")
+        .addEventListener("mouseout", (e) => {
+          console.log("Mouse out event detected!");
+        });
+
+      document
+        .getElementById("contextmenuBox")
+        .addEventListener("contextmenu", (e) => {
+          e.preventDefault(); // prevent the context menu from appearing
+          console.log("Mouse right-click (context menu) event detected!");
+        });
+
+      document.getElementById("wheelBox").addEventListener("wheel", (e) => {
+        console.log("Mouse wheel scroll event detected!");
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="container">
+      <button id="btn">click me</button>
+    </div>
+
+    <script>
+      // The stopPropagation() method of the Event interface prevents further propagation of the current event in the capturing and bubbling phases. It does not, however, prevent any default behaviors from occurring; for instance, clicks on links are still processed. If you want to stop those behaviors, see the preventDefault() method. It also does not prevent propagation to other event-handlers of the current element. If you want to stop those, see stopImmediatePropagation().
+
+      const button = document.getElementById("btn");
+      const container = document.getElementById("container");
+
+      container.addEventListener(
+        "click",
+        () => {
+          console.log("Container clicked - capturing");
+        },
+        { capture: true }
+      );
+
+      container.addEventListener("click", () => {
+        console.log("Container clicked - bubbling");
+      });
+
+      button.addEventListener(
+        "click",
+        (e) => {
+          console.log("Button clicked - capturing");
+          // e.stopPropagation(); // will stop container's capturing listener but not other button capturing listeners
+          e.stopImmediatePropagation(); // will stop other button capturing listeners as well
+        },
+        { capture: true }
+      );
+
+      button.addEventListener(
+        "click",
+        (e) => {
+          console.log("Button capture other");
+        },
+        { capture: true }
+      );
+
+      button.addEventListener("click", (e) => {
+        console.log("Button clicked - bubbling");
+        // e.stopPropagation(); // will stop div's bubbling listener
+      });
+    </script>
+  </body>
+</html>

@@ -7,6 +7,8 @@ Naming Convention Guidline.pdf
 Pre_Joining_Topics_with_Weeks (1).xlsx
 Week 1 & 2 MySQL Database Assignments.docx
 Pre-join C# Training – Assignments (weeks 3–5).pdf
+Week 7 - 8 Javascript.docx
+Week 8 - 9 Jquery.docx
 
 
 # Build results
@@ -39,3 +41,5 @@ ScaffoldingReadMe.txt
 TestResults/
 node_modules/
 wwwroot/lib/
+
+Week 7/Demo/event/sample.mp4

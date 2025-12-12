@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document Events Demo</title>
+  </head>
+
+  <body>
+    <button id="goFull">Go Fullscreen</button>
+    <button id="lockPointer">Lock Pointer</button>
+
+    <p>Select this text to trigger <b>selectstart</b>.</p>
+
+    <script>
+      // Request fullscreen
+      document.getElementById("goFull").addEventListener("click", () => {
+        document.documentElement.requestFullscreen().catch(() => {
+          console.log("Fullscreen request failed");
+        });
+      });
+
+      // Request pointer lock
+      document.getElementById("lockPointer").addEventListener("click", () => {
+        document.body.requestPointerLock?.();
+      });
+
+      // DOMContentLoaded
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("DOMContentLoaded fired");
+      });
+
+      // readystatechange
+      document.addEventListener("readystatechange", () => {
+        console.log("readystatechange:", document.readyState);
+      });
+
+      // load (fires when all resources finish loading)
+      window.addEventListener("load", () => {
+        console.log("load event fired");
+      });
+
+      // visibilitychange
+      document.addEventListener("visibilitychange", () => {
+        console.log("visibilitychange:", document.visibilityState);
+      });
+
+      // selectstart
+      document.addEventListener("selectstart", () => {
+        console.log("selectstart fired");
+      });
+
+      // fullscreenchange
+      document.addEventListener("fullscreenchange", () => {
+        console.log("fullscreenchange fired");
+      });
+
+      // fullscreenerror
+      document.addEventListener("fullscreenerror", () => {
+        console.log("fullscreenerror fired");
+      });
+
+      // pointerlockchange
+      document.addEventListener("pointerlockchange", () => {
+        console.log("pointerlockchange fired");
+      });
+
+      // pointerlockerror
+      document.addEventListener("pointerlockerror", () => {
+        console.log("pointerlockerror fired");
+      });
+    </script>
+  </body>
+</html>

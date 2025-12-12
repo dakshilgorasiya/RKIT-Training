@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frame Event Demo</title>
+
+    <style>
+      iframe {
+        width: 300px;
+        height: 200px;
+        border: 2px solid black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <button id="reloadFrame">Reload iframe</button>
+
+    <br /><br />
+
+    <iframe src="./dragEvent.html" id="myFrame"></iframe>
+
+    <script>
+      const frame = document.getElementById("myFrame");
+      const reloadBtn = document.getElementById("reloadFrame");
+
+      // iframe LOAD event
+      frame.addEventListener("load", (e) => {
+        console.log("iframe loaded", e);
+      });
+
+      // iframe BEFOREUNLOAD & UNLOAD events must be attached inside iframe
+      // because cross-document unload does NOT bubble to parent.
+
+      reloadBtn.addEventListener("click", () => {
+        frame.src = "./dragEvent.html?reload=" + Date.now();
+      });
+
+      // Fired when the parent document's DOM is fully loaded
+      window.addEventListener("DOMContentLoaded", () => {
+        console.log("Parent DOMContentLoaded fired");
+      });
+
+      // Fired when the parent window and all its resources are loaded
+      window.addEventListener("load", () => {
+        console.log("Parent load fired");
+      });
+    </script>
+  </body>
+</html>

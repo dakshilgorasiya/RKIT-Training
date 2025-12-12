@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="source" contenteditable="true">Copy text from this box.</div>
+    <div class="target" contenteditable="true">And paste it into this one.</div>
+
+    <script>
+      const source = document.querySelector("div.source");
+      const destination = document.querySelector("div.target");
+
+      source.addEventListener("copy", (event) => {
+        const selection = document.getSelection();
+        event.clipboardData.setData(
+          "text/plain",
+          selection.toString().toUpperCase()
+        );
+        event.preventDefault();
+      });
+
+      source.addEventListener("cut", (event) => {
+        event.preventDefault();
+
+        const message = "Cutting is not allowed!";
+        event.clipboardData.setData("text/plain", message);
+      });
+
+      destination.addEventListener("paste", (event) => {
+        const pasteData = event.clipboardData.getData("text/plain");
+        console.log("Pasted data: ", pasteData);
+      });
+    </script>
+  </body>
+</html>

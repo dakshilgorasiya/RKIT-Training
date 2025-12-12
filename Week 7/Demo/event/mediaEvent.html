@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <video id="myVideo" controls width="400">
+      <source src="sample.mp4" type="video/mp4" />
+    </video>
+
+    <script>
+      const video = document.getElementById("myVideo");
+
+      const events = [
+        "loadstart", // Browser is starting to load the video
+        "progress", // Browser is downloading the video
+        "suspend", // Downloading has been suspended
+        "abort", // Downloading has been aborted
+        "stalled", // Downloading has stalled
+        "loadedmetadata", // Metadata (duration, dimensions) has been loaded
+        "loadeddata", // First frame of the video has been loaded
+        "durationchange", // Duration of the video has changed (or become known)
+        "canplay", // Video can start playing, but might need to buffer
+        "canplaythrough", // Video can play through to the end without buffering
+        "play", // Video has started playing
+        "playing", // Video is playing
+        "pause", // Video has been paused
+        "ended", // Video has ended
+        "waiting", // Video is waiting for more data to continue playing
+        "seeking", // User has started seeking to a new position
+        "seeked", // User has finished seeking to a new position
+        "timeupdate", // Current playback position has changed
+        "ratechange", // Playback rate has changed
+        "volumechange", // Volume has changed
+        "emptied", // Video element has been emptied
+        "error", // An error occurred
+      ];
+
+      events.forEach((ev) => {
+        video.addEventListener(ev, () => console.log(ev));
+      });
+    </script>
+  </body>
+</html>

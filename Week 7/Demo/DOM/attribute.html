@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <button id="btn">
+        <a href="http://www.google.com" class="link">Google</a>
+      </button>
+    </div>
+
+    <script>
+      const a = document.getElementById("btn").children[0];
+
+      // Get attribute
+      console.log(a.getAttribute("id")); // null
+      console.log(a.getAttribute("class")); // "link"
+
+      // Set attribute
+      a.setAttribute("target", "_blank");
+      console.log(a.getAttribute("target")); // "_blank"
+
+      // Remove attribute
+      a.removeAttribute("class");
+      console.log(a.getAttribute("class")); // null
+
+      // Has attribute
+      console.log(a.hasAttribute("href")); // true
+      console.log(a.hasAttribute("class")); // false
+    </script>
+  </body>
+</html>

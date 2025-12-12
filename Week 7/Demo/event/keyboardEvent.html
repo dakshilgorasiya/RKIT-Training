@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="width: 100vw; height: 100vh">
+    <div>
+      <p id="text"></p>
+    </div>
+
+    <script>
+      document.addEventListener("keydown", function (event) {
+        document.getElementById("text").innerText =
+          "Key: " +
+          event.key +
+          "\n" +
+          "Code: " +
+          event.code +
+          "\n" +
+          "Alt Key: " +
+          event.altKey +
+          "\n" +
+          "Ctrl Key: " +
+          event.ctrlKey +
+          "\n" +
+          "Shift Key: " +
+          event.shiftKey;
+      });
+
+      document.addEventListener("keyup", function (event) {
+        console.log("Key released: " + event.key);
+      });
+
+      document.addEventListener("keypress", function (event) {
+        console.log("Key pressed: " + event.key);
+      });
+    </script>
+  </body>
+</html>

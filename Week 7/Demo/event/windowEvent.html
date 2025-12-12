@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      window.addEventListener("online", () => {
+        console.log("Browser is online");
+      });
+
+      window.addEventListener("offline", () => {
+        console.log("Browser is offline");
+      });
+
+      window.addEventListener("focus", () => {
+        console.log("Window gained focus");
+      });
+
+      window.addEventListener("blur", () => {
+        console.log("Window lost focus");
+      });
+
+      window.addEventListener("resize", () => {
+        console.log(
+          "Window resized to",
+          window.innerWidth,
+          "x",
+          window.innerHeight
+        );
+      });
+
+      window.addEventListener("scroll", () => {
+        console.log("Window scrolled to", window.scrollX, window.scrollY);
+      });
+
+      window.addEventListener("beforeunload", (e) => {
+        console.log("beforeunload event fired");
+        // Uncomment the lines below to show a confirmation dialog
+        // e.preventDefault();
+        // e.returnValue = '';
+      });
+
+      window.addEventListener("unload", () => {
+        console.log("unload event fired");
+      });
+
+      window.addEventListener("DOMContentLoaded", () => {
+        console.log("DOM fully loaded and parsed");
+      });
+
+      window.addEventListener("load", () => {
+        console.log("All resources finished loading");
+      });
+
+      window.addEventListener("freeze", () => {
+        console.log("Window is frozen (not responding)");
+      });
+
+      window.addEventListener("resume", () => {
+        console.log("Window has resumed from frozen state");
+      });
+    </script>
+  </body>
+</html>

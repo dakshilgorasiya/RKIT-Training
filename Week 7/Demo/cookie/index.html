@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Cookie Demo</h2>
+
+    <button onclick="setCookie()">Set Cookie</button>
+    <button onclick="getCookie()">Get Cookie</button>
+    <button onclick="updateCookie()">Update Cookie</button>
+    <button onclick="deleteCookie()">Delete Cookie</button>
+
+    <br /><br />
+
+    <h2>Local Storage Demo</h2>
+    <button onclick="setLocalStorage()">Set Local Storage</button>
+    <button onclick="getLocalStorage()">Get Local Storage</button>
+    <button onclick="updateLocalStorage()">Update Local Storage</button>
+    <button onclick="deleteLocalStorage()">Delete Local Storage</button>
+    <button onclick="clearLocalStorage()">Clear Local Storage</button>
+
+    <br /><br />
+
+    <h2>Session Storage Demo</h2>
+    <button onclick="setSessionStorage()">Set Session Storage</button>
+    <button onclick="getSessionStorage()">Get Session Storage</button>
+    <button onclick="updateSessionStorage()">Update Session Storage</button>
+    <button onclick="deleteSessionStorage()">Delete Session Storage</button>
+    <button onclick="clearSessionStorage()">Clear Session Storage</button>
+
+    <p id="output"></p>
+
+    <script>
+      // Cookie Example
+      function setCookie() {
+        // Other options: expires, domain, secure, samesite
+        // At a time only one cookie can be set with document.cookie and after ; is for options
+        document.cookie = "username=Dakshil; max-age=3600; path=/";
+        document.cookie = "theme=dark; max-age=3600; path=/";
+        document.getElementById("output").textContent = "Cookie set";
+      }
+
+      function getCookie() {
+        // ; separated list of cookies in string format
+        const allCookies = document.cookie;
+        document.getElementById("output").textContent =
+          "Cookies: " + allCookies;
+      }
+
+      function updateCookie() {
+        document.cookie = "username=NewName; max-age=3600; path=/";
+        document.getElementById("output").textContent = "Cookie updated";
+      }
+
+      function deleteCookie() {
+        // To delete a cookie, set its max-age to 0 or expiry date to past date
+        document.cookie = "username=; max-age=0; path=/";
+        document.getElementById("output").textContent = "Cookie deleted";
+      }
+
+      // Local Storage Example
+      function setLocalStorage() {
+        // Local Storage storage in string format key-value pairs
+        localStorage.setItem("username", "Dakshil");
+        localStorage.setItem("theme", "dark");
+        document.getElementById("output").textContent = "Local Storage set";
+      }
+
+      function getLocalStorage() {
+        const username = localStorage.getItem("username");
+        const theme = localStorage.getItem("theme");
+        document.getElementById("output").textContent =
+          "Local Storage - Username: " + username + ", Theme: " + theme;
+      }
+
+      function updateLocalStorage() {
+        localStorage.setItem("username", "NewName");
+        document.getElementById("output").textContent = "Local Storage updated";
+      }
+
+      function deleteLocalStorage() {
+        localStorage.removeItem("username");
+        document.getElementById("output").textContent = "Local Storage deleted";
+      }
+
+      function clearLocalStorage() {
+        localStorage.clear();
+        document.getElementById("output").textContent = "Local Storage cleared";
+      }
+
+      // Session Storage Example
+      function setSessionStorage() {
+        // Session Storage storage in string format key-value pairs
+        sessionStorage.setItem("sessionID", "123456");
+        document.getElementById("output").textContent = "Session Storage set";
+      }
+
+      function getSessionStorage() {
+        const sessionID = sessionStorage.getItem("sessionID");
+        document.getElementById("output").textContent =
+          "Session Storage - Session ID: " + sessionID;
+      }
+
+      function updateSessionStorage() {
+        sessionStorage.setItem("sessionID", "654321");
+        document.getElementById("output").textContent =
+          "Session Storage updated";
+      }
+
+      function deleteSessionStorage() {
+        sessionStorage.removeItem("sessionID");
+        document.getElementById("output").textContent =
+          "Session Storage deleted";
+      }
+
+      function clearSessionStorage() {
+        sessionStorage.clear();
+        document.getElementById("output").textContent =
+          "Session Storage cleared";
+      }
+    </script>
+  </body>
+</html>

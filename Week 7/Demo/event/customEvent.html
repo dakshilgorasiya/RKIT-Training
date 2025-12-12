@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Event Conditional Dispatch Example</title>
+  </head>
+  <body>
+    <div class="container">
+      <button id="btn-success">Simulate Successful Login (Status 200)</button>
+      <button id="btn-fail">Simulate Failed Login (Status 401)</button>
+
+      <h3>Event Listener Output:</h3>
+      <div id="output">Waiting for event...</div>
+    </div>
+
+    <script>
+      const EVENT_NAME = "userLoggedIn";
+      const outputDiv = document.getElementById("output");
+
+      // Utility function to log messages to the output div
+      function log(message) {
+        const span = document.createElement("span");
+        span.innerHTML = message + "<br>";
+        outputDiv.appendChild(span);
+      }
+
+      // Event listener for the custom event
+      document.addEventListener(EVENT_NAME, (e) => {
+        // Access the custom data using the 'detail' property
+        const payload = e.detail;
+
+        log(`Custom Event **"${EVENT_NAME}"** RECEIVED!`);
+        log(`User ID: ${payload.userID}`);
+        log(`Username: ${payload.username}`);
+        log(`Logged in at: ${payload.timestamp}`);
+      });
+
+      // Simulate conditions and dispatch the custom event
+      document.getElementById("btn-success").addEventListener("click", () => {
+        outputDiv.innerHTML = "";
+
+        log("Condition Met (Status 200)! Preparing to dispatch...");
+
+        const dataToSend = {
+          userID: 101,
+          username: "JaneDoe",
+          timestamp: new Date().toLocaleTimeString(),
+        };
+
+        const loginEvent = new CustomEvent(EVENT_NAME, {
+          bubbles: true,
+          detail: dataToSend,
+        });
+
+        if (dataToSend != null) document.dispatchEvent(loginEvent);
+      });
+
+      // Simulate a failed login condition
+      document.getElementById("btn-fail").addEventListener("click", () => {
+        outputDiv.innerHTML = "";
+        const failedLogin = { id: 404, name: "Guest", isActive: false };
+        log(
+          `Condition NOT Met. Event status was 404. Event was NOT dispatched.`,
+          "fail-message"
+        );
+      });
+    </script>
+  </body>
+</html>
