@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        height: 50px;
+        width: 100px;
+        border: 2px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box" id="clickBox">click</div>
+      <div class="box" id="dblClickBox">double click</div>
+      <div class="box" id="mousedownBox">mousedown</div>
+      <div class="box" id="mouseupBox">mouseup</div>
+      <div class="box" id="mousemoveBox">mousemove</div>
+      <div class="box" id="mouseenterBox">mouseenter</div>
+      <div class="box" id="mouseleaveBox">mouseleave</div>
+      <div class="box" id="mouseoverBox">mouseover</div>
+      <div class="box" id="mouseoutBox">mouseout</div>
+      <div class="box" id="contextmenuBox">right click (contextmenu)</div>
+      <div class="box" id="wheelBox">wheel scroll</div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      $(function () {
+        /* $("#clickBox").on("click", function () {
+        console.log("click");
+        }); */
+
+        // click event
+        $("#clickBox").click(function () {
+          console.log("click");
+        });
+
+        // double click event
+        $("#dblClickBox").dblclick(function () {
+          console.log("double click");
+        });
+
+        // mousedown event
+        $("#mousedownBox").mousedown(function () {
+          console.log("mousedown");
+        });
+
+        // mouseup event
+        $("#mouseupBox").mouseup(function () {
+          console.log("mouseup");
+        });
+
+        // mousemove event
+        $("#mousemoveBox").mousemove(function () {
+          console.log("mousemove");
+        });
+
+        // mouseenter event
+        $("#mouseenterBox").mouseenter(function () {
+          console.log("mouseenter");
+        });
+
+        // mouseleave event
+        $("#mouseleaveBox").mouseleave(function () {
+          console.log("mouseleave");
+        });
+
+        // mouseover event
+        $("#mouseoverBox").mouseover(function () {
+          console.log("mouseover");
+        });
+
+        // mouseout event
+        $("#mouseoutBox").mouseout(function () {
+          console.log("mouseout");
+        });
+
+        // contextmenu (right click) event
+        $("#contextmenuBox").contextmenu(function (e) {
+          e.preventDefault();
+          console.log("right click (contextmenu)");
+        });
+
+        // wheel event
+        $("#wheelBox").on("wheel", function () {
+          console.log("wheel scroll");
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Drag Events Demo</title>
+    <style>
+      .container {
+        display: flex;
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      #dragItem {
+        width: 120px;
+        height: 120px;
+        background: #4caf50;
+        color: white;
+        font-size: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: grab;
+      }
+
+      .dropzone {
+        width: 200px;
+        height: 200px;
+        border: 3px dashed #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Drag Events Demo</h2>
+
+    <div class="container">
+      <div id="dragItem" draggable="true">Drag me</div>
+
+      <div class="dropzone" id="dropZone">Drop here</div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      $(function () {
+        // Dragging element events
+        $("#dragItem").on("dragstart", function () {
+          console.log("dragstart");
+        });
+        $("#dragItem").on("dragend", function () {
+          console.log("dragend");
+        });
+        $("#dragItem").on("drag", function () {
+          // console.log("drag");
+        });
+
+        // Dropzone events
+        $("#dropZone").on("dragenter", function () {
+          console.log("dragenter");
+        });
+        $("#dropZone").on("dragleave", function () {
+          console.log("dragleave");
+        });
+
+        $("#dropZone").on("dragover", function (e) {
+          e.preventDefault(); // Must call preventDefault() to allow dropping
+          // console.log("dragover");
+        });
+        $("#dropZone").on("drop", function () {
+          console.log("drop");
+          $(this).css("background", "#d1ffd1"); // visual feedback
+          $(this).text("Dropped!");
+        });
+      });
+
+      $(window).on("beforeunload", function () {
+        console.log("iframe beforeunload fired");
+      });
+
+      $(window).on("unload", function () {
+        console.log("iframe unload fired");
+      });
+    </script>
+  </body>
+</html>

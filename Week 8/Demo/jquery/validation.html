@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registration Form</title>
+
+    <style>
+      .error {
+        color: red;
+      }
+      input.error {
+        border: 2px solid red;
+      }
+      label.error {
+        margin-left: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <form id="registerForm">
+        <div>
+          <label for="username">Username:</label>
+          <input type="text" name="username" id="username" />
+        </div>
+
+        <div>
+          <label for="email">Email:</label>
+          <input type="text" name="email" id="email" />
+        </div>
+
+        <button type="submit" id="registerBtn">Register</button>
+      </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+    <script>
+      // Will not submit the form for debugging purposes
+      /*jQuery.validator.setDefaults({
+        debug: true,
+      });*/
+
+      // Custom email validation method using regex
+      $.validator.addMethod(
+        "emailRegex",
+        // current value, element to validate, parameter (regex pattern)
+        function (value, element, param) {
+          return this.optional(element) || new RegExp(param).test(value);
+        },
+        "Please enter a valid email address."
+      );
+
+      // Initialize form validation on the registration form
+      const validator = $("#registerForm").validate({
+        // Define validation rules
+        rules: {
+          username: {
+            required: true,
+            minlength: 3,
+          },
+          email: {
+            emailRegex: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+          },
+        },
+
+        // Define custom error messages
+        messages: {
+          username: {
+            required: "Please enter a username",
+            minlength: "Your username must be at least 3 characters long",
+          },
+        },
+
+        // Handle form submission if valid
+        submitHandler: function (form) {
+          alert("Form is valid and ready to be submitted!");
+          form.submit();
+        },
+
+        // Handle invalid form submission
+        invalidHandler: function (event, validator) {
+          alert(
+            "There are " +
+              validator.numberOfInvalids() +
+              " invalid fields. Please correct them and try again."
+          );
+        },
+      });
+
+      // Dynamically add rules to the email field
+      $("#email").rules("add", {
+        required: true,
+        email: true,
+        messages: {
+          required: "Please enter your email address",
+          email: "Please enter a valid email address",
+        },
+      });
+
+      // Dynamically remove the minlength rule from the username field
+      $("#username").rules("remove", "minlength");
+
+      /* $("#registerBtn").click(function (e) {
+        e.preventDefault();
+
+        // show whether the form is valid or not
+        alert($("#registerForm").valid());
+      });*/
+
+      // To add rule for all elements of specific class
+      /* jQuery.validator.addClassRules("special", {
+        required: true,
+        minlength: 5,
+      });*/
+
+      $("#registerBtn").click(function (e) {
+        // validate the form and log the result
+        //console.log(validator.form());
+        // validate a single element and log the result
+        // console.log(validator.element("#username"));
+        // reset the form validation
+        // validator.resetForm();
+        // show dynamic error message
+        // validator.showErrors({"username": "Custom error message for username"});
+        // count number of invalid fields
+        // console.log(validator.numberOfInvalids());
+        // destroy validation and remove all error messages and detach event handlers
+        // validator.destroy();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document Events Demo</title>
+  </head>
+
+  <body>
+    <button id="goFull">Go Fullscreen</button>
+    <button id="lockPointer">Lock Pointer</button>
+
+    <p>Select this text to trigger <b>selectstart</b>.</p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      $(function () {
+        // Request fullscreen
+        $("#goFull").on("click", function () {
+          document.documentElement.requestFullscreen().catch(() => {
+            console.log("Fullscreen request failed");
+          });
+        });
+
+        // Request pointer lock
+        $("#lockPointer").on("click", function () {
+          document.body.requestPointerLock?.();
+        });
+
+        // readystatechange
+        $(document).on("readystatechange", function () {
+          console.log("readystatechange:", document.readyState);
+        });
+
+        // load (fires when all resources finish loading)
+        $(window).on("load", function () {
+          console.log("load event fired");
+        });
+
+        // visibilitychange
+        $(document).on("visibilitychange", function () {
+          console.log("visibilitychange:", document.visibilityState);
+        });
+
+        // selectstart
+        $(document).on("selectstart", function () {
+          console.log("selectstart fired");
+        });
+
+        // fullscreenchange
+        $(document).on("fullscreenchange", function () {
+          console.log("fullscreenchange fired");
+        });
+
+        // fullscreenerror
+        $(document).on("fullscreenerror", function () {
+          console.log("fullscreenerror fired");
+        });
+
+        // pointerlockchange
+        $(document).on("pointerlockchange", function () {
+          console.log("pointerlockchange fired");
+        });
+
+        // pointerlockerror
+        $(document).on("pointerlockerror", function () {
+          console.log("pointerlockerror fired");
+        });
+      });
+    </script>
+  </body>
+</html>

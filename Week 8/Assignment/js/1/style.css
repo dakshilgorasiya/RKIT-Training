@@ -1,0 +1,50 @@
+/* Clock styles */
+#clockDiv {
+  display: flex;
+  justify-content: center;
+}
+
+/* User ID generator styles */
+#userIdDiv {
+  display: flex;
+  align-items: center;
+}
+
+#userIdInput {
+  margin: 2px;
+  padding: 4px;
+  border-radius: 5px;
+  cursor: text;
+  font-size: large;
+}
+
+#generateUserIdBtn {
+  margin: 2px;
+  padding: 6px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* String formatter styles */
+#stringInputDiv {
+  margin-top: 10px;
+}
+
+#inputDiv {
+  display: flex;
+  align-items: center;
+}
+
+#userInput {
+  margin: 2px;
+  padding: 4px;
+  border-radius: 5px;
+  cursor: text;
+}
+
+#formatIdBtn {
+  margin: 2px;
+  padding: 6px;
+  border-radius: 5px;
+  cursor: pointer;
+}

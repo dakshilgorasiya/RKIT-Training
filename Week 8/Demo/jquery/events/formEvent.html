@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Events Demo</title>
+  </head>
+  <body>
+    <form id="myForm">
+      <input type="text" id="textInput" placeholder="Type something" />
+
+      <br /><br />
+
+      <textarea id="textArea" placeholder="Type in textarea"></textarea>
+
+      <br /><br />
+
+      <button type="submit">Submit</button>
+      <button type="reset">Reset</button>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      $(function () {
+        // input events
+        $("#textInput").on("input", function () {
+          console.log("input event");
+        });
+        $("#textInput").on("change", function () {
+          console.log("change event");
+        });
+        $("#textInput").on("focus", function () {
+          console.log("focus event");
+        });
+        $("#textInput").on("blur", function () {
+          console.log("blur event");
+        });
+        $("#textInput").on("beforeinput", function () {
+          console.log("beforeinput event");
+        });
+        $("#textInput").on("select", function () {
+          console.log("select event");
+        });
+
+        // textarea events
+        $("#textArea").on("input", function () {
+          console.log("textarea input");
+        });
+        $("#textArea").on("change", function () {
+          console.log("textarea change");
+        });
+
+        // form events
+        $("#myForm").on("submit", function (e) {
+          e.preventDefault();
+          console.log("form submit");
+        });
+
+        $("#myForm").on("reset", function () {
+          console.log("form reset");
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="source" contenteditable="true">Copy text from this box.</div>
+    <div class="target" contenteditable="true">And paste it into this one.</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      $(function () {
+        $(".source").on("copy", function (event) {
+          const selection = document.getSelection();
+          event.originalEvent.clipboardData.setData(
+            "text/plain",
+            selection.toString().toUpperCase()
+          );
+          event.preventDefault();
+        });
+
+        $(".source").on("cut", function (event) {
+          event.preventDefault();
+
+          const message = "Cutting is not allowed!";
+          event.originalEvent.clipboardData.setData("text/plain", message);
+        });
+
+        $(".target").on("paste", function (event) {
+          const pasteData =
+            event.originalEvent.clipboardData.getData("text/plain");
+          console.log("Pasted data: ", pasteData);
+        });
+      });
+    </script>
+  </body>
+</html>

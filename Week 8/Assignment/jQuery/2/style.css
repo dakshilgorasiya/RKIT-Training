@@ -1,0 +1,35 @@
+#incrementBtn {
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#resetBtn {
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#countOutput {
+  display: block;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#console {
+  margin-top: 20px;
+  height: 200px;
+  width: 200px;
+  overflow-y: auto;
+  border: 2px solid black;
+  padding: 5px;
+  border-radius: 5px;
+  scroll-behavior: unset;
+}
+
+.log {
+  font-family: monospace;
+  padding: 0px;
+  margin: 0px;
+}

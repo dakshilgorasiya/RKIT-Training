@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn">Click me</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      $(function () {
+        $("#btn").on("click", function (e) {
+          console.log("Button clicked!");
+          console.log("Event type: ", e.type);
+          console.log("Event target: ", e.target);
+          console.log("Timestamp: ", e.timeStamp);
+          console.log("Is default prevented? ", e.isDefaultPrevented());
+          console.log("Event namespace: ", e.namespace);
+          console.log("Event originalEvent: ", e.originalEvent);
+          console.log("Event currentTarget: ", e.currentTarget);
+          console.log("Event pageX: ", e.pageX);
+          console.log("Event pageY: ", e.pageY);
+          console.log("Event which: ", e.which);
+          console.log("Event metaKey: ", e.metaKey);
+          console.log("Event relatedTarget: ", e.relatedTarget);
+          console.log("Event result: ", e.result);
+          console.log("Event data: ", e.data);
+          console.log("Event delegateTarget: ", e.delegateTarget);
+          console.log("Event isPropagationStopped: ", e.isPropagationStopped());
+          console.log(
+            "Event isImmediatePropagationStopped: ",
+            e.isImmediatePropagationStopped()
+          );
+        });
+
+        // Programmatically trigger the click event
+        $("#btn").trigger("click");
+
+        // off method to remove the event handler
+        $("#btn").off("click");
+
+        // one method to attach a one-time event handler
+        $("#btn").one("click", function (e) {
+          console.log("Button clicked once!");
+        });
+      });
+    </script>
+  </body>
+</html>

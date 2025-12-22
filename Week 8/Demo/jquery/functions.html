@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      const users = [
+        { name: "Alice", age: 25 },
+        { name: "Bob", age: 30 },
+        { name: "Charlie", age: 35 },
+      ];
+
+      const names = $.map(users, function (user) {
+        if (user.name == "Bob") {
+          return; // Skip Bob
+        }
+        return user.name;
+      });
+      console.log(names); // ["Alice", "Bob", "Charlie"]
+
+      const older = $.grep(users, function (user) {
+        return user.age > 28;
+      });
+      console.log(older); // [{ name: "Bob", age: 30 }, { name: "Charlie", age: 35 }]
+
+      const userConfig = {
+        theme: "dark",
+      };
+      const defaultConfig = {
+        theme: "light",
+        showNotifications: true,
+      };
+
+      // shallow copy and merge
+      const finalConfig = $.extend({}, defaultConfig, userConfig);
+      console.log(finalConfig); // { theme: "dark", showNotifications: true }
+
+      const finalConfigDeep = $.extend(true, {}, defaultConfig, userConfig);
+      console.log(finalConfigDeep); // { theme: "dark", showNotifications: true }
+
+      $.each(users, function (index, user) {
+        console.log(index, user.name);
+      });
+
+      const arr1 = [1, 2, 3];
+      const arr2 = [4, 5, 6];
+
+      const merged = $.merge(arr1, arr2);
+      console.log(merged); // [1, 2, 3, 4, 5, 6]
+    </script>
+  </body>
+</html>

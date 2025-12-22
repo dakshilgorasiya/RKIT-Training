@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="width: 100vw; height: 100vh">
+    <div>
+      <p id="text"></p>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      $(function () {
+        $(document).keydown(function (event) {
+          $("#text").text(
+            "Key: " +
+              event.key +
+              "\n" +
+              "Code: " +
+              event.code +
+              "\n" +
+              "Alt Key: " +
+              event.altKey +
+              "\n" +
+              "Ctrl Key: " +
+              event.ctrlKey +
+              "\n" +
+              "Shift Key: " +
+              event.shiftKey
+          );
+        });
+
+        $(document).keyup(function (event) {
+          console.log("Key released: " + event.key);
+        });
+
+        $(document).keypress(function (event) {
+          console.log("Key pressed: " + event.key);
+        });
+      });
+    </script>
+  </body>
+</html>

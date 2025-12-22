@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn">click me</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      $(function () {
+        $("#btn").on("customEvent", function (e, param1, param2) {
+          console.log("Custom event triggered!");
+          console.log("Parameter 1: ", param1);
+          console.log("Parameter 2: ", param2);
+        });
+
+        $("#btn").on("click", function () {
+          $("#btn").trigger("customEvent", ["value1", "value2"]);
+        });
+      });
+    </script>
+  </body>
+</html>

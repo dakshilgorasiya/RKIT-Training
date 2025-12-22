@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frame Event Demo</title>
+
+    <style>
+      iframe {
+        width: 300px;
+        height: 200px;
+        border: 2px solid black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <button id="reloadFrame">Reload iframe</button>
+
+    <br /><br />
+
+    <iframe src="./dragEvent.html" id="myFrame"></iframe>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      $(function () {
+        // iframe LOAD event
+        $("#myFrame").on("load", function (e) {
+          console.log("iframe loaded", e);
+        });
+
+        $("#reloadFrame").on("click", function () {
+          $("#myFrame").attr("src", "./dragEvent.html?reload=" + Date.now());
+        });
+
+        // Fired when the parent document's DOM is fully loaded
+        $(document).ready(function () {
+          console.log("Parent DOMContentLoaded fired");
+        });
+
+        // Fired when the parent window and all its resources are loaded
+        $(window).on("load", function () {
+          console.log("Parent load fired");
+        });
+      });
+    </script>
+  </body>
+</html>
