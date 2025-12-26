@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      function asyncTask() {
+        const dfd = $.Deferred();
+
+        dfd.notify("Task started...");
+        setTimeout(() => {
+          if (Math.random() > 0.5) {
+            dfd.resolve("Task completed successfully!");
+          } else {
+            dfd.reject("Task failed.");
+          }
+        }, 500);
+
+        return dfd;
+      }
+
+      const task = asyncTask();
+      // task.reject("Manually rejected"); // Force reject for demonstration
+      task
+        .done((message) => {
+          console.log("Success:", message);
+        })
+        .fail((error) => {
+          console.log("Error:", error);
+        })
+        .always(() => {
+          console.log("Task finished (either success or failure).");
+          console.log("Final state:", task.state());
+        })
+        .progress((status) => {
+          console.log("Progress:", status);
+        })
+        .then(
+          (message) => {
+            console.log("Then Success:", message);
+          },
+          (error) => {
+            console.log("Then Error:", error);
+          },
+          (status) => {
+            console.log("Then Progress:", status);
+          }
+        );
+      console.log(task.state());
+
+      const promise = task.promise();
+      // promise.resolve("Trying to resolve promise"); // ERROR: Cannot resolve a promise as it is read-only
+      promise
+        .done((message) => {
+          console.log("Promise Success:", message);
+        })
+        .fail((error) => {
+          console.log("Promise Error:", error);
+        });
+    </script>
+  </body>
+</html>

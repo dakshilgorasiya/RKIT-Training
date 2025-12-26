@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <input type="text" name="username" placeholder="username" />
+
+      <br />
+
+      <input type="password" name="password" placeholder="password" />
+
+      <br />
+
+      <input type="checkbox" name="rememberme" /> remember me
+
+      <br />
+
+      <input type="radio" name="gender" value="male" /> Male
+
+      <br />
+
+      <input type="radio" name="gender" value="female" /> Female
+
+      <br />
+
+      <select name="city">
+        <option value="rajkot">Rajkot</option>
+        <option value="ahemdabad">Ahemdabad</option>
+        <option value="surat">Surat</option>
+      </select>
+
+      <br />
+
+      <button type="submit" id="btn">Submit</button>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      $("#btn").click(function (e) {
+        e.preventDefault();
+
+        // Serialize form data in url encoded format
+        const formData = $("form").serialize();
+
+        console.log(formData);
+
+        const jsonObject = $("form").serializeArray();
+
+        console.log(jsonObject);
+
+        console.log(JSON.stringify(jsonObject));
+      });
+
+      const obj = {
+        name: "ABC",
+        age: 25,
+        city: "Rajkot",
+      };
+      const jsonString = JSON.stringify(obj);
+      console.log("JSON String:", jsonString);
+
+      const parsedObj = JSON.parse(jsonString);
+      console.log("Parsed Object:", parsedObj);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #box {
+        height: 100px;
+        width: 100px;
+        background-color: red;
+      }
+
+      #btn,
+      #finishBtn,
+      #hideBtn,
+      #showBtn {
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 10px;
+        cursor: pointer;
+      }
+
+      #hideDiv {
+        height: 100px;
+        width: 100px;
+        background-color: blue;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box"></div>
+
+    <button id="btn">Click me</button>
+
+    <button id="finishBtn">Finish</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <div id="hideContainer">
+      <div id="hideDiv"></div>
+
+      <button id="hideBtn">Hide</button>
+
+      <button id="showBtn">Show</button>
+    </div>
+
+    <script>
+      $("#btn").on("click", function () {
+        // move the box to the right by 1000px over 1 second after a delay of 500ms
+        /*$("#box")
+          .delay(500) // Wait for 500 milliseconds
+          .animate({ marginLeft: 1000 }, 10000, "swing", function () {
+            alert("Animation finished");
+          });*/
+
+        // adjust the opacity to 50% over 1 second
+        /*$("#box").fadeTo(10000, 0.5, "linear", function () {
+          alert("fadeTo completed");
+        });*/
+
+        // toggle the fade effect over 1 second
+        /*$("#box").fadeToggle(1000, "linear", function () {
+          alert("fadeToggle completed");
+        });*/
+
+        /*$("#box").hide(1000, function () {
+          alert("Box is now hidden");
+        });*/
+
+        $("#box").toggle(1000, function () {
+          alert("Toggle completed");
+        });
+      });
+
+      $("#finishBtn").on("click", function () {
+        // Immediately complete the current animation on the box
+        // $("#box").finish();
+
+        // Immediately stop the current animation on the box
+        $("#box").stop();
+      });
+
+      $("#hideBtn").on("click", function () {
+        // Hide the blue div over 1 second
+        // $("#hideDiv").hide(1000);
+
+        // Slide up the blue div over 1 second
+        $("#hideDiv").slideUp(1000);
+
+        // Toggle the slide effect on the blue div over 1 second
+        // $("#hideDiv").slideToggle(1000);
+      });
+
+      $("#showBtn").on("click", function () {
+        // Show the blue div over 1 second
+        //$("#hideDiv").show(1000);
+
+        // Slide down the blue div over 1 second
+        $("#hideDiv").slideDown(1000);
+      });
+    </script>
+  </body>
+</html>

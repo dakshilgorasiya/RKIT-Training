@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="m-5 border border-2 p-2 rounded">
+      <form id="myForm" class="d-grid gap-3">
+        <div>
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            required
+            class="rounded"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="mt-2">Email</label>
+          <input type="text" id="email" name="email" required class="rounded" />
+        </div>
+
+        <div>
+          <label for="gender">Gender</label>
+          <input type="radio" id="male" name="gender" value="male" />
+          <label for="male">Male</label>
+          <input type="radio" id="female" name="gender" value="female" />
+          <label for="female">Female</label>
+          <input type="radio" id="other" name="gender" value="other" />
+          <label for="other">Other</label>
+        </div>
+
+        <div>
+          <label for="hobby">Hobby</label>
+          <input type="checkbox" id="reading" name="hobby" value="reading" />
+          <label for="reading">Reading</label>
+          <input
+            type="checkbox"
+            id="traveling"
+            name="hobby"
+            value="traveling"
+          />
+          <label for="traveling">Traveling</label>
+          <input type="checkbox" id="swimming" name="hobby" value="swimming" />
+          <label for="swimming">Swimming</label>
+          <input type="checkbox" id="gaming" name="hobby" value="gaming" />
+          <label for="gaming">Gaming</label>
+        </div>
+
+        <div>
+          <label for="city">City</label>
+          <select id="city" name="city" class="rounded">
+            <option value="anand">Anand</option>
+            <option value="ahemdabad">Ahemdabad</option>
+            <option value="vadodara">Vadodara</option>
+            <option value="surat">Surat</option>
+            <option value="rajkot">Rajkot</option>
+          </select>
+        </div>
+
+        <div>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+    <h2 class="mt-5">Result:</h2>
+    <pre id="result"></pre>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      $(function () {
+        $("#myForm").on("submit", function (e) {
+          e.preventDefault();
+
+          const formData = $(this).serializeArray();
+
+          formData.forEach((field) => {
+            const { name, value } = field;
+            const existingField = formData.find(
+              (f) => f.name === name && f !== field
+            );
+
+            if (existingField) {
+              if (Array.isArray(existingField.value)) {
+                existingField.value.push(value);
+                formData.splice(formData.indexOf(field), 1);
+              } else {
+                existingField.value = [existingField.value, value];
+                formData.splice(formData.indexOf(field), 1);
+              }
+            }
+          });
+
+          $("#result").text(JSON.stringify(formData, null, 1));
+        });
+      });
+    </script>
+  </body>
+</html>

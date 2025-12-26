@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      // GET request using jQuery AJAX
+      $.ajax({
+        url: "https://jsonplaceholder.typicode.com/posts",
+        type: "GET",
+        success: function (data) {
+          console.log(data);
+        },
+        error: function (error) {
+          console.log("Error:", error);
+        },
+      });
+
+      // GET request using jQuery shorthand method
+      $.get("https://jsonplaceholder.typicode.com/postss", function (data) {
+        console.log("GET method data:", data);
+      }).fail(function (error) {
+        console.log("GET method error:", error);
+      });
+
+      // POST request using jQuery AJAX
+      $.ajax({
+        url: "https://jsonplaceholder.typicode.com/posts",
+        type: "POST",
+        data: JSON.stringify({
+          title: "foo",
+          body: "bar",
+          userId: 1,
+        }),
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+          console.log("POST method data:", data);
+        },
+        error: function (error) {
+          console.log("POST method error:", error);
+        },
+      });
+
+      // POST request using jQuery shorthand method
+      $.post(
+        "https://jsonplaceholder.typicode.com/posts",
+        {
+          title: "foo",
+          body: "bar",
+          userId: 1,
+        },
+        function (data) {
+          console.log("POST shorthand method data:", data);
+        }
+      ).fail(function (error) {
+        console.log("POST shorthand method error:", error);
+      });
+
+      // PUT request using jQuery AJAX
+      $.ajax({
+        url: "https://jsonplaceholder.typicode.com/posts/1",
+        type: "PUT",
+        data: JSON.stringify({
+          id: 1,
+          title: "updated title",
+          body: "updated body",
+          userId: 1,
+        }),
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+          console.log("PUT method data:", data);
+        },
+        error: function (error) {
+          console.log("PUT method error:", error);
+        },
+      });
+
+      // PATCH request using jQuery AJAX
+      $.ajax({
+        url: "https://jsonplaceholder.typicode.com/posts/1",
+        type: "PATCH",
+        data: JSON.stringify({
+          title: "patched title",
+        }),
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+          console.log("PATCH method data:", data);
+        },
+        error: function (error) {
+          console.log("PATCH method error:", error);
+        },
+      });
+
+      // DELETE request using jQuery AJAX
+      $.ajax({
+        url: "https://jsonplaceholder.typicode.com/posts/1",
+        type: "DELETE",
+        success: function (data) {
+          console.log("DELETE method data:", data);
+        },
+        error: function (error) {
+          console.log("DELETE method error:", error);
+        },
+      });
+
+      // GET request promise-based using jQuery AJAX
+      $.ajax("https://jsonplaceholder.typicode.com/posts/1", {
+        method: "GET",
+      })
+        .done(function (data) {
+          console.log("GET method data:", data);
+        })
+        .fail(function (error) {
+          console.log("GET method error:", error);
+        });
+
+      // GETJSON request using jQuery shorthand method
+      $.getJSON("https://jsonplaceholder.typicode.com/posts/1", function (data) {
+        console.log("GETJSON method data:", data);
+      }).fail(function (error) {
+        console.log("GETJSON method error:", error);
+      });
+    </script>
+  </body>
+</html>

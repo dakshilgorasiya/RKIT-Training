@@ -21,6 +21,7 @@ namespace Operations
         /// </summary>
         public OperationHelper()
         {
+            // TODO: Store secret key to secret valut and retrive from it.
             _keyGenerator = new KeyGenerator("SecreteKey");
         }
 

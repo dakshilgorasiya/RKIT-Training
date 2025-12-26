@@ -10,7 +10,21 @@ namespace ADO.NETDemo
 
             MySqlConnection connection = new MySqlConnection(connectionString);
 
-            string query = "SELECT T02F01, T02F02, SUM(T03F03) AS SUMSALARY FROM T01 INNER JOIN T02 ON T01F03 = T02F01 INNER JOIN T03 ON T01F01 = T03F01 WHERE T03F02 BETWEEN @STARTDATE AND @ENDDATE GROUP BY T02F01, T02F02";
+            string query = @"
+            SELECT 
+                T02F01, 
+                T02F02, 
+                SUM(T03F03) AS SUMSALARY 
+            FROM 
+                T01 
+                INNER JOIN T02 ON T01F03 = T02F01 
+                INNER JOIN T03 ON T01F01 = T03F01 
+            WHERE 
+                T03F02 BETWEEN @STARTDATE 
+                AND @ENDDATE 
+            GROUP BY 
+                T02F01, 
+                T02F02";
 
             MySqlCommand command = new MySqlCommand(query, connection);
 
