@@ -6,6 +6,8 @@
     <title>Document</title>
   </head>
   <body>
+    <input type="text" id="myInput" />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script>
@@ -27,6 +29,16 @@
         return user.age > 28;
       });
       console.log(older); // [{ name: "Bob", age: 30 }, { name: "Charlie", age: 35 }]
+
+      // Inverted filter
+      const younger = $.grep(
+        users,
+        function (user) {
+          return user.age > 28;
+        },
+        true
+      );
+      console.log(younger);
 
       const userConfig = {
         theme: "dark",
@@ -52,6 +64,53 @@
 
       const merged = $.merge(arr1, arr2);
       console.log(merged); // [1, 2, 3, 4, 5, 6]
+
+      console.log("_______________________________________");
+      console.log("$.isArray", $.isArray(arr1)); // depregated
+      console.log("$.isFunction", $.isFunction(fetch)); // depregated
+      console.log("$.isNumeric", $.isNumeric(10.5));
+      console.log("$.isPlainObject", $.isPlainObject({}));
+      console.log("$.param", $.param(defaultConfig));
+      console.log($.type(arr1)); // depregated
+
+      // makeArray
+      const obj = {
+        0: "dakshil",
+        1: "ahemdabad",
+        length: 2, // important to work
+      };
+      console.log($.makeArray(obj));
+
+      // to attach data to any dom element
+      $("#myInput").data("key", "value");
+      console.log($("#myInput").data("key"));
+
+      // current timestamp
+      console.log("$.now", $.now());
+
+      // empty function
+      console.log("$.noop", $.noop());
+
+      // bind
+      function greet() {
+        console.log("Hellow", this.name);
+      }
+      $.proxy(greet, { name: "dakshil" })();
+
+      // trim
+      console.log("$.trim", $.trim("   asdf   "));
+
+      // check is object has no own enumerable property if inherited property is there it will count it
+      const ob = {
+        name: "dakshil",
+      };
+      const ob2 = Object.create(ob);
+      console.log($.isEmptyObject(ob)); // false
+      console.log($.isEmptyObject(ob2)); // false
+      for (let key in ob2) {
+        console.log(key, ob2.hasOwnProperty(key));
+      }
+      console.log(ob2.name);
     </script>
   </body>
 </html>

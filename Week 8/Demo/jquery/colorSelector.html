@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="main-title">jQuery Practice</h1>
+
+    <div class="container">
+      <p class="intro">Welcome to jQuery</p>
+      <p class="intro highlight">Learn selectors</p>
+
+      <ul id="list">
+        <li class="item">Item 1</li>
+        <li class="item special">Item 2</li>
+        <li class="item">Item 3</li>
+        <li class="item">Item 4</li>
+        <li class="item">Item 5</li>
+        <li class="item">Item 6</li>
+        <li class="item">Item 7</li>
+        <li class="item">Item 8</li>
+        <li class="item">Item 9</li>
+      </ul>
+
+      <input type="text" name="username" />
+      <input type="text" name="username" />
+      <input type="text" name="username" disabled />
+      <input type="password" name="password" />
+      <input type="checkbox" checked />
+      <input type="checkbox" />
+      <input type="checkbox" />
+      <select>
+        <option>i1</option>
+        <option selected>i2</option>
+        <option>i3</option>
+        <option>i4</option>
+        <option>i5</option>
+      </select>
+
+      <div id="emptyDemo">
+        <div></div>
+        <div></div>
+        <p>hello</p>
+
+        <div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta
+            inventore nobis iusto nam ab sed mollitia. Aut veritatis voluptate
+            laborum quis nisi quos dolor corporis, iusto doloremque, natus, at
+            quo?
+          </p>
+        </div>
+      </div>
+
+      <a href="#" class="link">Home</a>
+      <a href="#" class="link active">About</a>
+
+      <div id="box">
+        <button>click</button>
+        <button id="btn">click</button>
+        <button>click</button>
+      </div>
+
+      <div id="visibilityDemo">
+        <div id="box1">Visible Div</div>
+        <div id="box2" style="display: none">Hidden Div</div>
+        <div id="box3" style="visibility: hidden">Invisible Div</div>
+      </div>
+
+      <form id="myForm" style="margin-top: 50px; border: 2px solid black">
+        <input type="text" value="name" />
+        <br />
+        <input type="password" />
+        <br />
+        <input type="checkbox" checked />
+        <br />
+        <input type="radio" name="g" checked />
+        <input type="radio" name="g" />
+        <br />
+        <select>
+          <option>India</option>
+          <option selected>USA</option>
+        </select>
+        <br />
+        <textarea></textarea>
+        <br />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      // position based
+      $("li:first").css("background-color", "cyan");
+      $("li:last").css("background-color", "violet");
+      $("li:eq(4)").css("background-color", "grey");
+      $("li:odd").css("background-color", "lightgrey");
+
+      // state based
+      $("input:checked").prop("disabled", true);
+      $("input:disabled").css("background-color", "red");
+      $("input:enabled").css("background-color", "cyan");
+
+      // content based
+      $("#emptyDemo :empty").remove();
+      $("#emptyDemo :empty").css({
+        "background-color": "black",
+        width: "5px",
+        height: "5px",
+      });
+      // containing hello
+      $("#emptyDemo :contains('hello')").css("border", "2px solid black");
+      // div that contain p
+      $("#emptyDemo div:has(p)").css("background-color", "orange");
+
+      // visiblity bases
+      $("#visibilityDemo:visible").css("background-color", "red");
+      $("#visibilityDemo:hidden");
+
+      // FORM selector
+
+      // all input
+      $("#myForm :input").css("padding", "10px");
+      $("#myForm :password").css("background-color", "red");
+      // other :checkbox, :radio
+
+      // select submit button
+      $("#myForm :submit").prop("disabled", true);
+    </script>
+  </body>
+</html>

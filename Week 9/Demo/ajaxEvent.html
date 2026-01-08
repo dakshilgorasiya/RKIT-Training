@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      // Triggered before an AJAX request is sent
+      $(document).on("ajaxSend", function (event, jqXHR, ajaxOptions) {
+        console.log("AJAX request sent:", ajaxOptions.url);
+      });
+
+      // Triggered when an AJAX request completes successfully
+      $(document).ajaxSuccess(function (event, jqXHR, ajaxOptions, data) {
+        console.log("AJAX success:", ajaxOptions.url, data);
+      });
+
+      // Triggered when an AJAX request fails
+      $(document).ajaxError(function (event, jqXHR, ajaxOptions, thrownError) {
+        console.log("AJAX error:", ajaxOptions.url, thrownError);
+      });
+
+      // Triggered when an AJAX request finishes (after success or error)
+      $(document).ajaxComplete(function (event, jqXHR, ajaxOptions) {
+        console.log("AJAX complete:", ajaxOptions.url);
+      });
+
+      $.ajax({
+        url: "https://jsonplaceholder.typicode.com/posts",
+        type: "GET",
+      });
+
+      $.ajax({
+        url: "https://jsonplaceholder.typicode.com/users",
+        type: "GET",
+      });
+    </script>
+  </body>
+</html>

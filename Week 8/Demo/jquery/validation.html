@@ -58,6 +58,8 @@
 
       // Initialize form validation on the registration form
       const validator = $("#registerForm").validate({
+        errorClass: "MyERROR",
+
         // Define validation rules
         rules: {
           username: {

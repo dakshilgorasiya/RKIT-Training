@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+        console.log(/abc/.test("hello abc world"));
+        console.log("hello abc world abc".match(/abc/g));
+        console.log("hello abc world abc".replace(/abc/g, "JS"));
+        console.log("hello abc".search(/abc/));
+
+        const email = "dakshil@yahoo.com";
+        const emailReg = /^\w+@\w+\.\w+$/
+        console.log(emailReg.test(email))
+    </script>
+</body>
+
+</html>

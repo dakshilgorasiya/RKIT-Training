@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>jQuery Selectors Practice</title>
+  </head>
+
+  <body>
+    <h1 id="main-title">jQuery Practice</h1>
+
+    <div class="container">
+      <p class="intro">Welcome to jQuery</p>
+      <p class="intro highlight">Learn selectors</p>
+
+      <ul id="list">
+        <li class="item">Item 1</li>
+        <li class="item special">Item 2</li>
+        <li class="item">Item 3</li>
+      </ul>
+
+      <input type="text" name="username" />
+      <input type="password" name="password" />
+      <input type="checkbox" checked />
+
+      <a href="#" class="link">Home</a>
+      <a href="#" class="link active">About</a>
+
+      <div id="box">
+        <button>click</button>
+        <button id="btn">click</button>
+        <button>click</button>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      // Select h1 tags
+      $("h1").css("background-color", "yellow");
+
+      // select by id
+      $("#main-title").css("border", "2px solid black");
+
+      // select element by class
+      $(".container").css("border", "2px solid black");
+
+      // select element with both class (intro highlight)
+      $(".intro.highlight").css("background-color", "cyan");
+
+      // select input with type=password
+      $("input[type='password']").css("border", "2px dotted red");
+
+      // select input with checked
+      $("input:checked").css("margin", "10px");
+
+      // select all li inside #list
+      $("#list li").css("background-color", "grey");
+
+      // select direct p children of container
+      $(".container > p").text("JQUERY");
+
+      // select all a in container
+      $(".container a").css("color", "green");
+
+      // select first li
+      $("#list li:first").css("background-color", "red");
+
+      // select third li
+      $("#list li:eq(2)").css("border", "2px solid black");
+
+      // get all siblibgs of li
+      $("#list li:eq(2)");
+
+
+      // If middle button clicked disable all other button
+      $("#btn").click((e) => {
+        $("#btn ~ *").prop("disabled", true)
+      })
+    </script>
+  </body>
+</html>

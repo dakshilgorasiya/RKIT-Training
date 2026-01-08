@@ -39,8 +39,13 @@
         // Programmatically trigger the click event
         $("#btn").trigger("click");
 
+        // depregated
+        //$("#btn").click();
+
         // off method to remove the event handler
         $("#btn").off("click");
+
+
 
         // one method to attach a one-time event handler
         $("#btn").one("click", function (e) {

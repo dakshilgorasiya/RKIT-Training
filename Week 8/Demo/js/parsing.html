@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const jsonData = {
+        "userId": 1,
+        "id": 1,
+        "title": "delectus aut autem",
+        "completed": false
+        };
+      
+      // second argument is replacer it can be function or array
+      // if array only that key will appear
+      // function receive key, value and returned value will appear
+      // third argument is space maximum is 10, negative will be treated as 0
+      const s1 = JSON.stringify(jsonData, ["id", "title", "other"], 1);
+      console.log(s1);
+      const s2 = JSON.stringify(jsonData, (key, value)=>{
+        if(key == "userId") return undefined
+        return value
+      })
+      console.log(s2)
+    </script>
+  </body>
+</html>
