@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 
 namespace AuthenticationAuthorizationWebAPI.Controllers
@@ -19,7 +20,9 @@ namespace AuthenticationAuthorizationWebAPI.Controllers
         [Route("secured")]
         public IHttpActionResult GetSecuredData()
         {
-            return Ok("You are authenticated!");
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            return Ok(identity.FindFirst(ClaimTypes.Role).Value);
         }
 
         /// <summary>

@@ -12,7 +12,7 @@ namespace ApiVersioningDemo.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            var query = Request.GetQueryNameValuePairs();
+            IEnumerable<KeyValuePair<string, string>> query = Request.GetQueryNameValuePairs();
             var versionParam = query.FirstOrDefault(q => q.Key == "api-version").Value;
 
             if(versionParam == "1")

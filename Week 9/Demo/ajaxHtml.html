@@ -13,7 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script>
-      $("#btn").click(function() {
+      /*$("#btn").click(function() {
         $.ajax({
           url: "ajaxScript.html",
           dataType: "HTML",
@@ -23,6 +23,11 @@
             $("#page").html(res)
           }
         })
+      })*/
+
+      // other way
+      $("#btn").click(function() {
+        $("#page").load("ajaxScript.html");
       })
     </script>
   </body>

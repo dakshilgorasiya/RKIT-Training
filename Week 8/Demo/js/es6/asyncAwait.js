@@ -11,7 +11,7 @@
 
 const p1 = new Promise((resolve, reject) => {
   setTimeout(() => {
-    let error = false;
+    let error = true;
 
     if (!error) {
       console.log("P1 done");
