@@ -76,6 +76,7 @@ namespace TodoListDemo.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.NameIdentifier, id.ToString())
             };
 
             var token = new JwtSecurityToken(

@@ -7,8 +7,6 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Configuration;
-using System.Web.Http;
-
 
 [assembly: OwinStartup(typeof(TodoListDemo.Startup))]
 
@@ -18,9 +16,6 @@ namespace TodoListDemo
     {
         public void Configuration(IAppBuilder app)
         {
-            HttpConfiguration config = new HttpConfiguration();
-            config.MapHttpAttributeRoutes();
-
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
             var issuer = ConfigurationManager.AppSettings["jwtIssuer"];
             var audience = ConfigurationManager.AppSettings["jwtAudience"];
@@ -31,8 +26,8 @@ namespace TodoListDemo
                 AuthenticationMode = AuthenticationMode.Active,
                 TokenValidationParameters = new TokenValidationParameters()
                 {
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = issuer,
                     ValidAudience = audience,
@@ -40,7 +35,6 @@ namespace TodoListDemo
                 },
             });
 
-            app.UseWebApi(config);
         }
     }
 }

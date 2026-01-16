@@ -15,7 +15,7 @@ namespace TodoListDemo.Controllers
     public class TodoController : ApiController
     {
         [Route("add")]
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public IHttpActionResult AddTodo(TodoDTO dto)
         {
@@ -25,11 +25,9 @@ namespace TodoListDemo.Controllers
             todo.T01F02 = dto.Title;
             todo.T01F03 = false;
 
-            //string userId = identity.FindFirst("Id").Value;
+            string userId = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            //todo.T01F04 = int.Parse(userId);
-
-            todo.T01F04 = 1;
+            todo.T01F04 = int.Parse(userId);
 
             using (var db = WebApiApplication.DbFactory.OpenDbConnection())
             {
@@ -41,10 +39,13 @@ namespace TodoListDemo.Controllers
 
 
         [Route("toggleTodo")]
+        [Authorize]
         [HttpPatch]
         public IHttpActionResult toggleTodo(int id)
         {
-            int userId = 1;
+            var identity = (ClaimsIdentity)User.Identity;
+            string userIdString = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            int userId = int.Parse(userIdString);
             using (var db = WebApiApplication.DbFactory.Open())
             {
                 TodT01 todo = db.Single<TodT01>(t => t.T01F01 == id && t.T01F04 == userId);
@@ -64,9 +65,12 @@ namespace TodoListDemo.Controllers
 
         [Route("removeTodo")]
         [HttpDelete]
+        [Authorize]
         public IHttpActionResult removeTodo(int id)
         {
-            int userId = 1;
+            var identity = (ClaimsIdentity)User.Identity;
+            string userIdString = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            int userId = int.Parse(userIdString);
             using (var db = WebApiApplication.DbFactory.Open())
             {
                 bool isExists = db.Exists<TodT01>(t => t.T01F01 == id);
@@ -85,10 +89,13 @@ namespace TodoListDemo.Controllers
 
         [Route("updateTodo")]
         [HttpPut]
+        [Authorize]
         public IHttpActionResult updateTodo(int id, TodoDTO todoDTO)
         {
-            int userId = 1;
-            using(var db = WebApiApplication.DbFactory.Open())
+            var identity = (ClaimsIdentity)User.Identity;
+            string userIdString = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            int userId = int.Parse(userIdString);
+            using (var db = WebApiApplication.DbFactory.Open())
             {
                 TodT01 todo = db.Single<TodT01>(t => t.T01F01 == id && t.T01F04 == userId);
 
@@ -107,9 +114,12 @@ namespace TodoListDemo.Controllers
 
         [HttpGet]
         [Route("GetTodos")]
+        [Authorize]
         public IHttpActionResult getTodos()
         {
-            int userId = 1;
+            var identity = (ClaimsIdentity)User.Identity;
+            string userIdString = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            int userId = int.Parse(userIdString);
             using (var db = WebApiApplication.DbFactory.Open())
             {
                 IEnumerable<TodT01> todos = db.Select<TodT01>(t => t.T01F04 == userId);
