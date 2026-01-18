@@ -14,6 +14,7 @@ namespace LogginDemo
     {
         protected void Application_Start()
         {
+            // Configure NLog
             LogManager.Setup().LoadConfigurationFromFile("Nlog.config");
 
             AreaRegistration.RegisterAllAreas();

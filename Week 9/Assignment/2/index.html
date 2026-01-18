@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -78,33 +78,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <script>
-      $(function () {
-        $("#myForm").on("submit", function (e) {
-          e.preventDefault();
-
-          const formData = $(this).serializeArray();
-
-          formData.forEach((field) => {
-            const { name, value } = field;
-            const existingField = formData.find(
-              (f) => f.name === name && f !== field
-            );
-
-            if (existingField) {
-              if (Array.isArray(existingField.value)) {
-                existingField.value.push(value);
-                formData.splice(formData.indexOf(field), 1);
-              } else {
-                existingField.value = [existingField.value, value];
-                formData.splice(formData.indexOf(field), 1);
-              }
-            }
-          });
-
-          $("#result").text(JSON.stringify(formData, null, 1));
-        });
-      });
-    </script>
+    <script src="./scipt.js"></script>
   </body>
 </html>

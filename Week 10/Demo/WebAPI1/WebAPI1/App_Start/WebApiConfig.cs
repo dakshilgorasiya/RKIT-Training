@@ -14,6 +14,7 @@ namespace WebAPI1
             // origin, header, method
             var cors = new EnableCorsAttribute("http://127.0.0.2:5503", "*", "POST,PUT, DELETE");
 
+            // Enable CORS
             config.EnableCors(cors);
             //config.EnableCors();
 

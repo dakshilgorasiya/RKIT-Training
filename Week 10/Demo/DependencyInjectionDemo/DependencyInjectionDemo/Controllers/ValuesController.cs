@@ -10,10 +10,12 @@ namespace DependencyInjectionDemo.Controllers
 {
     public class ValuesController : ApiController
     {
+        // Dependency injection via constructor
         private readonly IMessageService _messageService;
 
         public ValuesController(IMessageService messageService)
         {
+            // Assign the injected service to a private field
             _messageService = messageService;
         }
 
@@ -26,6 +28,7 @@ namespace DependencyInjectionDemo.Controllers
         // GET api/values/5
         public string Get(int id)
         {
+            // Use the injected service to get a message
             return _messageService.GetMessage();
         }
 

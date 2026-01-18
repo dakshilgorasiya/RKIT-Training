@@ -8,13 +8,16 @@ using System.Web.Http;
 
 namespace AuthenticationAuthorizationWebAPI.Controllers
 {
+    /// <summary>
+    /// A demo controller to show secured api endpoints
+    /// </summary>
     [RoutePrefix("api/data")]
     public class DataController : ApiController
     {
         /// <summary>
         /// Secured api
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Role of user</returns>
         [Authorize]
         [HttpGet]
         [Route("secured")]
@@ -28,7 +31,7 @@ namespace AuthenticationAuthorizationWebAPI.Controllers
         /// <summary>
         /// Admin only api
         /// </summary>
-        /// <returns></returns>
+        /// <returns>TEXT</returns>
         [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("admin-only")]

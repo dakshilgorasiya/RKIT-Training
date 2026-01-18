@@ -5,11 +5,13 @@ const users = [
   { name: "Alice", role: "user" },
 ];
 
+// Filter admins
 const admins = $.grep(users, function (user) {
   return user.role === "admin";
 });
 console.log(admins);
 
+// Map admin names
 const adminNames = $.map(admins, function (admin) {
   return admin.name;
 });
@@ -24,5 +26,6 @@ const userSettings = {
   theme: "light",
 }
 
+// Merge settings
 const finalSettings = $.extend({}, defaultSettings, userSettings);
 console.log(finalSettings);

@@ -13,11 +13,14 @@ namespace ExceptionHandlingDemo
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+
+            // Handle exceptions globally using a custom exception handler
             config.Services.Replace(
                     typeof(IExceptionHandler),
                     new GlobalExceptionHandler()
                 );
 
+            // Alternatively, we can use an exception filter
             // To enable globally
             // config.Filters.Add(new GlobalExceptionFilter());
 

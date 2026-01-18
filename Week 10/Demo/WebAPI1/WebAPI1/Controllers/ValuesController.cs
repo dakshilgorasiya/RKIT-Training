@@ -23,6 +23,7 @@ namespace WebAPI1.Controllers
         }
 
         // POST api/values
+        // To enable cors only for this action method can also be used at controller level
         [EnableCors(origins: "http://127.0.0.1:5503", headers:"*", methods:"*")]
         public string Post([FromBody] string value)
         {

@@ -12,17 +12,31 @@ using NLog;
 
 namespace TodoListDemo
 {
+    /// <summary>
+    /// A class to configure and start the Web API application
+    /// </summary>
     public class WebApiApplication : System.Web.HttpApplication
     {
+        // Logger to log information
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        /// <summary>
+        /// Application start event handler
+        /// </summary>
         protected void Application_Start()
         {
-            LogManager.Setup().LoadConfigurationFromFile("Nlog.config");
+            // Configure NLog from the configuration file
+            LogManager.Setup().LoadConfigurationFromFile("NLog.config");
+            Logger.Info("Application starting...");
 
+            // Get the connection string from configuration
             string connStr = ConfigurationManager
                 .ConnectionStrings["DefaultConnection"].ConnectionString;
 
+            // Set the dialect provider for OrmLite to MySQL
             OrmLiteConfig.DialectProvider = MySqlDialect.Provider;
 
+            // Initialize the database factory
             DbFactory = new OrmLiteConnectionFactory(
             connStr,
             MySqlDialect.Provider
@@ -33,8 +47,13 @@ namespace TodoListDemo
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Logger.Info("Application started successfully");
         }
 
+        /// <summary>
+        /// A static property to hold the OrmLite connection factory
+        /// </summary>
         public static OrmLiteConnectionFactory DbFactory { get; private set; }
     }
 }

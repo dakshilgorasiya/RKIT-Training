@@ -1,3 +1,4 @@
+// Custom validator for strong password
 $.validator.addMethod(
   "passwordStrong",
   function (value, element) {
@@ -11,6 +12,7 @@ $.validator.addMethod(
   "Password is not strong enough."
 );
 
+// Form validation rules and messages
 $("#registerForm").validate({
   rules: {
     username: {

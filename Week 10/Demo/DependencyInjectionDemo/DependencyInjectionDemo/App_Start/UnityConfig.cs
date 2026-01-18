@@ -11,9 +11,10 @@ namespace DependencyInjectionDemo
     {
         public static void RegisterComponents()
         {
-			var container = new UnityContainer();
+            // A container is a logical unit that holds registrations of types
+            var container = new UnityContainer();
 
-            // transient
+            // transient ( default )
             container.RegisterType<IMessageService, MessageService>();
             //container.RegisterType<IMessageService, MessageService>(new TransientLifetimeManager());
 
@@ -23,7 +24,8 @@ namespace DependencyInjectionDemo
 
             // scoped
             //container.RegisterType<IMessageService, MessageService>(new HierarchicalLifetimeManager());
-            
+
+            // Set the dependency resolver for Web API to use Unity
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }

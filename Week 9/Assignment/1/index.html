@@ -4,29 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-
-    <style>
-      #box {
-        height: 200px;
-        width: 200px;
-        background-color: red;
-      }
-    </style>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <div id="box"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <script>
-      $(function () {
-        $("#box").click(function () {
-          $(this).fadeOut(2000, function () {
-            alert("Box is gone");
-            $(this).fadeIn();
-          });
-        });
-      });
+    <script src="./script.js">
+      
     </script>
   </body>
 </html>

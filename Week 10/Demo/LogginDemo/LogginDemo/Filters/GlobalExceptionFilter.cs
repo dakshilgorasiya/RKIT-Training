@@ -7,6 +7,7 @@ public class GlobalExceptionFilter : ExceptionFilterAttribute
 
     public override void OnException(HttpActionExecutedContext context)
     {
+        // Log the exception details
         logger.Error(context.Exception, "Unhandled exception");
     }
 }

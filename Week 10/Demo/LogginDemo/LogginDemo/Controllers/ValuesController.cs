@@ -10,11 +10,13 @@ namespace LogginDemo.Controllers
 {
     public class ValuesController : ApiController
     {
+        // Logger instance
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         // GET api/values
         public IEnumerable<string> Get()
         {
+            // Log an informational message
             logger.Info("Get values api called");
             return new string[] { "value1", "value2" };
         }

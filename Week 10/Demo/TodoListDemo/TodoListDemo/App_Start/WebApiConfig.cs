@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using TodoListDemo.Handlers;
+using TodoListDemo.Filters;
 
 namespace TodoListDemo
 {
@@ -12,10 +13,15 @@ namespace TodoListDemo
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            
+            // Add Exception handler
             config.Services.Replace(
                     typeof(IExceptionHandler),
                     new GlobalExceptionHandler()
                 );
+
+            // Add exception filter globally
+            config.Filters.Add(new GlobalExceptionFilter());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

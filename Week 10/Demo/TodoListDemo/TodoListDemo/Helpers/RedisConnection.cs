@@ -1,22 +1,25 @@
 ﻿using StackExchange.Redis;
 using System;
+using System.Configuration;
 
 /// <summary>
-/// A helper class to manage Redis connection.
+/// A static class to manage Redis connection
 /// </summary>
-public static class RedisConnectionHelper
+public static class RedisConnection
 {
     /// <summary>
-    /// A lazy-initialized singleton instance of ConnectionMultiplexer.
+    /// A lazy-initialized ConnectionMultiplexer instance
     /// </summary>
     private static readonly Lazy<ConnectionMultiplexer> lazyConnection =
         new Lazy<ConnectionMultiplexer>(() =>
         {
-            return ConnectionMultiplexer.Connect("localhost:6379");
+            return ConnectionMultiplexer.Connect(
+                ConfigurationManager.AppSettings["RedisConnection"]
+            );
         });
 
     /// <summary>
-    /// A public property to get the Redis connection instance.
+    /// A property to get the Redis connection
     /// </summary>
     public static ConnectionMultiplexer Connection => lazyConnection.Value;
 }

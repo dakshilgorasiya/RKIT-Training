@@ -8,16 +8,26 @@ using System.Web.Http;
 
 namespace RedisDemo.Controllers
 {
+    /// <summary>
+    /// A simple API controller to demonstrate Redis caching.
+    /// </summary>
     public class ValuesController : ApiController
     {
-        // GET api/values
+        // Redis database instance   
         private readonly IDatabase _redis;
 
+        // GET api/values
+        // Constructor to initialize Redis connection
         public ValuesController()
         {
+            // Get Redis database instance
             _redis = RedisConnectionHelper.Connection.GetDatabase();
         }
 
+        /// <summary>
+        /// A simple GET method to demonstrate Redis caching.
+        /// </summary>
+        /// <returns>200</returns>
         public IHttpActionResult Get()
         {
             string cacheKey = "ValueData";

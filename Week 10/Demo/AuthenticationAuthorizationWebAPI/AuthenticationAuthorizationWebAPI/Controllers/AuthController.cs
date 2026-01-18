@@ -36,18 +36,27 @@ namespace AuthenticationAuthorizationWebAPI.Controllers
             return Unauthorized();
         }
 
+        /// <summary>
+        /// A private method to create JWT token
+        /// </summary>
+        /// <param name="username">username of user</param>
+        /// <param name="role">role of user</param>
+        /// <returns>JWT token in string format</returns>
         private string CreateJwtToken(string username, string role)
         {
+            // Configuration values for JWT
             var secret = ConfigurationManager.AppSettings["jwtSecret"];
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
+            // Claims for JWT
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, username),
                 new Claim(ClaimTypes.Role, role),
             };
 
+            // Create the token
             var token = new JwtSecurityToken(
                 issuer: ConfigurationManager.AppSettings["jwtIssuer"],
                 audience: ConfigurationManager.AppSettings["jwtAudience"],
@@ -56,6 +65,7 @@ namespace AuthenticationAuthorizationWebAPI.Controllers
                 signingCredentials: credentials
                 );
 
+            // Return the serialized token
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
