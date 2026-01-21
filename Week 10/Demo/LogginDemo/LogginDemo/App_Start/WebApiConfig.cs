@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogginDemo.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -11,6 +12,7 @@ namespace LogginDemo
         {
             // Web API configuration and services
             config.Filters.Add(new GlobalExceptionFilter());
+            config.Filters.Add(new LoggingFilter());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

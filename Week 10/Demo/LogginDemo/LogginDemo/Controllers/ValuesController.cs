@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using NLog;
+using NLog.Config;
 
 namespace LogginDemo.Controllers
 {
@@ -13,11 +14,20 @@ namespace LogginDemo.Controllers
         // Logger instance
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
+        private readonly Logger _controllerLogger;
+
+        public ValuesController()
+        {
+            var configPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ValueLogging.config");
+            var factory = new LogFactory(new XmlLoggingConfiguration(configPath));
+            _controllerLogger = factory.GetLogger("ControllerLogger");
+        }
+
         // GET api/values
         public IEnumerable<string> Get()
         {
             // Log an informational message
-            logger.Info("Get values api called");
+            _controllerLogger.Info("Get values api called");
             return new string[] { "value1", "value2" };
         }
 
