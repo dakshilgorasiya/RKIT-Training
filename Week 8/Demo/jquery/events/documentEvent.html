@@ -46,6 +46,10 @@
         $(document).on("selectstart", function () {
           console.log("selectstart fired");
         });
+        $(document).on("selectstart", function () {
+          console.log("selectstart fired2");
+        });
+        $(document).off("selectstart");
 
         // fullscreenchange
         $(document).on("fullscreenchange", function () {

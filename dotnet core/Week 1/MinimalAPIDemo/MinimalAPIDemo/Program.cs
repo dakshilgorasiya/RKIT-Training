@@ -1,3 +1,12 @@
+using Microsoft.AspNetCore.Mvc;
+using MinimalAPIDemo.Repository;
+using MinimalAPIDemo.Endpoints;
+using MinimalAPIDemo.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using MinimalAPIDemo.Filters;
 
 namespace MinimalAPIDemo
 {
@@ -8,13 +17,63 @@ namespace MinimalAPIDemo
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddAuthorization();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                // Add JWT Bearer auth definition
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Enter JWT token like: Bearer {your_token}"
+                });
+
+                // Apply JWT auth globally to all endpoints
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
+            });
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("VtV2wlXcVuSpI3UIJ0IDJz8U6ipkZkeIZmAYcxqV3E33XLqzsgwSyQMvHOKi8Ri2"))
+                };
+            });
+
+            builder.Services.AddAuthorization();
+
+            builder.Services.AddSingleton<IBookRepository, BookRepository>();
 
             var app = builder.Build();
+
+            app.UseExceptionHandler("/error");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -27,25 +86,42 @@ namespace MinimalAPIDemo
 
             app.UseAuthorization();
 
-            var summaries = new[]
+            app.MapGet("/error", (HttpContext httpContext) =>
             {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+                var exceptionHandler = httpContext.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>();
+                var exception = exceptionHandler?.Error;
 
-            app.MapGet("/weatherforecast", (HttpContext httpContext) =>
+                return Results.Problem(
+                    detail: exception?.Message,
+                    title: "An unexpected error occur",
+                    statusCode: 500,
+                    instance: httpContext.Request.Path
+                    );
+            });
+
+            app.MapGet("/hello", () =>
             {
-                var forecast = Enumerable.Range(1, 5).Select(index =>
-                    new WeatherForecast
-                    {
-                        Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                        TemperatureC = Random.Shared.Next(-20, 55),
-                        Summary = summaries[Random.Shared.Next(summaries.Length)]
-                    })
-                    .ToArray();
-                return forecast;
-            })
-            .WithName("GetWeatherForecast")
-            .WithOpenApi();
+                throw new Exception("Exception raised");
+            });
+
+            app.MapPost("/createBook", BookEndpoints.CreateBook).AddEndpointFilter<GlobalValidationFilter>();
+            app.MapGet("/getAllBooks", BookEndpoints.GetAllBooks).RequireAuthorization();
+            app.MapDelete("/deleteBook/{id}", BookEndpoints.DeleteBook);
+            app.MapGet("/getBookById/{id}", BookEndpoints.GetBookById).AddEndpointFilter(new JwtAuthFilter());
+            app.MapPatch("/updateBook/{id}", BookEndpoints.UpdateBook).AddEndpointFilter<GlobalValidationFilter>();
+
+            app.MapPost("/login", AuthEndpoints.login);
+
+            app.MapGet("/validationerror", () =>
+            {
+                var errors = new Dictionary<string, string[]>
+                {
+                    { "Name", new[] { "Name is required." } },
+                    { "Age", new[] { "Age must be > 0." } }
+                };
+
+                return Results.ValidationProblem(errors);
+            });
 
             app.Run();
         }
