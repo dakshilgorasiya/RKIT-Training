@@ -26,11 +26,11 @@ namespace RoutingDemo
             app.UseAuthorization();
 
 
-            /*app.MapControllerRoute(
-                name: "value",
-                pattern: "api/value/{action}/{id:int?}",
-                defaults: new { controller = "values" }
-                );*/
+            //app.MapControllerRoute(
+            //    name: "value",
+            //    pattern: "api/value/{action}/{id:int?}",
+            //    defaults: new { controller = "values" }
+            //    );
 
             app.MapControllerRoute(
                 name: "valueMultiple",
