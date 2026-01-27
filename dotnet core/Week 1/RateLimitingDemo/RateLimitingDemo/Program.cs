@@ -1,5 +1,6 @@
 
 using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 namespace RateLimitingDemo
 {
@@ -19,6 +20,7 @@ namespace RateLimitingDemo
 
             builder.Services.AddRateLimiter(options =>
             {
+                // Fixed
                 options.AddFixedWindowLimiter("fixed", limiterOptions =>
                 {
                     limiterOptions.PermitLimit = 5;
@@ -27,6 +29,7 @@ namespace RateLimitingDemo
                     limiterOptions.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
                 });
 
+                // Sliding window
                 options.AddSlidingWindowLimiter("sliding", limiterOptions =>
                 {
                     limiterOptions.PermitLimit = 6;
@@ -36,6 +39,7 @@ namespace RateLimitingDemo
                     limiterOptions.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
                 });
 
+                // Token bucket
                 options.AddTokenBucketLimiter("tokenBucket", limiterOptions =>
                 {
                     limiterOptions.TokenLimit = 10;
@@ -46,6 +50,7 @@ namespace RateLimitingDemo
                     limiterOptions.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
                 });
 
+                // Concurrency
                 options.AddConcurrencyLimiter("concurrency", limiterOptions =>
                 {
                     limiterOptions.PermitLimit = 2;
@@ -53,12 +58,52 @@ namespace RateLimitingDemo
                     limiterOptions.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
                 });
 
+                // Ip based
                 options.AddPolicy("fixed_per_ip", context =>
                 {
                     var clientIp = context.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
 
-                    return R
+                    return RateLimitPartition.GetFixedWindowLimiter(clientIp, key =>
+                    {
+                        return new FixedWindowRateLimiterOptions
+                        {
+                            PermitLimit = 2,
+                            Window = TimeSpan.FromMinutes(1),
+                            QueueLimit = 2,
+                            QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                        };
+                    });
                 });
+
+                // global rate limiter
+                options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
+                {
+                    var ip = context.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
+
+                    return RateLimitPartition.GetFixedWindowLimiter(ip, _ =>
+                        new FixedWindowRateLimiterOptions
+                        {
+                            PermitLimit = 2,
+                            Window = TimeSpan.FromMinutes(1),
+                            QueueLimit = 0,
+                            QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                        });
+                });
+
+                options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+                options.OnRejected = async (context, token) =>
+                {
+                    context.HttpContext.Response.ContentType = "application/json";
+
+                    await context.HttpContext.Response.WriteAsync(
+                        """
+                        {
+                          "message": "Too many requests. Please try again later."
+                        }
+                        """
+                    );
+                };
             });
 
 

@@ -9,7 +9,7 @@ namespace RateLimitingDemo.Controllers
     public class ValuesController : ControllerBase
     {
         [HttpGet("fixed")]
-        [EnableRateLimiting("fixed")]
+        [EnableRateLimiting("fixed_per_ip")]
         public IActionResult Fixed()
         {
             return Ok("Fixed");

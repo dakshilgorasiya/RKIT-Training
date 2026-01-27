@@ -46,9 +46,20 @@ namespace MiddlewareDemo
             });
 
             // Class middleware
-            
-            app.UseMiddleware<LoggingMiddleware>();
+
+            // app.UseMiddleware<LoggingMiddleware>();
             app.UseMiddleware<NLogMiddleware>();
+
+            //app.UseWhen(context => context.Request.Path == "/WeatherForecast", appBuilder =>
+            //{
+            //    appBuilder.UseMiddleware<LoggingMiddleware>();
+            //});
+
+            // Execute only for specific header
+            app.UseWhen(context => context.Request.Headers.TryGetValue("X-Version", out var version) && version == "2", appBuilder =>
+            {
+                appBuilder.UseMiddleware<LoggingMiddleware>();
+            });
 
             // using extension methods
             // app.UseLogging();

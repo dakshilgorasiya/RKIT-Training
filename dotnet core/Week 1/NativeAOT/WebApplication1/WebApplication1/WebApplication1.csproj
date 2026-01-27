@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+	<PropertyGroup>
+		<PublishAot>true</PublishAot>
+		<TrimMode>link</TrimMode>
+		<!-- optional but recommended -->
+		<SelfContained>true</SelfContained>
+		<!-- optional: produces EXE with runtime -->
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<!-- or linux-x64 -->
+	</PropertyGroup>
+
+
+</Project>
