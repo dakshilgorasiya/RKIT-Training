@@ -15,7 +15,7 @@
 <body>
   <ul id="list"></ul>
 
-  <button>Add random</button>
+  <button id="btn">Add random</button>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
@@ -29,8 +29,8 @@
         });
       
       $("#list").append(button);
-      $("button").focus();
-      $("button").focusout();
+      $("#btn").focus();
+      $("#btn").blur();
     })
   </script>
 </body>
