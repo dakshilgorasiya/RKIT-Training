@@ -1,0 +1,338 @@
+-- SELECT QUERY
+-- Get all data of Department
+SELECT
+	*
+FROM
+	EMPLOYEE.EMPT01;
+
+-- WHERE CLAUSE
+-- Get details of department having id 1
+SELECT
+	T01F01,
+	T01F02,
+	T01F03
+FROM
+	EMPLOYEE.EMPT01
+WHERE
+	T01F01 = 1;
+
+-- ORDER BY CLAUSE
+-- List all employee in asending order
+SELECT
+	T02F01,
+	T02F02,
+	T02F03
+FROM
+	EMPLOYEE.EMPT02
+ORDER BY
+	T02F02,
+	T02F03;
+
+-- GROUP BY CALUSE
+-- Count number of employee department wise
+SELECT
+	T01F02,
+	COUNT(T02F01) AS NUMBER_OF_EMPLOYEE
+FROM
+	EMPLOYEE.EMPT02
+	INNER JOIN EMPLOYEE.EMPT01 ON (T01F01 = T02F08)
+GROUP BY
+	T02F08,
+	T01F02;
+
+-- HAVING CLAUSE
+-- Get department having total salary greater than 100000
+SELECT
+	T01F02,
+	SUM(T02F07)
+FROM
+	EMPLOYEE.EMPT02
+	INNER JOIN EMPLOYEE.EMPT01 ON (T01F01 = T02F08)
+GROUP BY
+	T02F08,
+	T01F02
+HAVING
+	SUM(T02F07) > 100000;
+
+-- LIMIT OFFSET
+-- To fetch employee with third highest salary
+SELECT
+	T02F02,
+	T02F01,
+	T02F07
+FROM
+	EMPLOYEE.EMPT02
+ORDER BY
+	T02F07
+LIMIT
+	1
+OFFSET
+	2;
+
+-- SUM, COUNT, AVG, MIN, MAX
+-- SUM
+-- Get department having total salary greater than 100000
+SELECT
+	T01F02,
+	SUM(T02F07)
+FROM
+	EMPLOYEE.EMPT02
+	INNER JOIN EMPLOYEE.EMPT01 ON (T01F01 = T02F08)
+GROUP BY
+	T02F08,
+	T01F02;
+
+-- COUNT
+-- Count number of employee department wise
+SELECT
+	T01F02,
+	COUNT(T02F01) AS NUMBER_OF_EMPLOYEE
+FROM
+	EMPLOYEE.EMPT02
+	INNER JOIN EMPLOYEE.EMPT01 ON (T01F01 = T02F08)
+GROUP BY
+	T02F08,
+	T01F02;
+
+-- AVG
+-- To calculate average salary of department
+SELECT
+	T01F02,
+	AVG(T02F07)
+FROM
+	EMPLOYEE.EMPT02
+	INNER JOIN EMPLOYEE.EMPT01 ON (T01F01 = T02F08)
+GROUP BY
+	T02F08,
+	T01F02;
+
+-- MIN, MAX
+-- To find minimum and maximum salary of department
+SELECT
+	T01F02,
+	MIN(T02F07),
+	MAX(T02F07)
+FROM
+	EMPLOYEE.EMPT02
+	INNER JOIN EMPLOYEE.EMPT01 ON (T01F01 = T02F08)
+GROUP BY
+	T02F08,
+	T01F02;
+
+-- INNER JOIN
+-- To list employees with their department name
+SELECT
+	T02F02,
+	T02F03,
+	T01F02
+FROM
+	EMPLOYEE.EMPT01
+	INNER JOIN EMPLOYEE.EMPT02 ON T01F01 = T02F08;
+
+-- LEFT JOIN
+-- To list all employee (also who is not associated with any department)
+SELECT
+	T02F02,
+	T02F03,
+	T01F02
+FROM
+	EMPLOYEE.EMPT02
+	LEFT JOIN EMPLOYEE.EMPT01 ON T01F01 = T02F08;
+
+-- RIGHT JOIN
+-- To list department with no employee
+SELECT
+	T01F02
+FROM
+	EMPLOYEE.EMPT02
+	RIGHT OUTER JOIN EMPLOYEE.EMPT01 ON T01F01 = T02F08
+WHERE
+	T02F01 IS NULL;
+
+-- CROSS JOIN
+-- To list employee with their department name
+SELECT
+	T02F02,
+	T02F03,
+	T01F02
+FROM
+	EMPLOYEE.EMPT01
+	CROSS JOIN EMPLOYEE.EMPT02
+WHERE
+	T01F01 = T02F08;
+
+	-- To find list of employee having salary more than average
+SELECT
+	T02F01,
+	T02F02,
+	T02F03,
+	T02F07
+FROM
+	EMPLOYEE.EMPT02
+WHERE
+	T02F07 > (
+		SELECT
+			AVG(T02F07)
+		FROM
+			EMPLOYEE.EMPT02
+	);
+
+-- IN
+-- To find employee working in sales and marketing
+SELECT
+	T02F01,
+	T02F02,
+	T02F03
+FROM
+	EMPLOYEE.EMPT02
+WHERE
+	T02F08 IN (
+		SELECT
+			T01F01
+		FROM
+			EMPLOYEE.EMPT01
+		WHERE
+			T01F02 IN ('Sales', 'Marketing')
+	);
+
+-- ANY
+-- To find employee whose salary is greater than any of sales employee
+SELECT
+	T02F01,
+	T02F02,
+	T02F03
+FROM
+	EMPLOYEE.EMPT02
+WHERE
+	T02F07 > ANY (
+		SELECT
+			T02F07
+		FROM
+			EMPLOYEE.EMPT02
+		WHERE
+			T02F08 = 2
+	);
+
+-- To find employee whose salary is greater than all of sales employee
+SELECT
+	T02F01,
+	T02F02,
+	T02F03
+FROM
+	EMPLOYEE.EMPT02
+WHERE
+	T02F07 > ALL (
+		SELECT
+			T02F07
+		FROM
+			EMPLOYEE.EMPT02
+		WHERE
+			T02F08 = 2
+	);
+
+-- Correlated subquery
+-- To find department having atleast one employee
+SELECT
+	T01F02
+FROM
+	EMPLOYEE.EMPT01
+WHERE
+	EXISTS (
+		SELECT
+			1
+		FROM
+			EMPLOYEE.EMPT02
+		WHERE
+			T02F08 = T01F01
+	);
+
+-- To list employee whose salary more than department average
+SELECT
+	T02F01,
+	T02F02,
+	T02F03,
+	T02F07
+FROM
+	EMPLOYEE.EMPT02 AS D1
+WHERE
+	T02F07 > (
+		SELECT
+			AVG(T02F07)
+		FROM
+			EMPLOYEE.EMPT02 AS D2
+		WHERE
+			D1.T02F08 = D2.T02F08
+	);
+
+-- Subquery in FROM
+-- To find department with maximum average salary
+SELECT
+	MAX(AVG_DEPT_SALARY)
+FROM
+	(
+		SELECT
+			T02F08,
+			AVG(T02F07) AS AVG_DEPT_SALARY
+		FROM
+			EMPLOYEE.EMPT02
+		GROUP BY
+			T02F08
+	) AS DEPT_AVG;
+
+-- Subquery in SELECT
+-- To list with their department
+SELECT
+	T02F01,
+	T02F02,
+	T02F03,
+	(
+		SELECT
+			T01F02
+		FROM
+			EMPLOYEE.EMPT01
+		WHERE
+			T01F01 = T02F08
+	)
+FROM
+	EMPLOYEE.EMPT02;
+
+-- UNION
+SELECT
+	*
+FROM
+	EMPLOYEE.EMPT02
+WHERE
+	T02F08 = 1
+UNION
+SELECT
+	*
+FROM
+	EMPLOYEE.EMPT02
+WHERE
+	T02F08 = 1;
+
+-- UNION ALL
+SELECT
+	*
+FROM
+	EMPLOYEE.EMPT02
+WHERE
+	T02F08 = 1
+UNION ALL
+SELECT
+	*
+FROM
+	EMPLOYEE.EMPT02
+WHERE
+	T02F08 = 1;
+
+-- Will generate error as both query result have different number of columns
+SELECT
+	*
+FROM
+	EMPLOYEE.EMPT01
+UNION
+SELECT
+	*
+FROM
+	EMPLOYEE.EMPT02;
