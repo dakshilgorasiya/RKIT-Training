@@ -20,7 +20,7 @@ namespace FiltersDemo.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        //[ServiceFilter(typeof(HeaderAdderResultFilter))]
+        [ServiceFilter(typeof(HeaderAdderResultFilter))]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

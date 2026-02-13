@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuildInMiddleware.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    //[EnableCors("MyPolicy")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

@@ -12,9 +12,9 @@ namespace SourceGeneratorDemo
                 Name = "Test",
             };
 
-            string json = JsonSerializer.Serialize(user, AppJsonContext.Default.User);
+            //string json = JsonSerializer.Serialize(user, AppJsonContext.Default.User);
 
-            Console.WriteLine(json);
+            //Console.WriteLine(json);
         }
     }
 }

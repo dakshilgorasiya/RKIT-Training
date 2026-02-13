@@ -9,7 +9,7 @@
 namespace SourceGeneratorDemo
 {
     
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Text.Json.SourceGeneration", "7.0.10.26716")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Text.Json.SourceGeneration", "7.0.8.11508")]
     public partial class AppJsonContext
     {
         

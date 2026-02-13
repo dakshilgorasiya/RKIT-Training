@@ -21,7 +21,7 @@ namespace PolymorphismDemo
             //Car jsonObject = JsonSerializer.Deserialize<Car>(jsonString);
             //Console.WriteLine($"{jsonObject.ManufacturingYear}, {jsonObject.Name}, {jsonObject.Company}");
 
-            Vehicle vehicle = new Inova()
+            Car vehicle = new Inova()
             {
                 ManufacturingYear = 2009,
                 Company = "Toyota",

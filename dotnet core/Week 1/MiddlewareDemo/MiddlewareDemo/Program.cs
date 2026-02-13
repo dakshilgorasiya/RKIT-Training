@@ -62,7 +62,7 @@ namespace MiddlewareDemo
             });
 
             // using extension methods
-            // app.UseLogging();
+            app.UseLoggingMiddleware();
 
             // For specific route
             app.UseWhen(context => context.Request.Path == "/WeatherForecast/hello", helloApp =>

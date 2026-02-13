@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.FileProviders;
 
 namespace BuildInMiddleware
@@ -17,7 +18,7 @@ namespace BuildInMiddleware
                 {
                     policy.WithOrigins("http://127.0.0.1:5509")
                     .AllowAnyHeader()
-                    .AllowAnyHeader();
+                    .WithMethods("POST");
                 });
             });
 
@@ -53,6 +54,9 @@ namespace BuildInMiddleware
 
             app.MapControllers();
 
+            app.MapPost("/test", () => Results.Ok("HI"));
+
+            app.MapPut("/test", () => Results.Ok("HI"));
 
             app.MapGet("/error", (HttpContext httpContext) =>
             {

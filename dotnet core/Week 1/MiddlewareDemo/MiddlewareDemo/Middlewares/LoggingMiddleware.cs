@@ -21,7 +21,7 @@
 
     public static class LoggingMiddlewareExtension
     {
-        public static IApplicationBuilder UseLogging(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseLoggingMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<LoggingMiddleware>();
         }

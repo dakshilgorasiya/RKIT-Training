@@ -21,7 +21,7 @@ namespace StructuredLoggingDemo.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
-            throw new Exception("TEST");
+            // throw new Exception("TEST");
             _logger.LogInformation("GetWeatherForecast called");
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
