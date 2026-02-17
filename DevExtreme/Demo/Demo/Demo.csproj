@@ -69,6 +69,10 @@
   <ItemGroup>
     <Content Include="1Basics\index.html" />
     <Content Include="1Basics\index.js" />
+    <Content Include="2Editors\1Checkbox\index.html" />
+    <Content Include="2Editors\1Checkbox\index.js" />
+    <Content Include="2Editors\2Datebox\index.html" />
+    <Content Include="2Editors\2Datebox\index.js" />
     <Content Include="Content\dx-diagram.css" />
     <Content Include="Content\dx-diagram.min.css" />
     <Content Include="Content\dx-gantt.css" />
