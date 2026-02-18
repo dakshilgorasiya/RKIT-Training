@@ -261,7 +261,7 @@
     checkBoxInstance.reset(true);
 
     // Resets a property to its default value.
-    checkBoxInstance.reset("onValueChanged");
+    checkBoxInstance.resetOption("onValueChanged");
 
 
 
@@ -270,7 +270,7 @@
     // disposing : Raised before the UI component is disposed of.
     // initialized : Raised only once, after the UI component is initialized.
     // optionChanged : Raised after a UI component property is changed.
-    // Raised after the UI component's value is changed.
+    // valueChanged : Raised after the UI component's value is changed.
 });
 
 function cb1() {
