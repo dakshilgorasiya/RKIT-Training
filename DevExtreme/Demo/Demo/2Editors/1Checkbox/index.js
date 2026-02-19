@@ -16,7 +16,7 @@
 
         // Specifies whether the UI component changes its visual state as a result of user interaction.
         // if set to true and user hold click on checkbox effect will be shown if false no effect will be shown
-        activeStateEnabled: true,
+        activeStateEnabled: false,
 
 
         // To disable checkbox

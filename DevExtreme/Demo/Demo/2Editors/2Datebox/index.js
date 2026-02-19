@@ -389,7 +389,7 @@
       // The current value of the DateBox.
       // Accepts a JavaScript Date object, an ISO string, or null.
       // null → empty / no date selected
-      value: new Date(),
+      value: new Date(2005, 2, 12),
 
       // The event that triggers a value change when typing directly into the field.
       //   "change" → fires on blur (default)
@@ -432,6 +432,9 @@
 
   // Gets the UI component's <input> element.
   console.log("Field", dateBoxInstance.field());
+
+  // Gets an instance of a custom action button.
+  //dateBoxInstance.getButton("today").focus();
 
   // Sets focus on the UI component.
   //dateBoxInstance.focus();
@@ -495,10 +498,10 @@
 
   // Resets the value property to the value passed as an argument.
   // This method sets the isDirty flag to false.
-  //dateBoxInstance.reset(false);
+  dateBoxInstance.reset(new Date(2001, 0, 1));
 
   // Resets a property to its default value.
-  //dateBoxInstance.resetOption("value");
+  //dateBoxInstance.resetOption("buttons");
 
   // EVENTS
   // change : Raised when the UI component loses focus after the text field's content was changed using the keyboard.

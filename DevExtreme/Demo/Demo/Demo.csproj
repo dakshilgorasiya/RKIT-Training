@@ -73,6 +73,10 @@
     <Content Include="2Editors\1Checkbox\index.js" />
     <Content Include="2Editors\2Datebox\index.html" />
     <Content Include="2Editors\2Datebox\index.js" />
+    <Content Include="2Editors\3DropDownBox\dataGridDropDown.html" />
+    <Content Include="2Editors\3DropDownBox\dataGridDropDown.js" />
+    <Content Include="2Editors\3DropDownBox\index.html" />
+    <Content Include="2Editors\3DropDownBox\index.js" />
     <Content Include="Content\dx-diagram.css" />
     <Content Include="Content\dx-diagram.min.css" />
     <Content Include="Content\dx-gantt.css" />
@@ -137,6 +141,7 @@
     <Content Include="Content\fonts\Roboto-300.woff2" />
     <Content Include="Content\fonts\Roboto-300.woff" />
     <Content Include="Content\fonts\Roboto-300.ttf" />
+    <Content Include="2Editors\3DropDownBox\data.json" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\devextreme-localization\dx.messages.de.js" />
     <Content Include="Scripts\devextreme-localization\dx.messages.en.js" />
