@@ -77,6 +77,14 @@
     <Content Include="2Editors\3DropDownBox\dataGridDropDown.js" />
     <Content Include="2Editors\3DropDownBox\index.html" />
     <Content Include="2Editors\3DropDownBox\index.js" />
+    <Content Include="2Editors\4NumberBox\index.html" />
+    <Content Include="2Editors\4NumberBox\index.js" />
+    <Content Include="2Editors\5SelectBox\grouping.html" />
+    <Content Include="2Editors\5SelectBox\index.html" />
+    <Content Include="2Editors\5SelectBox\index.js" />
+    <Content Include="2Editors\5SelectBox\itemDemo.html" />
+    <Content Include="2Editors\6TextArea\index.html" />
+    <Content Include="2Editors\6TextArea\index.js" />
     <Content Include="Content\dx-diagram.css" />
     <Content Include="Content\dx-diagram.min.css" />
     <Content Include="Content\dx-gantt.css" />

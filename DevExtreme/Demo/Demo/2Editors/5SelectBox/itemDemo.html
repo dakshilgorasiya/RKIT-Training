@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="selectBox"></div>
+
+    <script>
+        const data = [
+            {
+                // Specifies text displayed for the UI component item.
+                // If you use both this property and a template, the template overrides the text.
+                text: "apple",
+
+                // Specifies whether the UI component item responds to user interaction.
+                disabled: true,
+
+                // Specifies the HTML markup to be inserted into the item element.
+                // The SelectBox component evaluates the html property's value. This evaluation, however, makes the SelectBox potentially vulnerable to XSS attacks. 
+                html: `<h1>Apple</h1>`,
+
+                // Specifies a template that should be used to render this item only.
+                // template will override html
+                template: function (data, index, element) {
+                    return $("<h2>").text(data.text);
+                },
+
+                // Specifies whether or not a UI component item must be displayed.
+                visible: true,
+            },
+            {
+                text: "banana",
+                disabled: false,
+                template: function (data, index, element) {
+                    return $("<h2>").text(data.text);
+                }
+            },
+            {
+                text: "orange",
+                disabled: false,
+            },
+            {
+                text: "pinapple",
+                disabled: false,
+                visible: true
+            }
+        ]
+
+        $("#selectBox").dxSelectBox({
+            items: data,
+            valueExpr: "text",
+            displayExpr: "text",
+            searchEnabled: true,
+            searchExpr: "text",
+            opened: true,
+        });
+    </script>
+</body>
+</html>

@@ -1,30 +1,28 @@
 ﻿$(() => {
     const fruits = ["Apples", "Oranges", "Lemons", "Pears", "Pineapples"];
     const dataSource = fruits;
-    let list;
-
 
     // Specifies the device-dependent default configuration properties for this component.
-    DevExpress.ui.dxDropDownBox.defaultOptions({
+    DevExpress.ui.dxSelectBox.defaultOptions({
         device: { deviceType: "desktop" },
         options: {
             value: "defaultValue",
         },
     });
 
-    let dropDownBoxInstance = $("#dropdown-box").dxDropDownBox({
-        // Specifies whether the UI component allows a user to enter a custom value.
+    let selectBoxInstance = $("#selectBox").dxSelectBox({
+        // Specifies whether the UI component allows a user to enter a custom value. 
+        // Requires the onCustomItemCreating handler implementation.
         acceptCustomValue: true,
 
         // Specifies the shortcut key that sets focus on the UI component.
         accessKey: "a",
 
         // Specifies whether the UI component changes its visual state as a result of user interaction.
-        activeStateEnabled: false,
+        activeStateEnabled: true,
 
         // Allows you to add custom buttons to the input text field.
         buttons: [
-            "dropDown",
             "clear",
             {
                 name: "myBtn",
@@ -35,36 +33,18 @@
                         console.log("myBtn clicked");
                     }
                 }
-            }
+            },
+            "dropDown",
         ],
 
-        // Specifies a custom template for the drop-down content.
-        contentTemplate: function (e) {
-            const $list = $("<div>").dxList({
-                //dataSource: dropDownBoxInstance.option("items"),
-                dataSource: e.component.getDataSource(),
-
-                selectionMode: "single",
-
-                onItemClick: function (args) {
-                    e.component.option("value", args.itemData); // set value
-                    e.component.close(); // close dropdown
-                },
-
-                allowItemDeleting: true,
-                onItemDeleting: function (args) {
-                    if (dataSource.length === 1) {
-                        args.cancel = true;
-                    }
-                }
-            });
-
-            list = $list.dxList("instance");
-            return $list;
-        },
+        // Specifies the DOM event after which the custom item should be created. Applies only if acceptCustomValue is enabled.
+        // The recommended events are "blur", "change", and "focusout", but you can use other events as well. The default value of this property is "change", and items are created when the component loses focus.
+        // Besides the event passed to this property, the item can also be created when users press the Enter key. To allow users to create items only when they press the Enter key, pass an empty string to this property.
+        customItemCreateEvent: "focusout",
 
         // Binds the UI component to data.
         // Do not specify the items property if you specified the dataSource, and vice versa.
+        // Field names cannot be equal to this and should not contain the following characters: ., :, [, and ].
         dataSource: dataSource,
 
         // Specifies whether to render the drop-down field's content when it is displayed. If false, the content is rendered immediately.
@@ -75,23 +55,19 @@
 
         // Specifies the data field whose values should be displayed.
         displayExpr: function (item) {
-            return "#" + item;
+            return item;
         },
 
-        // Customizes text before it is displayed in the input field.
-        // This function receives values from the data field set in the displayExpr property and should return a string that contains text for the input field. If the displayExpr is not set, the function receives full data objects.
-        displayValueFormatter: function (value) {
-            if (!value || (Array.isArray(value) && value.length === 0)) {
-                return "";
-            }
+        // Returns the value currently displayed by the UI component.
+        // Read-only
 
-            return value + "#";
-        },
+        // Returns the value currently displayed by the UI component.
+        // displayValue
 
 
         // Specifies a custom template for the drop-down button.
         //dropDownButtonTemplate: function () {
-        //    return $("<span>").text("Select Date");
+        //    return $("<span>").text("Select one");
         //},
 
         // Configures the drop-down field which holds the content.
@@ -104,7 +80,9 @@
             id: "CustomID"
         },
 
+
         // Specifies a custom template for the text field. Must contain the TextBox UI component.
+        // If you define a fieldTemplate, the component does not render the underlying HTML. In this case, you should render hidden input with the corresponding name attribute to submit values through a HTML form.
         //fieldTemplate: function (value, fieldElement) {
         //    const result = $("<div class='custom-item'>");
         //    result
@@ -118,11 +96,18 @@
         // Specifies whether the UI component can be focused using keyboard navigation.
         focusStateEnabled: true,
 
+        // Specifies whether data items should be grouped.
+        // If you enable both this property and DataSource.paginate, the pagination works only on the group level.
+        // grouped
+
+        // Specifies a custom template for group captions.
+        // groupTemplate
+
         // Specifies the UI component's height.
         //height: 100,
 
         // Specifies text for a hint that appears when a user pauses on the UI component.
-        hint: "This is hint",
+        //hint: "This is hint",
 
         // Specifies whether the UI component changes its state when a user pauses on it.
         hoverStateEnabled: true,
@@ -142,15 +127,33 @@
         // Do not use the items property if you use dataSource (and vice versa).
         //items: [1,2,3,4],
 
+        // Specifies a custom template for items.
+        itemTemplate: function (data) {
+            return `
+            <div class='custom-item'>
+                <h3>Natural </h3>
+                <div class='product-name'>${data}</div>
+            </div>`;
+        },
+
         // Specifies a text string used to annotate the editor's value.
         label: "Choose food",
 
         // Specifies the label's display mode.
         // static(default), floating, hidden, outside
-        labelMode: "floating",
+        labelMode: "outside",
 
         // Specifies the maximum number of characters you can enter into the textbox.
         maxLength: 10,
+
+        // The minimum number of characters that must be entered into the text box to begin a search. Applies only if searchEnabled is true.
+        // When the SelectBox input field contains text (an item is selected), the component ignores minSearchLength and starts searching after users enter one character.
+        minSearchLength: 2,
+
+        // Specifies the text or HTML markup displayed by the UI component if the item collection is empty.
+        // The SelectBox component evaluates the noDataText property's value. This evaluation, however, makes the SelectBox potentially vulnerable to XSS attacks. To guard against these attacks, encode the HTML markup before you assign it to the noDataText property.
+        // default: 'No data to display'
+        noDataText: "no item to show",
 
         // The value to be assigned to the name attribute of the underlying HTML element.
         // Will affect name of hidden input tag where actual value is stored not to input box
@@ -171,11 +174,27 @@
             console.log(e);
         },
 
+        // A function that is executed when the UI component is rendered and each time the component is repainted.
+        onContentReady: function (e) {
+            console.log("onContentReady");
+            console.log(e);
+        },
+
         // Fires when the user copies text from the input field.
         // e has {event, element, component}
         onCopy: function (e) {
             console.log("onCopy");
             console.log(e);
+        },
+
+        // A function that is executed when a user adds a custom item. Requires acceptCustomValue to be set to true.
+        // You can specify DOM events after which the component calls this function. Use the customItemCreateEvent property for this purpose. Besides the event passed to this property, the item can also be created when users press the Enter key.
+        // e gets {component, customItem, element, text }
+        // set customItem to null to cancel custom item creation
+        onCustomItemCreating: function (e) {
+            dataSource.push(e.text.trim());
+            e.component.option("dataSource", dataSource);
+            e.customItem = e.text.trim();
         },
 
         // Fires when the user cuts text from the input field.
@@ -238,6 +257,13 @@
         //    console.log(e);
         //},
 
+        // A function that is executed when a list item is clicked or tapped.
+        // e has {itemIndex, itemElement, itemData, event, element, component}
+        onItemClick: function (e) {
+            console.log("onItemClick");
+            console.log(e);
+        },
+
         // Fires on keydown inside the text field.
         // e has {event, element, component}
         //onKeyDown: function (e) {
@@ -274,6 +300,13 @@
             console.log(e);
         },
 
+        // A function that is executed when a list item is selected or selection is canceled.
+        // e has {selectedItem, element, component}
+        onSelectionChanged: function (e) {
+            console.log("onSelectionChanged");
+            console.log(e);
+        },
+
         // A function that is executed after the UI component's value is changed.
         // e.previousValue → old Date (or string), e.value → new Date (or string)
         // e has {value, previousValue, event, element, component}
@@ -283,7 +316,7 @@
         },
 
         // Specifies whether or not the drop-down editor is displayed.
-        opened: false,
+        opened: true,
 
         // Specifies whether a user can open the drop-down list by clicking a text field.
         // default is true
@@ -301,11 +334,46 @@
         // Switches the UI component to a right-to-left representation.
         rtlEnabled: false,
 
+        // Specifies whether to allow search operations.
+        // Searching works with source data of plain structure only. Subsequently, data can be transformed to hierarchical structure using the DataSource's group property.
+        searchEnabled: true,
+
+        // Specifies the name of a data source item field or an expression whose value is compared to the search criterion.
+        // In most cases, you should pass the name of a field by whose value data items are searched.If you need to search elements by several field values, assign an array of field names to this property.
+        //searchExpr:
+
+        // Specifies a comparison operation used to search UI component items.
+        // Default Value: 'contains'
+        // This property changes how users search SelectBox items and controls the component's auto-fill functionality. The following values are available for searchMode:
+        // 'contains' -> Searches items that contain the typed text.SelectBox does not activate autofill. (default)
+        // 'startswith' -> Searches items that start with the typed text.SelectBox autofills the input with the first matched item if acceptCustomValue is false(default ).If acceptCustomValue is true, the component does not activate autofill.
+        searchMode: "contains",
+
+        // Specifies the time delay, in milliseconds, after the last character has been typed in, before a search is executed.
+        // Default Value: 500
+        searchTimeout: 200,
+
+        // Gets the currently selected item.
+        // read only
+        // selectedItem
+
         // Specifies whether to display the Clear button in the UI component.
         showClearButton: true,
 
+        // Specifies whether or not the UI component displays unfiltered values until a user types a number of characters exceeding the minSearchLength property value
+        // default: false
+        showDataBeforeSearch: true,
+
         // Specifies whether the drop-down button is visible.
         showDropDownButton: true,
+
+        // Specifies whether or not to display selection controls.
+        // default: false
+        showSelectionControls: true,
+
+        // Specifies whether or not the UI component checks the inner text for spelling mistakes.
+        // Default: false
+        spellcheck: true,
 
         // Specifies how the UI component's text field is styled.
         // options : outlined, underlined, filled
@@ -317,7 +385,13 @@
         tabIndex: 1,
 
         // The read-only property that holds the text displayed by the UI component input element.
+        // displayValue define what is selected text is diffrent when user is typing
         // text
+
+        // Specifies whether the SelectBox uses item's text a title attribute.
+        // If the property is set to true, the text that items within the SelectBox contain is passed to the title attribute of the respective item.
+        // Only add title but behaviour is handled by browser
+        useItemTextAsTitle: true,
 
         // Information about the broken validation rule (first item from validationErrors array).
         // validationError
@@ -342,11 +416,14 @@
 
         // Specifies the currently selected value. May be an object if dataSource contains objects, the store key is specified, and valueExpr is not set.
         // When dataSource contains objects, you should define valueExpr to correctly identify data items. If valueExpr is not specified, the component compares object references to display an item, not object values. For instance, if you define the value property as an object containing identical values to dataSource to select all items, the component displays nothing.
-        value: "select",
+        //value: "Apples",
 
-        // Specifies the DOM events after which the UI component's value should be updated.
+        // deprecated
+        // Use the customItemCreateEvent property instead.
+        // Specifies the DOM events after which the UI component's value should be updated. Applies only if acceptCustomValue is set to true.
+        // This property accepts a single event name or several names separated by spaces.
         // The recommended events are "keyup", "blur", "change", "input", and "focusout", but you can use other events as well.
-        valueChangeEvent: "blur",
+        //valueChangeEvent: "blur, keyup",
 
         // Specifies which data field provides unique values to the UI component's value.
         valueExpr: function (item) {
@@ -357,90 +434,90 @@
         visible: true,
 
         // Specifies the UI component's width.
-        width: 400
-    }).dxDropDownBox("instance"); 
+        width: 400,
 
-    //dropDownBoxInstance = null;
-
-    let a = $("#CustomID").dxDropDownBox("instance");
-    a.blur();
+        // Specifies whether text that exceeds the drop-down list width should be wrapped.
+        // default: false
+        wrapItemText: true,
+    }).dxSelectBox("instance");
 
     // Postpones rendering that can negatively affect performance until the endUpdate() method is called.
     // The beginUpdate() and endUpdate() methods reduce the number of renders in cases where extra rendering can negatively affect performance.
-    //dropDownBoxInstance.beginUpdate();
+    //selectBoxInstance.beginUpdate();
 
     // Removes focus from the check box.
-    dropDownBoxInstance.blur();
+    //selectBoxInstance.blur();
 
     // Resets the value property to the default value.
-    //dropDownBoxInstance.clear();
+    //selectBoxInstance.clear();
 
     // Closes the drop-down editor.
-    //dropDownBoxInstance.close();
+    //selectBoxInstance.close();
 
     // Gets the popup window's content.
-    console.log("Content", dropDownBoxInstance.content());
+    console.log("Content", selectBoxInstance.content());
 
     // Disposes of all the resources allocated to the CheckBox instance.
-    //dropDownBoxInstance.dispose();
+    //selectBoxInstance.dispose();
 
     // Gets the root UI component element.
-    //console.log(dropDownBoxInstance.element().focusin());
+    //console.log(selectBoxInstance.element().focusin());
 
     // Refreshes the UI component after a call of the beginUpdate() method.
-    //dropDownBoxInstance.endUpdate();
+    //selectBoxInstance.endUpdate();
 
     // Gets the UI component's <input> element.
-    console.log("Field", dropDownBoxInstance.field());
+    console.log("Field", selectBoxInstance.field());
 
-    // Gets an instance of a custom action button.
-    //dropDownBoxInstance.getButton("myBtn").focus();
 
     // Sets focus on the UI component.
-    dropDownBoxInstance.focus();
+    //selectBoxInstance.focus();
+
+    // Gets an instance of a custom action button.
+    //selectBoxInstance.getButton("myBtn").focus();
 
     // Gets the DataSource instance.
     // This method returns the DataSource instance even if the UI component's dataSource property was given a simple array.
-    console.log("Data source : ", dropDownBoxInstance.getDataSource())
+    //console.log("Data source : ", selectBoxInstance.getDataSource())
 
     // Gets the instance of a UI component found using its DOM node.
     let element = document.getElementById("CustomID");
-    let instance = DevExpress.ui.dxDropDownBox.getInstance(element);
-    //console.log(instance === dropDownBoxInstance);
+    let instance = DevExpress.ui.dxSelectBox.getInstance(element);
+    //console.log(instance === selectBoxInstance);
 
     // Gets the UI component's instance. Use it to access other methods of the UI component.
-    //instance = dropDownBoxInstance.instance();
-    //console.log(instance === dropDownBoxInstance);
+    //instance = selectBoxInstance.instance();
+    //console.log(instance === selectBoxInstance);
 
     // Detaches all event handlers from a single event.
-    //dropDownBoxInstance.off("valueChanged");
+    //selectBoxInstance.off("valueChanged");
 
     // Detaches a particular event handler from a single event.
-    //dropDownBoxInstance.off("valueChanged", cb1);
+    //selectBoxInstance.off("valueChanged", cb1);
 
     // To attach event listener
-    //dropDownBoxInstance.on("valueChanged", cb1);
+    //selectBoxInstance.on("valueChanged", cb1);
 
     // To attach multiple event listener
-    //dropDownBoxInstance.on({
+    //selectBoxInstance.on({
     //    "valueChanged": cb2,
     //    "optionChanged": cb2
     //});
 
     // Opens the drop-down editor.
-    //dropDownBoxInstance.open();
+    //selectBoxInstance.open();
 
     // Gets all UI component properties.
-    console.log(dropDownBoxInstance.option());
+    //console.log(selectBoxInstance.option());
 
     // Gets the value of a single property.
-    //console.log(dropDownBoxInstance.option("readOnly"));
+    //console.log(selectBoxInstance.option("readOnly"));
 
     // Updates the value of a single property.
-    //dropDownBoxInstance.option("readOnly", false);
+    //selectBoxInstance.option("readOnly", false);
 
     // Updates the values of several properties.
-    //dropDownBoxInstance.option({
+    //selectBoxInstance.option({
     //    "readonly": false,
     //    value: null
     //});
@@ -448,29 +525,31 @@
     // Registers a handler to be executed when a user presses a specific key.
     // "backspace","tab","enter","escape","pageUp","pageDown","end","home","leftArrow","upArrow","rightArrow","downArrow","del","space","F","A","asterisk","minus"
 
-    //dropDownBoxInstance.registerKeyHandler("w", function () {
+    //selectBoxInstance.registerKeyHandler("w", function () {
     //    console.log("w clicked")
     //})
 
     // Renders the component again without reloading data. Use the method to update the component's markup and appearance dynamically.
     // The repaint() method re - initializes the component with new settings, resetting its state and history.
-    //dropDownBoxInstance.repaint();
+    //selectBoxInstance.repaint();
 
     // Resets the value property to the initial value.
     // This method sets the isDirty flag to false.
-    //dropDownBoxInstance.reset();
+    //selectBoxInstance.reset();
 
     // Resets the value property to the value passed as an argument.
     // This method sets the isDirty flag to false.
-    //dropDownBoxInstance.reset("reset");
+    //selectBoxInstance.reset("reset");
 
     // Resets a property to its default value.
-    dropDownBoxInstance.resetOption("buttons");
+    //selectBoxInstance.resetOption("buttons");
 
     // EVENTS
     // change : Raised when the UI component loses focus after the text field's content was changed using the keyboard.
     // closed : Raised once the drop-down editor is closed.
+    // conentReady : Raised when the UI component is rendered and each time the component is repainted.
     // copy : Raised when the UI component's input has been copied.
+    // customItemCreating : Raised when a user adds a custom item.
     // cut : Raised when the UI component's input has been cut.
     // disposing : Raised before the UI component is disposed of.
     // enterKey : Raised when the Enter key has been pressed while the UI component is focused.
@@ -478,15 +557,15 @@
     // focusOut : Raised when the UI component loses focus.
     // initialized : Raised only once, after the UI component is initialized.
     // input : Raised each time the UI component's input is changed while the UI component is focused.
+    // itemClick : Raised when a list item is clicked or tapped.
     // keyDown : Raised when a user is pressing a key on the keyboard.
     // keyUp : Raised when a user releases a key on the keyboard.
     // opened: Raised once the drop - down editor is opened.
     // optionChanged : Raised after a UI component property is changed.
     // paste : Raised when the UI component's input has been pasted.
+    // selectionChanged : Raised when a list item is selected or selection is canceled.
     // valueChanged : Raised after the UI component's value is changed.
-
 });
-
 
 function cb1() {
     console.log("cb1");

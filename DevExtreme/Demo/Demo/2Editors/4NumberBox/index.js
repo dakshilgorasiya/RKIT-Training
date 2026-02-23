@@ -1,30 +1,22 @@
 ﻿$(() => {
-    const fruits = ["Apples", "Oranges", "Lemons", "Pears", "Pineapples"];
-    const dataSource = fruits;
-    let list;
-
-
     // Specifies the device-dependent default configuration properties for this component.
-    DevExpress.ui.dxDropDownBox.defaultOptions({
+    DevExpress.ui.dxNumberBox.defaultOptions({
         device: { deviceType: "desktop" },
         options: {
-            value: "defaultValue",
+            // if min max is set but value is not between them still number box will get default value when user first focus out than value will bound to min, max
+            value: 220,
         },
     });
 
-    let dropDownBoxInstance = $("#dropdown-box").dxDropDownBox({
-        // Specifies whether the UI component allows a user to enter a custom value.
-        acceptCustomValue: true,
-
+    let numberBoxInstance = $("#numberBox").dxNumberBox({
         // Specifies the shortcut key that sets focus on the UI component.
         accessKey: "a",
 
         // Specifies whether the UI component changes its visual state as a result of user interaction.
-        activeStateEnabled: false,
+        activeStateEnabled: true,
 
         // Allows you to add custom buttons to the input text field.
         buttons: [
-            "dropDown",
             "clear",
             {
                 name: "myBtn",
@@ -35,91 +27,66 @@
                         console.log("myBtn clicked");
                     }
                 }
-            }
+            },
+            "spins"
         ],
-
-        // Specifies a custom template for the drop-down content.
-        contentTemplate: function (e) {
-            const $list = $("<div>").dxList({
-                //dataSource: dropDownBoxInstance.option("items"),
-                dataSource: e.component.getDataSource(),
-
-                selectionMode: "single",
-
-                onItemClick: function (args) {
-                    e.component.option("value", args.itemData); // set value
-                    e.component.close(); // close dropdown
-                },
-
-                allowItemDeleting: true,
-                onItemDeleting: function (args) {
-                    if (dataSource.length === 1) {
-                        args.cancel = true;
-                    }
-                }
-            });
-
-            list = $list.dxList("instance");
-            return $list;
-        },
-
-        // Binds the UI component to data.
-        // Do not specify the items property if you specified the dataSource, and vice versa.
-        dataSource: dataSource,
-
-        // Specifies whether to render the drop-down field's content when it is displayed. If false, the content is rendered immediately.
-        deferRendering: true,
 
         // Specifies whether the UI component responds to user interaction.
         disabled: false,
-
-        // Specifies the data field whose values should be displayed.
-        displayExpr: function (item) {
-            return "#" + item;
-        },
-
-        // Customizes text before it is displayed in the input field.
-        // This function receives values from the data field set in the displayExpr property and should return a string that contains text for the input field. If the displayExpr is not set, the function receives full data objects.
-        displayValueFormatter: function (value) {
-            if (!value || (Array.isArray(value) && value.length === 0)) {
-                return "";
-            }
-
-            return value + "#";
-        },
-
-
-        // Specifies a custom template for the drop-down button.
-        //dropDownButtonTemplate: function () {
-        //    return $("<span>").text("Select Date");
-        //},
-
-        // Configures the drop-down field which holds the content.
-        dropDownOptions: {
-            fullScreen: false,
-        },
 
         // Specifies the global attributes to be attached to the UI component's container element.
         elementAttr: {
             id: "CustomID"
         },
 
-        // Specifies a custom template for the text field. Must contain the TextBox UI component.
-        //fieldTemplate: function (value, fieldElement) {
-        //    const result = $("<div class='custom-item'>");
-        //    result
-        //        .dxTextBox({
-        //            value: value,
-        //            readOnly: false
-        //        });
-        //    fieldElement.append(result);
-        //},
-
         // Specifies whether the UI component can be focused using keyboard navigation.
         focusStateEnabled: true,
 
+        // Specifies the value's display format and controls user input accordingly.
+        // When this property is specified, a press on the minus sign (-) inverts the current value instead of entering "-".
+        //format: {
+        //    //type: "currency",
+        //    //currency: "INR",
+        //    //useCurrencyAccountingStyle: true // use () for negative number instead of "-"
+
+        //    type: "percent", // Multiplies the input value by 100. if not wanted use custom format
+
+        //    //type: "exponential", // error on console
+
+        //    //type: "largeNumber", // wrong number
+
+        //    //type: "fixedPoint",
+        //    //precision: 2
+
+        //    // If you allow users to edit the formatted value, implement the parser function to convert the value back to a number.
+        //    //formatter: function (value) {
+        //    //    return "₹ " + value.toFixed(2);
+        //    //},
+        //    //parser: function (text) {
+        //    //    return Number(text.replace("₹", ""));
+        //    //},
+        //},
+        // or
+        //format: "percent",
+        // Custom Format
+        // Rules
+        // 0 -> A digit.Displays '0' if the formatted number does not have a digit in that position.
+        // # -> Up to 15 of leading digits, a single digit, or nothing.If this character goes first in the format string, it can match multiple leading digits(before the decimal point).Subsequent characters match a single digit.If the formatted number does not have a digit in the corresponding position, it displays nothing.
+        // For example, if you apply format "#0.#" to "123.45", the result is "123.4".
+        // . -> A decimal separator.(Actual character depends on locale).
+        // , -> A group separator. (Actual character depends on locale).
+        // % -> The percent sign.Multiplies the input value by 100.
+        // ; -> Separates positive and negative format patterns.
+        // For example, the "#0.##;(#0.##)" format displays a positive number according to the pattern before the semicolon(";"), and a negative number according to the pattern after the semicolon(";").
+        // If you do not use this character and the additional pattern, negative numbers display a minus("-") prefix.
+        // Escape characters You can display the special characters above as literals if you enclose them in single quotation marks.
+        // For example, '%'.
+        // Other characters	You can add any literal characters to the beginning or end of the format string.
+
+        //format: "##0.00;<>##0.00",
+
         // Specifies the UI component's height.
-        //height: 100,
+        //height: 10,
 
         // Specifies text for a hint that appears when a user pauses on the UI component.
         hint: "This is hint",
@@ -132,29 +99,35 @@
             id: "inputId"
         },
 
-        // Specifies whether the component's current value differs from the initial value.
-        // isDirty
+        // Specifies the text of the message displayed if the specified value is not a number.
+        invalidValueMessage: "Invalid number",
 
         // Specifies or indicates whether the editor's value is valid.
+        // When you use async rules, isValid is true if the status is "pending" or "valid".
         // isValid
 
-        // An array of items used to synchronize the DropDownBox with an embedded UI component.
-        // Do not use the items property if you use dataSource (and vice versa).
-        //items: [1,2,3,4],
-
         // Specifies a text string used to annotate the editor's value.
-        label: "Choose food",
+        label: "Choose number",
 
         // Specifies the label's display mode.
         // static(default), floating, hidden, outside
         labelMode: "floating",
 
-        // Specifies the maximum number of characters you can enter into the textbox.
-        maxLength: 10,
+        // The maximum value accepted by the number box.
+        //max: 100,
+
+        // The minimum value accepted by the number box.
+        //min: 10,
+
+
+        // Specifies the value to be passed to the type attribute of the underlying <input> element.
+        // If you set the format property, the mode for mobile devices is changed to "tel"; "number" is not available.
+        // Default Value: 'text', 'number' (mobile devices)
+         mode: "text",
 
         // The value to be assigned to the name attribute of the underlying HTML element.
         // Will affect name of hidden input tag where actual value is stored not to input box
-        name: "fruit",
+        name: "number",
 
         // A function that is executed when the UI component loses focus after the text field's content was changed using the keyboard.
         // e has {event(jQuery), element(UI's container), component(UI component's instance)}
@@ -164,13 +137,7 @@
             console.log(e);
         },
 
-        // A function that is executed once the drop-down editor is closed.
-        // e has {element, component}
-        onClosed: function (e) {
-            console.log("onclosed");
-            console.log(e);
-        },
-
+        // onContentReady
         // Fires when the user copies text from the input field.
         // e has {event, element, component}
         onCopy: function (e) {
@@ -252,13 +219,6 @@
         //    console.log(e);
         //},
 
-        // Fires when the drop-down picker is opened.
-        // e has {element, component}
-        onOpened: function (e) {
-            console.log("onOpened");
-            console.log(e);
-        },
-
         // A function that is executed after a UI component property is changed.
         // e has {value, previousValue, name, fullName, element, component}
         //onOptionChanged: function (e) {
@@ -282,16 +242,9 @@
             console.log(e.previousValue, "->", e.value);
         },
 
-        // Specifies whether or not the drop-down editor is displayed.
-        opened: false,
-
-        // Specifies whether a user can open the drop-down list by clicking a text field.
-        // default is true
-        openOnFieldClick: true,
-
         // Specifies a text string displayed when the editor's value is empty.
         // will be overridden by label if set to floating mode
-        placeholder: "Select on",
+        placeholder: "Pick a number",
 
         // Specifies whether the editor is read-only.
         // Built-in action buttons are invisible.
@@ -304,20 +257,28 @@
         // Specifies whether to display the Clear button in the UI component.
         showClearButton: true,
 
-        // Specifies whether the drop-down button is visible.
-        showDropDownButton: true,
+        // Specifies whether to show the buttons that change the value by a step.
+        showSpinButtons: true,
+
+        // Specifies how much the UI component's value changes when using the spin buttons, Up/Down arrow keys, or mouse wheel.
+        step: 5,
 
         // Specifies how the UI component's text field is styled.
         // options : outlined, underlined, filled
-        //stylingMode: "underlined",
+        stylingMode: "underlined",
 
         // Specifies the number of the element when the Tab key is used for navigating.
         // if two have same value accoding to DOM order will be select
         // make it -1 to disable tab focus, make it 0 to follow natural DOM order
         tabIndex: 1,
 
-        // The read-only property that holds the text displayed by the UI component input element.
+        // A property that holds the UI component's value with applied format.
+        // read-only
         // text
+
+        // Specifies whether to use touch friendly spin buttons. Applies only if showSpinButtons is true.
+        // Default Value: true, false (desktop)
+        useLargeSpinButtons: true,
 
         // Information about the broken validation rule (first item from validationErrors array).
         // validationError
@@ -340,107 +301,82 @@
         //   "pending" → async validation is in progress
         validationStatus: "valid",
 
-        // Specifies the currently selected value. May be an object if dataSource contains objects, the store key is specified, and valueExpr is not set.
-        // When dataSource contains objects, you should define valueExpr to correctly identify data items. If valueExpr is not specified, the component compares object references to display an item, not object values. For instance, if you define the value property as an object containing identical values to dataSource to select all items, the component displays nothing.
-        value: "select",
+        // The current number box value.
+        value: 10,
 
         // Specifies the DOM events after which the UI component's value should be updated.
+        // This property accepts a single event name or several names separated by spaces.
         // The recommended events are "keyup", "blur", "change", "input", and "focusout", but you can use other events as well.
-        valueChangeEvent: "blur",
-
-        // Specifies which data field provides unique values to the UI component's value.
-        valueExpr: function (item) {
-            return item;
-        },
+        valueChangeEvent: "focusout",
 
         // Specifies whether the UI component is visible.
         visible: true,
 
         // Specifies the UI component's width.
         width: 400
-    }).dxDropDownBox("instance"); 
-
-    //dropDownBoxInstance = null;
-
-    let a = $("#CustomID").dxDropDownBox("instance");
-    a.blur();
+    }).dxNumberBox("instance");
 
     // Postpones rendering that can negatively affect performance until the endUpdate() method is called.
     // The beginUpdate() and endUpdate() methods reduce the number of renders in cases where extra rendering can negatively affect performance.
-    //dropDownBoxInstance.beginUpdate();
+    //numberBoxInstance.beginUpdate();
 
     // Removes focus from the check box.
-    dropDownBoxInstance.blur();
+    numberBoxInstance.blur();
 
     // Resets the value property to the default value.
-    //dropDownBoxInstance.clear();
-
-    // Closes the drop-down editor.
-    //dropDownBoxInstance.close();
-
-    // Gets the popup window's content.
-    console.log("Content", dropDownBoxInstance.content());
+    //numberBoxInstance.clear();
 
     // Disposes of all the resources allocated to the CheckBox instance.
-    //dropDownBoxInstance.dispose();
+    //numberBoxInstance.dispose();
 
     // Gets the root UI component element.
-    //console.log(dropDownBoxInstance.element().focusin());
+    //numberBoxInstance.element().focusin();
 
     // Refreshes the UI component after a call of the beginUpdate() method.
-    //dropDownBoxInstance.endUpdate();
-
-    // Gets the UI component's <input> element.
-    console.log("Field", dropDownBoxInstance.field());
-
-    // Gets an instance of a custom action button.
-    //dropDownBoxInstance.getButton("myBtn").focus();
+    //numberBoxInstance.endUpdate();
 
     // Sets focus on the UI component.
-    dropDownBoxInstance.focus();
+    numberBoxInstance.focus();
 
-    // Gets the DataSource instance.
-    // This method returns the DataSource instance even if the UI component's dataSource property was given a simple array.
-    console.log("Data source : ", dropDownBoxInstance.getDataSource())
+    // Gets an instance of a custom action button.
+    numberBoxInstance.getButton("myBtn").focus();
+
 
     // Gets the instance of a UI component found using its DOM node.
     let element = document.getElementById("CustomID");
-    let instance = DevExpress.ui.dxDropDownBox.getInstance(element);
-    //console.log(instance === dropDownBoxInstance);
+    let instance = DevExpress.ui.dxNumberBox.getInstance(element);
+    //console.log(instance === numberBoxInstance);
 
     // Gets the UI component's instance. Use it to access other methods of the UI component.
-    //instance = dropDownBoxInstance.instance();
-    //console.log(instance === dropDownBoxInstance);
+    instance = numberBoxInstance.instance();
+    //console.log(instance === numberBoxInstance);
 
     // Detaches all event handlers from a single event.
-    //dropDownBoxInstance.off("valueChanged");
+    //numberBoxInstance.off("valueChanged");
 
     // Detaches a particular event handler from a single event.
-    //dropDownBoxInstance.off("valueChanged", cb1);
+    //numberBoxInstance.off("valueChanged", cb1);
 
     // To attach event listener
-    //dropDownBoxInstance.on("valueChanged", cb1);
+    //numberBoxInstance.on("valueChanged", cb1);
 
     // To attach multiple event listener
-    //dropDownBoxInstance.on({
+    //numberBoxInstance.on({
     //    "valueChanged": cb2,
     //    "optionChanged": cb2
     //});
 
-    // Opens the drop-down editor.
-    //dropDownBoxInstance.open();
-
     // Gets all UI component properties.
-    console.log(dropDownBoxInstance.option());
+    //console.log(numberBoxInstance.option());
 
     // Gets the value of a single property.
-    //console.log(dropDownBoxInstance.option("readOnly"));
+    //console.log(numberBoxInstance.option("readOnly"));
 
     // Updates the value of a single property.
-    //dropDownBoxInstance.option("readOnly", false);
+    //numberBoxInstance.option("readOnly", false);
 
     // Updates the values of several properties.
-    //dropDownBoxInstance.option({
+    //numberBoxInstance.option({
     //    "readonly": false,
     //    value: null
     //});
@@ -448,28 +384,24 @@
     // Registers a handler to be executed when a user presses a specific key.
     // "backspace","tab","enter","escape","pageUp","pageDown","end","home","leftArrow","upArrow","rightArrow","downArrow","del","space","F","A","asterisk","minus"
 
-    //dropDownBoxInstance.registerKeyHandler("w", function () {
-    //    console.log("w clicked")
-    //})
+    numberBoxInstance.registerKeyHandler("w", function () {
+        console.log("w clicked")
+    })
 
     // Renders the component again without reloading data. Use the method to update the component's markup and appearance dynamically.
     // The repaint() method re - initializes the component with new settings, resetting its state and history.
-    //dropDownBoxInstance.repaint();
-
-    // Resets the value property to the initial value.
-    // This method sets the isDirty flag to false.
-    //dropDownBoxInstance.reset();
+    //numberBoxInstance.repaint();
 
     // Resets the value property to the value passed as an argument.
     // This method sets the isDirty flag to false.
-    //dropDownBoxInstance.reset("reset");
+    //numberBoxInstance.reset(19);
 
     // Resets a property to its default value.
-    dropDownBoxInstance.resetOption("buttons");
+    //numberBoxInstance.resetOption("buttons");
 
     // EVENTS
     // change : Raised when the UI component loses focus after the text field's content was changed using the keyboard.
-    // closed : Raised once the drop-down editor is closed.
+    // contentReady : Raised when the UI component is rendered and each time the component is repainted.
     // copy : Raised when the UI component's input has been copied.
     // cut : Raised when the UI component's input has been cut.
     // disposing : Raised before the UI component is disposed of.
@@ -480,13 +412,10 @@
     // input : Raised each time the UI component's input is changed while the UI component is focused.
     // keyDown : Raised when a user is pressing a key on the keyboard.
     // keyUp : Raised when a user releases a key on the keyboard.
-    // opened: Raised once the drop - down editor is opened.
     // optionChanged : Raised after a UI component property is changed.
     // paste : Raised when the UI component's input has been pasted.
     // valueChanged : Raised after the UI component's value is changed.
-
 });
-
 
 function cb1() {
     console.log("cb1");

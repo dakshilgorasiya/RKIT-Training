@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="selectBox"></div>
+
+
+    <script>
+        const fruitsVegetables = [{
+            key: "Fruits",
+            items: [
+                { name: "Apples", count: 10 },
+                { name: "Oranges", count: 12 },
+                { name: "Lemons", count: 15 }
+            ]
+        }, {
+            key: "Vegetables",
+            items: [
+                { name: "Potatoes", count: 5 },
+                { name: "Tomatoes", count: 9 },
+                { name: "Turnips", count: 8 }
+            ]
+        }];
+
+        // The SelectBox recognizes a group when it finds an object with the key and items fields. The key is the group header, the items are items that fall into the group.
+        // Note that the SelectBox needs to be informed that it deals with grouped data, therefore its grouped property is set to true.
+        // Only one-level grouping is supported.
+        $("#selectBox").dxSelectBox({
+            dataSource: fruitsVegetables,
+            grouped: true,
+            displayExpr: 'name',
+            valueExpr: 'count',
+            groupTemplate: function ({ key, items }) {
+                return $("<h1>").text(key);
+            }
+        });
+    </script>
+</body>
+</html>
