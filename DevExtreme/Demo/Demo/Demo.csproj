@@ -85,6 +85,15 @@
     <Content Include="2Editors\5SelectBox\itemDemo.html" />
     <Content Include="2Editors\6TextArea\index.html" />
     <Content Include="2Editors\6TextArea\index.js" />
+    <Content Include="2Editors\7TextBox\index.html" />
+    <Content Include="2Editors\7TextBox\index.js" />
+    <Content Include="2Editors\8Button\home.svg" />
+    <Content Include="2Editors\8Button\index.html" />
+    <Content Include="2Editors\8Button\index.js" />
+    <Content Include="2Editors\9FileUploader\demo.html" />
+    <Content Include="2Editors\9FileUploader\demo.js" />
+    <Content Include="2Editors\9FileUploader\index.html" />
+    <Content Include="2Editors\9FileUploader\index.js" />
     <Content Include="Content\dx-diagram.css" />
     <Content Include="Content\dx-diagram.min.css" />
     <Content Include="Content\dx-gantt.css" />
