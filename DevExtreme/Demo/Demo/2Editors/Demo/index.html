@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+    <script src="index.js" defer></script>
+
+    <style>
+        #main{
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 500px;
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            gap: 10px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        #progressbar{
+            width: 500px;
+            margin: auto;
+            margin-bottom: 0px;
+        }
+
+        #basicbtn {
+            width: 500px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        #btn{
+            margin: auto;
+            margin-top: 30px;
+        }
+
+        #profilephotolabel {
+            margin-top: 10px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <main id="main">
+        <div id="progressbar"></div>
+
+        <!-- First page -->
+        <section id="firstpage" class="container">
+            <div id="email"></div>
+            <div id="username"></div>
+            <div id="password"></div>
+            <div id="gender"></div>
+            <div id="birthdate"></div>
+        </section>
+
+        <!-- Second page -->
+        <section id="secondpage" class="container">
+            <div id="address"></div>
+            <div id="pincode"></div>
+            <div id="state"></div>
+            <div id="city"></div>
+        </section>
+
+        <!-- Third page -->
+        <section id="thirdpage" class="container">
+            <div id="plandetails"></div>
+        </section>
+
+        <!-- Fourth page -->
+        <section id="fourthpage" class="container">
+            <label for="profilephoto" id="profilephotolabel">Add a profile photo</label>
+            <div id="profilephoto"></div>
+        </section>
+
+        <!-- Basic buttons -->
+        <section id="basicbtn"> 
+            <div id="savedata"></div>
+            <div id="btn"></div>
+        </section>
+    </main>
+</body>
+</html>

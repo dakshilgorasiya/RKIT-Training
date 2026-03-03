@@ -33,28 +33,6 @@ namespace FileUploadPractice.Controllers
             });
         }
 
-        [HttpPost("uploadMultiple")]
-        public async Task<IActionResult> Upload(List<IFormFile> files)
-        {
-            if (files == null || files.Count == 0)
-                return BadRequest("No files uploaded");
-
-            var binPath = Path.Combine(Directory.GetCurrentDirectory(), "bin");
-
-            if (!Directory.Exists(binPath))
-                Directory.CreateDirectory(binPath);
-
-            foreach (var file in files)
-            {
-                var filePath = Path.Combine(binPath, file.FileName);
-
-                using var stream = new FileStream(filePath, FileMode.Create);
-                await file.CopyToAsync(stream);
-            }
-
-            return Ok("Uploaded");
-        }
-
         [HttpPost("chunk-upload")]
         public async Task<IActionResult> ChunkUpload(
         IFormFile file,

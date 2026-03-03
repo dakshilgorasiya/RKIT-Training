@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="phoneNumber"></div>
+
+    <br />
+    <br />
+    <br />
+
+    <button id="validationError">validationError</button>
+    <button id="validationErrors">validationErrors</button>
+    <button id="validationStatus">validationStatus</button>
+
+    <script>
+        let phoneNumberInstance = $("#phoneNumber").dxTextBox({
+            label: "Enter moblie number",
+            labelMode: "floating",
+            validationMessageMode: "always"
+        }).dxValidator({
+            validationRules: [
+                {
+                    type: "required",
+                    message: "Mobile number is required"
+                },
+                {
+                    type: "pattern",
+                    pattern: '^[0-9]{10}$',
+                    message: "Enter valid mobile number"
+                }
+            ]
+        }).dxTextBox("instance");
+
+        $("#validationError").click(() => {
+            console.log(phoneNumberInstance.option("validationError"));
+        });
+
+        $("#validationErrors").click(() => {
+            console.log(phoneNumberInstance.option("validationErrors"));
+        });
+
+        $("#validationStatus").click(() => {
+            console.log(phoneNumberInstance.option("validationStatus"));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+
+    <style>
+        #firstName {
+            margin: 10px;
+        }
+
+        #lastName {
+            margin: 10px;
+        }
+
+        #validationButton {
+            margin: 10px;
+        }
+
+        #checkBox {
+            margin: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="firstName"></div>
+    <div id="lastName"></div>
+    <div id="checkBox"></div>
+    <div id="validationButton"></div>
+
+    <script>
+        $(() => {
+            $("#firstName").dxTextBox({
+                width: 200,
+                label: "First Name",
+                labelMode: "floating",
+                validationMessageMode: "always",
+                validationMessagePosition: "right",
+            }).dxValidator({
+                validationRules: [
+                    {
+                        type: "required",
+                        message: "first name is required"
+                    }
+                ]
+            });
+
+            $("#lastName").dxTextBox({
+                width: 200,
+                label: "Last Name",
+                labelMode: "floating",
+                validationMessageMode: "always",
+                validationMessagePosition: "right",
+            }).dxValidator({
+            validationRules: [{
+                type: "custom",
+                message: "Required",
+                reevaluate: true,
+                validationCallback: function(e) {
+                    if ($("#checkBox").dxCheckBox("option", "value")) {
+                        return !!e.value;
+                    }
+                    return true; 
+                }        
+            }]
+        });
+
+            $("#validationButton").dxButton({
+                text: "Validate",
+                onClick: function (params) {
+                    params.validationGroup.validate();
+                }
+            });
+
+            $("#checkBox").dxCheckBox({
+                text: "Validate last name",
+                value: false
+            });
+        });
+    </script>
+</body>
+</html>

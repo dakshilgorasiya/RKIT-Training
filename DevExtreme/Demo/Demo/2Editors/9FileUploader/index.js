@@ -11,8 +11,8 @@
         multiple: true,
         uploadMode: 'useButtons',
         allowCanceling: true,
-        uploadUrl: "http://localhost:5275/api/ImageUpload/uploadMultiple",
-        name: "files"
+        uploadUrl: "http://localhost:5275/api/ImageUpload/upload",
+        name: "file"
     });
 
     $("#chunkUpload").dxFileUploader({
@@ -31,5 +31,12 @@
         name: "file",
 
         chunkSize: 100000, // 200 KB per chunk
+    });
+
+    $("#formUpload").dxFileUploader({
+        multiple: true,
+        uploadMode: "useForm",
+        name: "file",
+
     });
 });

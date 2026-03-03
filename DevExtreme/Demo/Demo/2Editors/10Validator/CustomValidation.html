@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+
+    <style>
+        #contacts{
+            width: 330px;
+            border-radius: 10px;
+        }
+
+        #phone{
+            margin: 10px
+        }
+
+        #email{
+            margin: 10px
+        }
+
+        #button{
+            margin: 10px
+        }
+    </style>
+</head>
+<body>
+    <div id="contacts">
+        <div id="phone"></div>
+        <div id="email"></div>
+    </div>
+    <div id="validator"></div>
+    <div id="summary"></div>
+    <div id="button"></div>
+
+    <script>
+        $(() => {
+            let callbacks = [];
+            let revalidate = function () {
+                callbacks.forEach(func => {
+                    func();
+                });
+            }
+
+            let phone = $("#phone").dxTextBox({
+                label: "Phone",
+                labelMode: "floating",
+                onValueChanged: revalidate,
+                width: 300,
+
+            }).dxTextBox("instance");
+
+            let email = $("#email").dxTextBox({
+                label: "Email",
+                labelMode: "floating",
+                onValueChanged: revalidate,
+                type: "email",
+                width: 300
+            }).dxTextBox("instance");
+
+            $("#validator").dxValidator({
+                validationRules: [
+                    {
+                        type: "required",
+                        message: "Specify your phone or email"
+                    }
+                ],
+                adapter: {
+                    getValue: function () {
+                        return phone.option("value") || email.option("value");
+                    },
+                    applyValidationResults: function (e) {
+                        $("#contacts").css({ "border": e.isValid ? "none" : "1px solid red" });
+                    },
+                    validationRequestsCallbacks: callbacks
+                }
+            });
+
+            $("#button").dxButton({
+                text: "Contact me",
+                onClick: function (e) {
+                    const { isValid } = e.validationGroup.validate();
+                    console.log("isValid : ", isValid);
+                }
+            });
+
+            $("#summary").dxValidationSummary({
+
+            });
+        });
+    </script>
+</body>
+</html>

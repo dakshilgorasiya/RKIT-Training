@@ -69,6 +69,15 @@
   <ItemGroup>
     <Content Include="1Basics\index.html" />
     <Content Include="1Basics\index.js" />
+    <Content Include="2Editors\10Validator\basicValidation.html" />
+    <Content Include="2Editors\10Validator\CustomValidation.html" />
+    <Content Include="2Editors\10Validator\dynamicValidation.html" />
+    <Content Include="2Editors\10Validator\groupValidation.html" />
+    <Content Include="2Editors\10Validator\ValidationGroup.html" />
+    <Content Include="2Editors\10Validator\index.html" />
+    <Content Include="2Editors\10Validator\index.js" />
+    <Content Include="2Editors\11RadioGroup\index.html" />
+    <Content Include="2Editors\11RadioGroup\index.js" />
     <Content Include="2Editors\1Checkbox\index.html" />
     <Content Include="2Editors\1Checkbox\index.js" />
     <Content Include="2Editors\2Datebox\index.html" />
@@ -94,6 +103,8 @@
     <Content Include="2Editors\9FileUploader\demo.js" />
     <Content Include="2Editors\9FileUploader\index.html" />
     <Content Include="2Editors\9FileUploader\index.js" />
+    <Content Include="2Editors\Demo\index.html" />
+    <Content Include="2Editors\Demo\index.js" />
     <Content Include="Content\dx-diagram.css" />
     <Content Include="Content\dx-diagram.min.css" />
     <Content Include="Content\dx-gantt.css" />
