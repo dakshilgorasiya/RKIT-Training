@@ -1,99 +1,29 @@
-﻿let cityState = {
-    "Gujarat": [
-        "Ahmedabad",
-        "Surat",
-        "Vadodara",
-        "Rajkot"
-    ],
-    "Maharashtra": [
-        "Mumbai",
-        "Pune",
-        "Nagpur",
-        "Nashik"
-    ],
-    "Rajasthan": [
-        "Jaipur",
-        "Udaipur",
-        "Jodhpur",
-        "Kota"
-    ],
-    "Karnataka": [
-        "Bengaluru",
-        "Mysuru",
-        "Mangaluru",
-        "Hubballi"
-    ],
-    "Tamil Nadu": [
-        "Chennai",
-        "Coimbatore",
-        "Madurai",
-        "Tiruchirappalli"
-    ]
-};
-
-let planDetails = [
-    {
-        id: 1,
-        name: "Basic",
-        price: 199,
-        usersAllowed: 1,
-    },
-    {
-        id: 2,
-        name: "Standard",
-        price: 499,
-        usersAllowed: 3,
-    },
-    {
-        id: 3,
-        name: "Premium",
-        price: 999,
-        usersAllowed: 5,
-    },
-    {
-        id: 4,
-        name: "Enterprise",
-        price: 1999,
-        usersAllowed: 20,
-    },
-    {
-        id: 5,
-        name: "Student",
-        price: 99,
-        usersAllowed: 1,
-    }
-];
-
+﻿import { cityState, planDetails } from "./constants.js"
 
 $(() => {
+    // Store current section which is displayed
     let currentpage = 1;
-    //let store = {
-    //    email: "abc@example.com",
-    //    username: "abc",
-    //    password: "Miracle@123",
-    //    gender: "male",
-    //    birthdate: "03/12/2005",
-    //    address: "ganesh merian",
-    //    pincode: "340053",
-    //    state: "Gujarat",
-    //    city: "Ahmedabad",
-    //    selectedPlan: "Student"
-    //};
 
+    // Store state of form
     let store = {
         email: "",
         username: "",
         password: "",
         gender: "",
-        birthdate: "",
+        birthdate: null,
         address: "",
         pincode: "",
         state: "",
         city: "",
-        selectedPlan: ""
+        selectedPlan: null
     };
 
+    // Wherether to save data on sessionStorage or not
+    let saveLocal = true;
+
+    // Function that loads data from sessionStorage when page loads
     function loadDataFromSession() {
+        console.log("LOad data from session");
         store.email = sessionStorage.getItem("email");
         store.username = sessionStorage.getItem("username");
         store.password = sessionStorage.getItem("password");
@@ -102,23 +32,36 @@ $(() => {
         store.address = sessionStorage.getItem("address");
         store.pincode = sessionStorage.getItem("pincode");
         store.state = sessionStorage.getItem("state");
+        store.city = sessionStorage.getItem("city");
         store.selectedPlan = sessionStorage.getItem("selectedPlan");
 
+        // Cast selectedPlan to number as in session value is stored as string but id is number
+        if (store.selectedPlan !== "" && store.selectedPlan !== null || store.selectedPlan != undefined) {
+            store.selectedPlan = Number.parseInt(store.selectedPlan);
+        }
     };
     loadDataFromSession();
 
+    // A function that save store data to session when user click on next of save button
     function setSessionStorage() {
-        for (let key in store) {
-            sessionStorage.setItem(key, store[key]);
+        if (saveLocal) {
+            console.log("SetSessionStorage");
+            console.log(store);
+            for (let key in store) {
+                sessionStorage.setItem(key, store[key] ?? "");
+            }
+        } else {
+            removeSessionStorage();
         }
     }
 
+    // A function to remove all data from sessionStorage
     function removeSessionStorage() {
         sessionStorage.clear();
     }
 
 
-
+    // A function that will be called when user is on first page and click next
     function handleFirstPageSubmit() {
         const validationResult = DevExpress.validationEngine.validateGroup("first");
         if (validationResult.isValid) {
@@ -131,6 +74,7 @@ $(() => {
         }
     }
 
+    // A function that will be called when user is on second page and click next 
     function handleSecondPageSubmit() {
         const validationResult = DevExpress.validationEngine.validateGroup("second");
         if (validationResult.isValid) {
@@ -143,6 +87,7 @@ $(() => {
         }
     }
 
+    // A function that will be called when user is on third page and click next
     function handleThirdPageSubmit() {
         const validationResult = DevExpress.validationEngine.validateGroup("third");
         if (validationResult.isValid) {
@@ -152,9 +97,11 @@ $(() => {
             $("#fourthpage").show();
             currentpage = 4;
             progressbarinstance.option("value", 75);
+            buttonInstance.option("text", "submit");
         }
     }
 
+    // A function that will be called when user is on fourth page and click submit
     function handleFourthPageSubmit() {
         const validationResult = DevExpress.validationEngine.validateGroup("fourth");
         if (validationResult.isValid) {
@@ -263,7 +210,7 @@ $(() => {
         labelMode: "floating",
         validationMessageMode: "always",
         validationMessagePosition: "right",
-        value: store.birthdate !== "" ? new Date(store.birthdate) : null,
+        value: store.birthdate !== null ? new Date(store.birthdate) : null,
         onValueChanged: function (e) {
             store.birthdate = e.value;
         },
@@ -289,6 +236,7 @@ $(() => {
         validationMessagePosition: "right",
         value: store.address,
         onValueChanged: function (e) {
+            console.log("Address changed");
             store.address = e.value;
         }
     }).dxValidator({
@@ -307,6 +255,7 @@ $(() => {
         validationMessageMode: "always",
         validationMessagePosition: "right",
         value: store.pincode,
+        max: 999999,
         onValueChanged: function (e) {
             store.pincode = e.value;
         }
@@ -328,9 +277,13 @@ $(() => {
         items: Object.keys(cityState),
         value: store.state,
         onValueChanged: function (e) {
+            cityinstance.beginUpdate();
             cityinstance.option("disabled", false);
             cityinstance.option("items", cityState[e.value]);
+            cityinstance.option("value", "");
+            cityinstance.endUpdate();
             store.state = e.value;
+            store.city = "";
         }
     }).dxValidator({
         validationGroup: "second",
@@ -343,7 +296,7 @@ $(() => {
     });
 
     let cityinstance = $("#city").dxSelectBox({
-        //disabled: true,
+        disabled: store.state == "" ? true : false,
         validationMessageMode: "always",
         validationMessagePosition: "right",
         items: cityState[store.state],
@@ -362,13 +315,15 @@ $(() => {
     }).dxSelectBox("instance");
 
     // third page
-    plandetailinstance = $("#plandetails").dxDropDownBox({
+    let plandetailinstance = $("#plandetails").dxDropDownBox({
         dataSource: planDetails,
         valueExpr: "id",
         displayExpr: "name",
         contentTemplate: function (e) {
+            //console.log("grid");
+            //console.log(plandetailinstance.getDataSource());
             const $grid = $("<div>").dxDataGrid({
-                dataSource: plandetailinstance.getDataSource(),
+                dataSource: planDetails,
                 keyExpr: "id",
                 columns: [
                     "id",
@@ -379,13 +334,15 @@ $(() => {
                 selection: {
                     mode: "single"
                 },
+                selectedRowKeys: store.selectedPlan ? [store.selectedPlan] : [],
                 onSelectionChanged: function (args) {
-                    console.log(args.selectedRowKeys[0]["id"]);
-                    e.component.option("value", args.selectedRowKeys[0]["id"]);
+                    console.log(args.selectedRowKeys[0]);
+                    e.component.option("value", args.selectedRowKeys[0]);
+                    e.component.close();
                 }
             });
 
-            gridInstance = $grid.dxDataGrid("instance");
+            let gridInstance = $grid.dxDataGrid("instance");
 
             return $grid;
         },
@@ -411,6 +368,8 @@ $(() => {
     }).dxDropDownBox("instance");
 
     // fourth page
+    let uploadSuccess = false;
+
     $("#profilephoto").dxFileUploader({
         multiple: false,
         allowCanceling: true,
@@ -419,22 +378,37 @@ $(() => {
         accept: "image/*",
         validationMessageMode: "always",
         validationMessagePosition: "right",
+        onUploaded: function () {
+            uploadSuccess = true;
+            DevExpress.validationEngine.validateGroup("fourth");
+        },
+        onUploadError: function () {
+            uploadSuccess = false;
+        },
     }).dxValidator({
         validationGroup: "fourth",
         validationRules: [
             {
-                type: "required",
-                message: "Add a profile photo"
+                type: "custom",
+                message: "Please upload profile photo",
+                validationCallback: function () {
+                    return uploadSuccess;
+                },
+                reevaluate: true,
             }
         ]
     });
 
     // basic buttons
     $("#savedata").dxCheckBox({
-        text: "Save data locally"
+        text: "Save data locally",
+        value: saveLocal,
+        onValueChanged: function (e) {
+            saveLocal = e.value;
+        }
     });
 
-    $("#btn").dxButton({
+    let buttonInstance = $("#btn").dxButton({
         text: "Next",
         width: 100,
         onClick: function (e) {
@@ -453,10 +427,10 @@ $(() => {
                     break;
             }
         }
-    });
+    }).dxButton("instance");
 
-
-    //$("#firstpage").hide();
+    // Initial page configurations
+    //$("#firstpage").hide(); // show only first section
     $("#secondpage").hide();
     $("#thirdpage").hide();
     $("#fourthpage").hide();
