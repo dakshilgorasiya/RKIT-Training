@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <br />
+    <br />
+
+    <div id="select"></div>
+
+    <script>
+        $(() => {
+            let products = [
+                { Id: 1, Name: "Laptop", Price: 70000, Category: "Electronics" },
+                { Id: 2, Name: "Phone", Price: 30000, Category: "Electronics" },
+                { Id: 3, Name: "Table", Price: 5000, Category: "Furniture" },
+                { Id: 4, Name: "Chair", Price: 2000, Category: "Furniture" },
+                { Id: 5, Name: "Headphones", Price: 3000, Category: "Electronics" },
+                { Id: 6, Name: "Pen", Price: 50, Category: "Stationary" },
+                { Id: 7, Name: "Notebook", Price: 100, Category: "Stationary" }
+            ]
+
+            let store = new DevExpress.data.CustomStore({
+                // Specifies a custom implementation of the byKey(key) method.
+                byKey: (key) => {
+                    let result = $.Deferred();
+
+                    let data = products.find(p => p.Id === key);
+
+                    result.resolve(data);
+
+                    return result.promise();
+                },
+
+                // Specifies whether raw data should be saved in the cache. Applies only if loadMode is "raw".
+                // Data caching allows the CustomStore to decrease the number of data requests. On the downside, cached data and data in your source may become out of sync. If keeping them synchronized is crucial in your scenario, disable data caching by setting the cacheRawData property to false. In this case, the CustomStore will send a request for data on every call of the load, byKey and totalCount functions.
+                cacheRawData: true,
+
+                // Specifies the function that is executed when the store throws an error.
+                errorHandler: function (error) {
+                    console.log(error.message);
+                },
+
+                // Specifies a custom implementation of the insert(values) method.
+                insert: (values) => {
+                    let result = $.Deferred();
+
+                    values.Id = products.length + 1;
+                    products.push(values);
+
+                    result.resolve();
+
+                    return result.promise();
+                },
+
+                // Specifies the key property (or properties) that provide(s) key values to access data items. Each key value must be unique.
+                key: "Id",
+
+                // Specifies a custom implementation of the load(options) method.
+                load: (loadOptions) => {
+                    let result = $.Deferred();
+
+                    let data = products
+
+                    result.resolve(data);
+
+                    return result.promise();
+                },
+
+                // Specifies how data returned by the load function is treated.
+                // Default Value: 'processed'
+                // Accepted Values: 'processed' | 'raw'
+                // Specify this property depending on the behavior you implemented for the load function. If this function sends data shaping properties to the server and fetches processed data, then loadMode should be set to "processed". If the load function simply fetches raw, unprocessed data from the server, set loadMode to "raw". In this case, the raw data will be processed on the client automatically.
+                loadMode: "processed",
+
+                // Other event methods like
+                // onInserted
+                // onInserting
+                // onLoaded
+                // onLoading
+                // onModified
+                // onModifying
+                // onPush
+                // onRemove
+                // onRemoving
+                // onUpdate
+                // onUpdating
+
+
+                // Specifies a custom implementation of the remove(key) method.
+                remove: (key) => {
+                    let result = $.Deferred();
+
+                    products = products.filter(p => p.Id !== key);
+
+                    result.resolve();
+
+                    return result.promise();
+                },
+
+                // Specifies a custom implementation of the totalCount(options) method.
+                totalCount: (loadOptions) => {
+                    let result = $.Deferred();
+
+                    let count = products.length;
+
+                    result.resolve(count);
+
+                    return result.promise();
+                },
+
+                // Specifies a custom implementation of the update(key, values) method.
+                update: (key, values) => {
+                    let result = $.Deferred();
+
+                    let product = products.find(p => p.Id === key);
+
+                    Object.assign(product, values);
+
+                    result.resolve();
+
+                    return result.promise();
+                },
+
+                // Specifies whether the store combines the search and filter expressions. Defaults to true if the loadMode is "raw" and false if it is "processed".
+                useDefaultSearch: true,
+            });
+
+            // METHODS
+
+            // Gets a data item with a specific key.
+            store.byKey(1).done((result) => {
+                //console.log(result);
+            })
+
+            // Deletes data from the cache. Takes effect only if the cacheRawData property is true.
+            store.clearRawDataCache();
+
+            // Adds a data item to the store.
+            store.insert({
+                Name: "A",
+                Price: 1,
+                Category: "B"
+            }).done((result) => {
+                //console.log(result);
+            })
+
+            // Gets the key property (or properties) as specified in the key property.
+            //console.log(store.key());
+
+            // Gets a data item's key value.
+            //console.log(store.keyOf({ Id: 2, Name: "Phone", Price: 30000, Category: "Electronics" }));
+
+            // Starts loading data.
+            //store.load()
+            //    .done((result) => {
+            //        console.log(result);
+            //    })
+
+            // Starts loading data.
+            // Will only work if load method is configured properly it will not be automatically done by devextreme
+            //store.load({
+            //    filter: ["Category", "=", "Electronics"],
+            //}).done((result) => {
+            //    console.log(result);
+            //});
+
+            // Other method for event handleing (off, on)
+
+            // Removes a data item with a specific key from the store.
+            store.remove(8).done((result) => {
+                //console.log(result);
+            });
+
+            // Gets the total count of items the load() function returns.
+            store.totalCount().done((result) => {
+                console.log(result);
+            });
+
+            // Updates a data item with a specific key.
+            store.update(7, {
+                Name: "ABC"
+            }).done(result => {
+                console.log(result);
+            });
+
+            // EVENTS
+            // inserted: Raised after a data item is added to the store.
+            // inserting: Raised before a data item is added to the store.
+            // loaded: Raised after data is loaded to the store.
+            // loading: Raised before data is loaded to the store.
+            // modified: Raised after a data item is added, updated, or removed from the store.
+            // modifying: Raised before a data item is added, updated, or removed from the store.
+            // push: Raised before changes are pushed to the store.
+            // removed: Raised after a data item is removed from the store.
+            // removing: Raised before a data item is removed from the store.
+            // updated: Raised after a data item is updated in the store.
+            // updating: Raised before a data item is updated in the store.
+
+            $("#grid").dxDataGrid({
+                dataSource: store,
+                keyExpr: "Id",
+
+                searchPanel: {
+                    visible: true,
+                    highlightCaseSensitive: false
+                },
+
+                filterRow: {
+                    visible: true,
+                    applyFilter: "auto"   // or "onClick"
+                },
+
+                editing: {
+                    mode: "row",
+                    allowAdding: true,
+                    allowUpdating: true,
+                    allowDeleting: true
+                },
+
+                paging: {
+                    pageSize: 10
+                },
+
+                pager: {
+                    visible: true,
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [3, 5, 10],
+                    showInfo: true,
+                    showNavigationButtons: true
+                },
+
+                columns: [
+                    "Id",
+                    "Name",
+                    "Price",
+                    "Category"
+                ]
+            });
+
+            $("#select").dxSelectBox({
+                dataSource: store,
+                keyExpr: "Id",
+                displayExpr: "Name",
+                valueExpr: "Id"
+            })
+        });
+    </script>
+</body>
+</html>

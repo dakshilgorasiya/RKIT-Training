@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="dataGrid"></div>
+
+    <script>
+        $(() => {
+            const productStore = new DevExpress.data.CustomStore({
+                key: "id",
+
+                load: function (loadOptions) {
+
+                    const params = new URLSearchParams();
+
+                    if (loadOptions.skip !== undefined)
+                        params.append("skip", loadOptions.skip);
+
+                    if (loadOptions.take !== undefined)
+                        params.append("take", loadOptions.take);
+
+                    if (loadOptions.requireTotalCount !== undefined)
+                        params.append("requireTotalCount", loadOptions.requireTotalCount);
+
+                    if (loadOptions.sort)
+                        params.append("sort", JSON.stringify(loadOptions.sort));
+
+                    if (loadOptions.filter)
+                        params.append("filter", JSON.stringify(loadOptions.filter));
+
+                    if (loadOptions.searchExpr)
+                        params.append("searchExpr", JSON.stringify(loadOptions.searchExpr));
+
+                    if (loadOptions.searchOperation)
+                        params.append("searchOperation", loadOptions.searchOperation);
+
+                    if (loadOptions.searchValue)
+                        params.append("searchValue", loadOptions.searchValue);
+
+                    return fetch("https://localhost:7240/api/product?" + new URLSearchParams(params))
+                        .then(response => response.json());
+                }
+            });
+
+            $("#dataGrid").dxDataGrid({
+                dataSource: productStore,
+
+                remoteOperations: true,
+
+                paging: {
+                    pageSize: 5
+                },
+
+                pager: {
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [5, 10, 20]
+                },
+
+                searchPanel: {
+                    visible: true
+                },
+
+                filterRow: {
+                    visible: true
+                },
+
+                columns: [
+                    { dataField: "id", caption: "ID" },
+                    { dataField: "name", caption: "Name" },
+                    { dataField: "price", caption: "Price" },
+                    { dataField: "category", caption: "Category" }
+                ]
+            });
+        });
+
+    </script>
+</body>
+</html>

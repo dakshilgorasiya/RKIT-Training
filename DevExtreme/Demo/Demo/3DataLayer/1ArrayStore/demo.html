@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="dataGrid"></div>
+
+    <script>
+        $(() => {
+            let states = [
+                { id: 1, state: "Alabama", capital: "Montgomery" },
+                { id: 2, state: "Alaska", capital: "Juneau" },
+                { id: 3, state: "Arizona", capital: "Phoenix" },
+            ]
+
+            let store = new DevExpress.data.ArrayStore({
+                // Specifies the store's associated array.
+                data: states,
+
+                // Specifies the function that is executed when the store throws an error.
+                errorHandler: function (error) {
+                    console.log("Error occured : ", error);
+                },
+
+                // Specifies the key property (or properties) that provide(s) key values to access data items. Each key value must be unique.
+                // It tells DevExtreme which field uniquely identifies every item so it can update, remove, or find records efficiently.
+                // components like dataGrid, selectBox, dropDownBox to track rows, selection, editing, refreshing
+                key: ["id", "state"],
+
+                // A function that is executed after a data item is added to the store.
+                onInserted: function (values, key) {
+                    console.log("onInserted");
+                    console.log(values);
+                    console.log(key);
+                },
+
+                // A function that is executed before a data item is added to the store.
+                onInserting: function (values) {
+                    console.log("onInserting");
+                    console.log(values);
+                },
+
+                // A function that is executed after data is loaded to the store.
+                onLoaded: function (result, loadOptions) {
+                    console.log("onLoaded");
+                    console.log(result);
+                    console.log(loadOptions);
+                },
+
+                // A function that is executed before data is loaded to the store.
+                onLoading: function (loadOptions) {
+                    console.log("onLoading");
+                    console.log(loadOptions);
+                },
+
+                // A function that is executed after a data item is added, updated, or removed from the store.
+                onModified: function () {
+                    console.log("onModified");
+                },
+
+                // A function that is executed before a data item is added, updated, or removed from the store.
+                onModifying: function () {
+                    console.log("onModifying");
+                },
+
+                // The function executed before changes are pushed to the store.
+                onPush: function (changes) {
+                    console.log("onPush");
+                    console.log(changes);
+                },
+
+                // A function that is executed after a data item is removed from the store.
+                onRemoved: function (key) {
+                    console.log("onRemoved");
+                    console.log(key);
+                },
+
+                // A function that is executed before a data item is removed from the store.
+                onRemoving: function (key) {
+                    console.log("onRemoving");
+                    console.log(key);
+                },
+
+                // A function that is executed after a data item is updated in the store.
+                onUpdated: function (key, values) {
+                    console.log("onUpdated");
+                    console.log(key);
+                    console.log(values);
+                },
+
+                // A function that is executed before a data item is updated in the store.
+                onUpdating: function (key, values) {
+                    console.log("onUpdating");
+                    console.log(key);
+                    console.log(values);
+                },
+            });
+
+            // METHODS
+            // Gets a data item with a specific key.
+            store.byKey({
+                id: 2,
+                state: "Alaska",
+            }).done((dataItem) => {
+                //console.log("Item found : ", dataItem);
+            })
+
+            // Clears all the ArrayStore's associated data.
+            //store.clear();
+
+            // Creates a Query for the underlying array.
+            let query = store.createQuery();
+            //console.log("Query: ", query);
+
+            // Adds a data item to the store.
+            // The data item's key value should be unique, otherwise, the insertion will fail.
+            //store.insert({ id: 4, state: "Gujarat", capital: "Surat" })
+            //    .done((dataObj, key) => {
+            //        console.log("Insert method");
+            //        console.log(dataObj);
+            //        console.log(key);
+            //    });
+
+            // Gets the key property (or properties) as specified in the key property.
+            let keys = store.key();
+            //console.log("Keys: ", keys);
+
+            // Gets a data item's key value.
+            let key = store.keyOf({ id: 4, state: "Gujarat", capital: "Surat" });
+            console.log("Key: ", key);
+
+            // Starts loading data.
+            //store.load();
+
+            store.insert({
+                id: 4,
+                state: "Alaska",
+                capital: "Surat"
+            })
+            // This object is used to specify settings according to which the server should process data. More often these settings are passed as a parameter to the load function and depend on the operations (paging, filtering, sorting, etc.) that you have enabled in the DataSource or UI component.
+            let loadOptions = {
+                // A filter expression.
+                //filter: ["id", "=", 3],
+
+                // A group expression.
+                //group: {
+                //    selector: "state"
+                //},
+
+                // A group summary expression. Used with the group setting.
+                //groupSummary: {
+                //    selector: "id",
+                //    summaryType: "sum"
+                //},
+
+                // Indicates whether a top-level group count is required. Used in conjunction with the filter, take, skip, requireTotalCount, and group settings.
+                //requireGroupCount: true,
+
+                // Indicates whether the total count of data objects is needed.
+                //requireTotalCount: true,
+
+                // A data field or expression whose value is compared to the search value.
+                searchExpr: "state",
+
+                // A comparison operation.
+                // Accepted Values: '=' | '<>' | '>' | '>=' | '<' | '<=' | 'startswith' | 'endswith' | 'contains' | 'notcontains'
+                searchOperation: "contains",
+
+                // The current search value.
+                searchValue: "Alaska",
+
+                // A select expression.
+                //select: "id",
+
+                // The number of data objects to be skipped from the result set's start. In conjunction with take, used to implement paging.
+                //skip: 1,
+
+                // The number of data objects to be loaded. In conjunction with skip, used to implement paging.
+                //take: 2,
+
+                // A sort expression.
+                sort: {
+                    selector: "capital",
+                    desc: true,
+                },
+
+                // A total summary expression.
+                totalSummary: {
+                    selector: "id",
+                    summaryType: "sum"
+                }
+            };
+
+            // Starts loading data.
+            //store.load(loadOptions).done((data) => {
+            //    console.log("Load method");
+            //    console.log(data);
+            //});
+
+            // Detaches all event handlers from a single event.
+            //store.off("loaded");
+
+            // Detaches a particular event handler from a single event.
+            //store.off("loaded", cb1);
+
+            // Subscribes to an event.
+            //store.on("loaded", cb1);
+
+            // Subscribes to events
+            //store.on({
+            //    "loaded": cb2,
+            //    "loading": cb3
+            //});
+
+            // Pushes data changes to the store and notifies the DataSource.
+            // Each data change is an object that can have the following fields:
+            // type: Data change type: "insert", "update", or "remove".
+            // data: Changes that should be applied to the store's data.
+            // key: The key of the data item being updated or removed.
+            // index: The position at which to display a new data item in a UI component bound to the store. To display the new data item first, set the index to 0. To add it to the end of the current page, set the index to -1.
+            // The index field is optional. If you do not specify it, the new data item is added to the end of the dataset. However, if data is grouped or split into pages, this item does not appear in the UI component until data is reshaped. In this case, specify the index to show the pushed item immediately.
+            // The index field is ignored if reshapeOnPush is enabled
+            // The DataSource does not automatically sort, group, filter, or otherwise shape pushed data. For this reason, the DataSource and the UI component bound to it can be out of sync. To prevent this, enable the reshapeOnPush property. We also recommend specifying the pushAggregationTimeout property to reduce the number of updates and recalculations.
+            // The push method does not raise data source modification events (for instance, onInserted, onRemoved, onUpdated). Handle the onPush event to perform actions when data changes are pushed to a store.
+            // The push method does not modify the remote data source. It is used to push changes from the data source to the local store without reloading data.
+            //store.push([{
+            //    type: "insert",
+            //    data: {
+            //        id: 5,
+            //        state: "Gujarat",
+            //        capital: "Anand"
+            //    },
+            //}]);
+            //store.push([{
+            //    type: "update",
+            //    data: {
+            //        id: 5,
+            //        state: "Gujarat",
+            //        capital: "VV nagar"
+            //    },
+            //    key: {
+            //        id: 5,
+            //        state: "Gujarat"
+            //    }
+            //}]);
+            //store.push([{
+            //    type: "remove",
+            //    key: {
+            //        id: 5,
+            //        state: "Gujarat"
+            //    }
+            //}]);
+            
+            // Removes a data item with a specific key from the store.
+            //store.remove({
+            //    id: 4,
+            //    state: "Gujarat"
+            //}).done((key) => {
+            //    console.log("Remove method");
+            //    console.log(key);
+            //});
+
+            // Gets the total count of items the load() function returns.
+            store.totalCount({
+                filter: ["state", "=", "Alaska"],
+                //group: {
+                //    selector: "state"
+                //},
+            })
+                .done((count) => {
+                    console.log("TotalCount: ", count);
+                });
+
+            // Updates a data item with a specific key.
+            //store.update({
+            //    id: 2,
+            //    state: "Alaska"
+            //}, {
+            //    id: 2,
+            //    state: "Alaska",
+            //    capital: "Surat"
+            //}).done((dataObj, key) => {
+            //    console.log("Update Method");
+            //    console.log(dataObj);
+            //    console.log(key);
+            //});
+
+
+            // EVENTS
+            // inserted: Raised after a data item is added to the store.
+            // inserting: Raised before a data item is added to the store.
+            // loaded: Raised after data is loaded to the store.
+            // loading: Raised before data is loaded to the store.
+            // modified: Raised after a data item is added, updated, or removed from the store.
+            // modifying: Raised before a data item is added, updated, or removed from the store.
+            // push: Raised before changes are pushed to the store.
+            // removed: Raised after a data item is removed from the store.
+            // removing: Raised before a data item is removed from the store.
+            // updated: Raised after a data item is updated in the store.
+            // updating: Raised before a data item is updated in the store.
+
+
+            // add store to dataSource
+            let dataSource = new DevExpress.data.DataSource({
+                store,
+            });
+
+            $("#dataGrid").dxDataGrid({
+                dataSource,
+            });
+        });
+
+        function cb1() {
+            console.log("cb1");
+        }
+
+        function cb2() {
+            console.log("cb2");
+        }
+
+        function cb3() {
+            console.log("cb3");
+        }
+
+        function cb4() {
+            console.log("cb4");
+        }
+    </script>
+</body>
+</html>
