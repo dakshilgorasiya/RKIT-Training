@@ -256,7 +256,7 @@
         //width: 100,
     }).dxValidator("instance");
 
-    /* $("#adapterDemo").dxValidator({
+     $("#adapterDemo").dxValidator({
         validationRules: [{
             type: "required",
             message: "This custom field is required!"
@@ -315,7 +315,7 @@
 
     $("#validationSummary").dxValidationSummary({
 
-    }); */
+    }); 
 
     // Methods
     // Disposes of all the resources allocated to the CheckBox instance.

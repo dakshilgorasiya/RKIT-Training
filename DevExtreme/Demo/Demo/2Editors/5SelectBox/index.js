@@ -128,13 +128,13 @@
         //items: [1,2,3,4],
 
         // Specifies a custom template for items.
-        itemTemplate: function (data) {
-            return `
-            <div class='custom-item'>
-                <h3>Natural </h3>
-                <div class='product-name'>${data}</div>
-            </div>`;
-        },
+        //itemTemplate: function (data) {
+        //    return `
+        //    <div class='custom-item'>
+        //        <h3>Natural </h3>
+        //        <div class='product-name'>${data}</div>
+        //    </div>`;
+        //},
 
         // Specifies a text string used to annotate the editor's value.
         label: "Choose food",

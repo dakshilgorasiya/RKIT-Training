@@ -9,7 +9,7 @@ namespace ORMLightDemo
     {
         static void Main(string[] args)
         {
-            string connectionString = "server=localhost;database=employee;user=root;password=Dakshil@123;";
+            string connectionString = "server=localhost;database=employee;user=Admin;password=gs@123;";
 
             var dbFactory = new OrmLiteConnectionFactory(connectionString, MySqlDialect.Provider);
 
@@ -32,7 +32,7 @@ namespace ORMLightDemo
                 //Console.WriteLine($"{engineeringDepartment.T01F01}, {engineeringDepartment.T01F02}, {engineeringDepartment.T01F03}");
                 //Console.WriteLine();
 
-                //List<T01> mumbaiDepartments = db.Select<T01>(d => d.T01F03 == "Mumbai");
+                List<T01> mumbaiDepartments = db.Select<T01>(d => d.T01F03 == "Mumbai");
 
                 //foreach(var department in mumbaiDepartments)
                 //{

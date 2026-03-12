@@ -109,6 +109,12 @@
     <Content Include="3DataLayer\1ArrayStore\demo.html" />
     <Content Include="3DataLayer\2CustomStore\demo.html" />
     <Content Include="3DataLayer\2CustomStore\local.html" />
+    <Content Include="3DataLayer\3DataSource\index.html" />
+    <Content Include="3DataLayer\3DataSource\index.js" />
+    <Content Include="3DataLayer\4LocalStore\index.html" />
+    <Content Include="3DataLayer\4LocalStore\index.js" />
+    <Content Include="3DataLayer\5Query\index.html" />
+    <Content Include="3DataLayer\5Query\index.js" />
     <Content Include="Content\dx-diagram.css" />
     <Content Include="Content\dx-diagram.min.css" />
     <Content Include="Content\dx-gantt.css" />
