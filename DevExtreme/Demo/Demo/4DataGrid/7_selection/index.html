@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let store = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/GetAllPost",
+                    method: "GET"
+                }).then((data) => {
+                    return data;
+                });
+            },
+
+            insert: function (values) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/AddRow",
+                    method: "POST",
+                    data: JSON.stringify(values),
+                    contentType: "application/json"
+                });
+            },
+
+            key: "id",
+
+            remove: function (key) {
+                return $.ajax({
+                    url: `https://localhost:7051/api/Data/DeleteRow?id=${key}`,
+                    method: "DELETE"
+                });
+            },
+
+            update: function (key, values) {
+                const payload = {
+                    id: key,
+                    ...values,
+                };
+
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/UpdateRow",
+                    method: "PUT",
+                    data: JSON.stringify(payload),
+                    contentType: "application/json",
+                })
+            }
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: store,
+
+            columns: [
+                {
+                    dataField: "id",
+                    caption: "Post Id",
+                    width: 100
+                },
+                {
+                    dataField: "userId",
+                    caption: "User Id.",
+                    width: 100
+                },
+                {
+                    dataField: "title",
+                    caption: "Title",
+                    width: 400
+                },
+                {
+                    dataField: "body",
+                    caption: "Post"
+                }
+            ],
+
+            paging: {
+                enabled: true,
+                pageSize: 10,
+            },
+
+            pager: {
+                allowedPageSizes: [5, 10, 20],
+                showPageSizeSelector: true,
+            },
+
+            // Configures runtime selection.
+            selection: {
+                // Allows users to simultaneously select all or current page rows
+                allowSelectAll: true,
+
+                // Makes selection deferred.
+                deferred: false,
+
+                // Specifies the selection mode.
+                // Accepted Values: 'single' | 'multiple' | 'none'(default)
+                mode: "multiple",
+
+                // Specifies the mode in which all the records are selected. Applies only if selection.allowSelectAll is true.
+                // Accepted Values: 'allPages' | 'page'
+                selectAllMode: "allPages",
+
+                // Specifies how to filter selected DataGrid rows based on sensitivity.
+                // This property is in effect only if selection is deferred.
+                // base: Strings with different base letters are unequal. Examples: a ≠ b, a = á, a = A.
+                // accent: Strings with different base letters or accents are unequal. Examples: a ≠ b, a ≠ á, a = A.
+                // case: Strings with different base letters or case are unequal. Examples: a ≠ b, a = á, a ≠ A.
+                // variant: Strings with different base letters, accents, diacritic marks, or case are unequal. Other differences may also apply. Examples: a ≠ b, a ≠ á, a ≠ A.
+                sensitivity: "base",
+
+                // Specifies when to display the selection column and row selection checkboxes. Applies only if selection.mode is "multiple".
+                // "onClick" The selection column is always shown. Checkboxes appear once a user clicks in the column or if two or more rows are selected programmatically or using keyboard shortcuts. Checkboxes disappear once row selection is canceled.
+                // "onLongTap" The selection column with all the checkboxes appears and disappears on long tap (click and hold).
+                // "always" The selection column with all the checkboxes is always visible. A user can select a row by clicking the checkbox or its grid cell, but not the row itself.
+                // "none" The selection column with all the checkboxes is hidden. Users can select rows with keyboard shortcuts or long tap (click and hold).
+                // Default Value: 'onClick'
+                showCheckBoxesMode: "onClick",
+            },
+        });
+    </script>
+</body>
+</html>

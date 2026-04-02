@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let store = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/GetAllPost",
+                    method: "GET"
+                }).then((data) => {
+                    return data;
+                });
+            },
+
+            insert: function (values) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/AddRow",
+                    method: "POST",
+                    data: JSON.stringify(values),
+                    contentType: "application/json"
+                });
+            },
+
+            key: "id",
+
+            remove: function (key) {
+                return $.ajax({
+                    url: `https://localhost:7051/api/Data/DeleteRow?id=${key}`,
+                    method: "DELETE"
+                });
+            },
+
+            update: function (key, values) {
+                const payload = {
+                    id: key,
+                    ...values,
+                };
+
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/UpdateRow",
+                    method: "PUT",
+                    data: JSON.stringify(payload),
+                    contentType: "application/json",
+                })
+            }
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: store,
+
+            columns: [
+                {
+                    // to test filterRow.showAllText options
+                    //lookup: {
+                    //    dataSource: [1,2,3,4,5,6,7,8,9,9]
+                    //},
+                    dataField: "id",
+                    caption: "Post Id",
+                    width: 100,
+
+                    // allow column level filtering (Only apply to FilterRow)
+                    allowFiltering: true,
+
+                    // allow headerFilter for this column
+                    allowHeaderFiltering: true,
+
+                    // List of opertions to show in filter
+                    // Applies if allowFiltering is true and the filterRow and/or filterPanel are visible.
+                    // filterOperations: ["contains", "notcontains", "startswith", "endswith", "=", "<>"]
+
+                    // wherthere by default all options from header filter are selected or not
+                    // Values: "include(default)", "exclude"
+                     filterType: "include",
+
+                    // default value of filter only one value for multiple use below
+                     filterValue: 10,
+                    //filterValues: [10, 40],
+
+                    // to configure header filter for this column only work if headerFilter.enabled is true for grid
+                    headerFilter: {
+                        allowSelectAll: false,
+
+                        // Specifies the header filter's data source.
+                        //dataSource: [
+                        //    {text: "1", value: 1}
+                        //]
+
+                        // group data for ex. for ids from 1-100 it will create group like 1-10, 11-20
+                        //groupInterval: 10,
+
+                        // height:
+
+                        // Configures the header filter's search functionality.
+                        search: {
+                        //    // textBox Configuration
+                        //    editorOptions: {
+
+                        //    },
+                            enabled: false,
+                        //    mode (Accepted Values: 'contains(default)' | 'startswith' | 'equals'),
+                        //    searchExpr,
+                        //    timeout
+                        },
+                        // width:
+                    }
+                },
+                {
+                    dataField: "userId",
+                    caption: "User Id.",
+                    width: 100
+                },
+                {
+                    dataField: "title",
+                    caption: "Title",
+                    width: 400
+                },
+                {
+                    dataField: "body",
+                    caption: "Post"
+                }
+            ],
+
+            paging: {
+                enabled: true,
+                pageSize: 10,
+            },
+
+            pager: {
+                allowedPageSizes: [5, 10, 20],
+                showPageSizeSelector: true,
+            },
+
+            // filter at top of column
+            headerFilter: {
+                allowSelectAll: true,
+
+                // height:
+
+                // Configures the header filter's search functionality.
+                search: {
+                //    // textBox Configuration
+                //    editorOptions: {
+
+                //    },
+                    enabled: true,
+                //    mode, (Accepted Values: 'contains(default)' | 'startswith' | 'equals')
+                //    timeout
+                },
+
+                texts: {
+                    cancel: "Cancel",
+                    emptyValue: "(Blanks)",
+                    ok: "Ok"
+                },
+
+                visible: true,
+
+                // width:
+            },
+
+
+            // It configure FilterPanel's filter
+            filterBuilder: {
+                // Specifies whether the UI component can display hierarchical data fields.
+                // can be used when data is like columns: [
+                //    { dataField: "name" },
+                //            { dataField: "address.city" },
+                //            { dataField: "address.state" }
+                //],
+                allowHierarchicalFields: true,
+
+                // To configure for a column
+                fields: [{
+                    dataField: "id",
+                    editorOptions: {
+                        format: "$ #,##0.##"
+                    },
+
+                    lookup: {
+                        dataSource: [1, 2, 3, 4]
+                    }
+                }],
+
+                // Specifies a set of available group operations.
+                groupOperations: ['and', 'or', 'notAnd', 'notOr'],
+
+                // Specifies groups' maximum nesting level.
+                maxGroupLevel: 3,
+            },
+
+            // Configures the popup in which the integrated filter builder is shown.
+            filterBuilderPopup: {
+                // It accept popup configurations
+            },
+
+            // Filter panel is at bottom of grid for complex expression of filter
+            filterPanel: {
+                // text show when filter is selected at bottom of datagrid.
+                // e has {text, filterValue, component}
+                //customizeText: function (e) {
+                //    console.log(e);
+                //    return e.filterValue[0] + " " + e.filterValue[1] + " " + e.filterValue[2];
+                //},
+
+                // If set to true filterValue will be applied by default otherwise filter will be shown but not applied
+                filterEnabled: false,
+
+                texts: {
+                    // The text of the "Clear" link.
+                    clearFilter: "Clear",
+
+                    // The text of the "Create Filter" link.
+                    createFilter: "Create Filter",
+
+                    // The hint of the checkbox that applies the filter.
+                    filterEnabledHint: "Enable the filter"
+                },
+
+                visible: true,
+            },
+
+            // for filter row shown below header filter and above grid's rows used with expression like =, contains, startswith etc.
+            filterRow: {
+                // when to apply filter
+                // Accepted Values: 'auto'(default) | 'onClick'
+                applyFilter: "auto",
+
+                // Specifies text for a hint that appears when a user pauses on a button that applies the filter.
+                applyFilterText: "Apply filter",
+
+                // Specifies a placeholder for the editor that specifies the end of a range when a user selects the "between" filter operation.
+                betweenEndText: "End",
+
+                // Specifies a placeholder for the editor that specifies the start of a range when a user selects the "between" filter operation.
+                betweenStartText: "Start",
+
+                // Specifies descriptions for filter operations on the filter list.
+                // shown on right of filter oprators in drop down
+                operationDescriptions: {
+                    // A description for the "between" operation.
+                    between: "Add a range"
+
+                    // Others are
+                    // contains
+                    // endsWith
+                    // equal
+                    // greaterThan
+                    // greaterThanOrEqual
+                    // lessThan
+                    // lessThanOrEqual
+                    // notContains
+                    // notEqual
+                    // startsWith
+                },
+
+                // Specifies text for the reset operation on the filter list.
+                resetOperationText: "Reset",
+
+                // Specifies text for the item that clears the applied filter. Used only when a cell of the filter row contains a select box.
+                // when lookup is given it will work
+                showAllText: "All",
+
+                // Specifies whether icons that open the filter lists are visible.
+                showOperationChooser: true,
+
+                visible: true,
+            },
+
+            // Specifies whether to synchronize the filter row, header filter, and filter builder. The synchronized filter expression is stored in the filterValue property.
+            // Default Value: 'auto'
+            // Synchronization is enabled if the filter panel is visible. When it is enabled, check that each column that allows filter operations has the dataField or name property specified.
+            filterSyncEnabled: true,
+
+            // Specifies a filter expression.
+            //filterValue: ["id", "anyof", [3, 5]],
+
+
+            // Configures the global search panel.
+            searchPanel: {
+                // Notifies the UI component whether search is case-sensitive to ensure that search results are highlighted correctly. Applies only if highlightSearchText is true.
+                highlightCaseSensitive: true,
+
+                // Specifies whether found substrings should be highlighted.
+                highlightSearchText: true,
+
+                // Specifies a placeholder for the search panel.
+                placeholder: "Search...",
+
+                // Specifies whether the UI component should search against all columns or only visible ones.
+                searchVisibleColumnsOnly: false,
+
+                // Sets a search string for the search panel.
+                text: "",
+
+                // Specifies whether the search panel is visible or not.
+                visible: true,
+
+                // Specifies the width of the search panel.
+                width: 200
+            }
+        });
+    </script>
+</body>
+</html>

@@ -51,9 +51,9 @@
 
         //    type: "percent", // Multiplies the input value by 100. if not wanted use custom format
 
-        //    //type: "exponential", // error on console
+        //    //type: "exponential", 
 
-        //    //type: "largeNumber", // wrong number
+        //    //type: "largeNumber",
 
         //    //type: "fixedPoint",
         //    //precision: 2

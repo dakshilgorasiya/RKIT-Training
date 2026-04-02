@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let store = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/GetAllPost",
+                    method: "GET"
+                }).then((data) => {
+                    return data;
+                });
+            },
+
+            insert: function (values) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/AddRow",
+                    method: "POST",
+                    data: JSON.stringify(values),
+                    contentType: "application/json"
+                });
+            },
+
+            key: "id",
+
+            remove: function (key) {
+                return $.ajax({
+                    url: `https://localhost:7051/api/Data/DeleteRow?id=${key}`,
+                    method: "DELETE"
+                });
+            },
+
+            update: function (key, values) {
+                const payload = {
+                    id: key,
+                    ...values,
+                };
+
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/UpdateRow",
+                    method: "PUT",
+                    data: JSON.stringify(payload),
+                    contentType: "application/json",
+                })
+            }
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: store,
+
+            allowColumnReordering: true,
+
+            columnChooser: {
+                enabled: true,
+
+                // Accepted Values: 'dragAndDrop' | 'select'
+                mode: "select",
+
+                search: {
+                    enabled: true,
+                    editorOptions: {
+                        placeholder: 'Search column',
+                        mode: 'text',
+                    }
+                },
+
+                title: "Column Chooser",
+            },
+
+            columns: [
+                {
+                    dataField: "id",
+                    caption: "Post Id",
+                    //width: 100,
+
+                    // Specifies whether a user can hide the column using the column chooser at runtime. Applies only if columnChooser.enabled is true.
+                    allowHiding: false,
+
+                    // Specifies whether users can reorder this column. Overrides the allowColumnReordering property value.
+                    allowReordering: true,
+                },
+                {
+                    dataField: "userId",
+                    caption: "User Id.",
+                    //width: 100
+                },
+                {
+                    dataField: "title",
+                    caption: "Title",
+                    //width: 400
+                },
+                {
+                    dataField: "body",
+                    caption: "Post"
+                }
+            ],
+
+            paging: {
+                enabled: true,
+                pageSize: 10,
+            },
+
+            pager: {
+                allowedPageSizes: [5, 10, 20],
+                showPageSizeSelector: true,
+            },
+
+            // here we can customizes columns after they are created.
+            // in columns array we get all property of columns[] array
+            // Data operations (sorting, filtering, summary) are unavailable for the columns created via customizeColumns. To create a fully functioning column, add it to the columns array.
+            customizeColumns: function (columns) {
+                columns[0].width = 100;
+                columns[1].width = 100;
+                columns[2].width = 400;
+            },
+        });
+    </script>
+</body>
+</html>

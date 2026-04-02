@@ -13,9 +13,9 @@
 
     // another way to get instance
     var element = document.getElementById("btn");
-    var chartInstance = DevExpress.ui.dxButton.getInstance(element);
-    if (chartInstance) {
-        console.log(chartInstance);
+    var anotherInstance = DevExpress.ui.dxButton.getInstance(element);
+    if (anotherInstance) {
+        console.log(anotherInstance);
     } else {
         console.log("Intance not exists")
     }
@@ -51,7 +51,7 @@
 
     // To set multiple property
 
-    // 1. By using insrtace
+    // 1. By using instance
     buttonInstance.option({
         text: "update3",
         onClick: function () {

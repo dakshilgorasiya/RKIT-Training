@@ -115,6 +115,38 @@
     <Content Include="3DataLayer\4LocalStore\index.js" />
     <Content Include="3DataLayer\5Query\index.html" />
     <Content Include="3DataLayer\5Query\index.js" />
+    <Content Include="4DataGrid\10_Appearance\index.html" />
+    <Content Include="4DataGrid\11_template\2_rowTemplate.html" />
+    <Content Include="4DataGrid\11_template\3_cell_template.html" />
+    <Content Include="4DataGrid\11_template\4_toolbar_customization.html" />
+    <Content Include="4DataGrid\12_summary\1_gridSummary.html" />
+    <Content Include="4DataGrid\12_summary\2_groupSummary.html" />
+    <Content Include="4DataGrid\12_summary\3_customSummary.html" />
+    <Content Include="4DataGrid\13_master_detail\index.html" />
+    <Content Include="4DataGrid\14_export\index.html" />
+    <Content Include="4DataGrid\15_Adaptability\columnHiding.html" />
+    <Content Include="4DataGrid\15_Adaptability\index.html" />
+    <Content Include="4DataGrid\1_Data_Binding\index.html" />
+    <Content Include="4DataGrid\1_Data_Binding\index.js" />
+    <Content Include="4DataGrid\2_paging\paging.html" />
+    <Content Include="4DataGrid\2_paging\Scrolling.html" />
+    <Content Include="4DataGrid\3_editing\1_row_editing.html" />
+    <Content Include="4DataGrid\3_editing\2_batch_editing.html" />
+    <Content Include="4DataGrid\3_editing\3_cell_editing.html" />
+    <Content Include="4DataGrid\3_editing\4_form_editing.html" />
+    <Content Include="4DataGrid\3_editing\5_popup_editing.html" />
+    <Content Include="4DataGrid\3_editing\6_validation.html" />
+    <Content Include="4DataGrid\3_editing\7_lookup.html" />
+    <Content Include="4DataGrid\4_grouping\index.html" />
+    <Content Include="4DataGrid\5_filtering\index.html" />
+    <Content Include="4DataGrid\6_sorting\index.html" />
+    <Content Include="4DataGrid\7_selection\index.html" />
+    <Content Include="4DataGrid\8_columns\1_customizeColumn.html" />
+    <Content Include="4DataGrid\8_columns\2_columns_based_on_data_source.html" />
+    <Content Include="4DataGrid\8_columns\3_multi_row_header.html" />
+    <Content Include="4DataGrid\8_columns\4_column_resizing.html" />
+    <Content Include="4DataGrid\8_columns\5_command_column.html" />
+    <Content Include="4DataGrid\9_state_persitance\index.html" />
     <Content Include="Content\dx-diagram.css" />
     <Content Include="Content\dx-diagram.min.css" />
     <Content Include="Content\dx-gantt.css" />
@@ -253,7 +285,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53766</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44371/</IISUrl>
+          <IISUrl>https://localhost:44375/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let store = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/GetAllPost",
+                    method: "GET"
+                }).then((data) => {
+                    return data;
+                });
+            },
+
+            insert: function (values) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/AddRow",
+                    method: "POST",
+                    data: JSON.stringify(values),
+                    contentType: "application/json"
+                });
+            },
+
+            key: "id",
+
+            remove: function (key) {
+                return $.ajax({
+                    url: `https://localhost:7051/api/Data/DeleteRow?id=${key}`,
+                    method: "DELETE"
+                });
+            },
+
+            update: function (key, values) {
+                const payload = {
+                    id: key,
+                    ...values,
+                };
+
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/UpdateRow",
+                    method: "PUT",
+                    data: JSON.stringify(payload),
+                    contentType: "application/json",
+                })
+            }
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: store,
+
+            columns: [
+                { dataField: "id", caption: "Post Id", width: 100, allowEditing: false },
+                { dataField: "userId", caption: "User Id.", width: 100, groupIndex: 0 },
+                { dataField: "title", caption: "Title", width: 400 },
+                { dataField: "body", caption: "Post" }
+            ],
+
+            grouping: {
+                // Specifies whether the user can collapse grouped records in a grid or not.
+                allowCollapsing: true,
+
+                // Specifies whether groups appear expanded or not.
+                autoExpandAll: false,
+
+                // Enables the user to group data using the context menu.
+                // Set this property to true to enable grouping using the context menu. In this case, to group/ungroup data, the user right-clicks a column header and chooses the required item from the appeared context menu.
+                contextMenuEnabled: false,
+
+                // Specifies the event on which a group will be expanded/collapsed.
+                // Default Value: 'buttonClick', 'rowClick' (mobile devices)
+                // Accepted Values: 'buttonClick' | 'rowClick'
+                expandMode: 'rowClick',
+
+                // Defines the texts of grouping-related visual elements.
+                texts: {
+                    // Specifies the text of the context menu item that groups data by a specific column.
+                    groupByThisColumn: "Group by This Column",
+
+                    // Specifies the message displayed in a group row when the corresponding group is continued from the previous page.
+                    // If a group simultaneously continues on the next page and is continued from the previous page, the texts specified by the groupContinuedMessage and groupContinuesMessage properties will be concatenated.
+                    groupContinuedMessage: "Continued from the previous page",
+
+                    // Specifies the message displayed in a group row when the corresponding group continues on the next page.
+                    groupContinuesMessage: "Continues on the next page",
+
+                    // Specifies the text of the context menu item that clears grouping settings of a specific column.
+                    ungroup: "Ungroup",
+
+                    // Specifies the text of the context menu item that clears grouping settings of all columns.
+                    ungroupAll: "Ungroup All"
+                }
+            },
+
+            groupPanel: {
+                // Specifies whether columns can be dragged onto or from the group panel.
+                allowColumnDragging: false,
+
+                // Specifies text displayed by the group panel when it does not contain any columns.
+                emptyPanelText: "Drag a column header here to group by that column",
+
+                // Specifies whether the group panel is visible or not.
+                // "auto" mode, in which the visibility of the group panel relies on the device's screen size
+                visible: true,
+            },
+
+
+            paging: {
+                enabled: true,
+                pageSize: 20,
+            },
+
+            pager: {
+                allowedPageSizes: [5, 10, 20],
+                showPageSizeSelector: true,
+            },
+
+            editing: {
+                allowAdding: true,
+                allowDeleting: true,
+                allowUpdating: true,
+                useIcons: true,
+                mode: "batch"
+            }
+        });
+    </script>
+</body>
+</html>

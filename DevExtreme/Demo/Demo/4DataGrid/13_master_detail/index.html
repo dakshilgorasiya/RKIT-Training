@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let store = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/User/GetAll",
+                    method: "GET"
+                }).then((data) => {
+                    return data;
+                });
+            },
+
+            key: "id",
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: store,
+
+            masterDetail: {
+                enabled: true,
+                template: function (container, options) {
+                    const data = options.data;
+                    const address = data.address;
+                    const company = data.company;
+
+                    const wrapper = $("<div>").css({
+                        padding: "15px",
+                        display: "flex",
+                        gap: "40px"
+                    });
+
+                    const addressDiv = $("<div>");
+
+                    $("<h4>").text("Address Details").appendTo(addressDiv);
+                    $("<p>").html("<b>Street:</b> " + address.street).appendTo(addressDiv);
+                    $("<p>").html("<b>Suite:</b> " + address.suite).appendTo(addressDiv);
+                    $("<p>").html("<b>City:</b> " + address.city).appendTo(addressDiv);
+                    $("<p>").html("<b>Zip Code:</b> " + address.zipCode).appendTo(addressDiv);
+                    $("<p>").html(
+                        `<b>Geo:</b> Lat: ${address.geo.lat}, Lng: ${address.geo.lng}`
+                    ).appendTo(addressDiv);
+
+                    const companyDiv = $("<div>");
+
+                    $("<h4>").text("Company Details").appendTo(companyDiv);
+                    $("<p>").html("<b>Name:</b> " + company.name).appendTo(companyDiv);
+                    $("<p>").html("<b>Catch Phrase:</b> " + company.catchPhrase).appendTo(companyDiv);
+                    $("<p>").html("<b>Business:</b> " + company.bs).appendTo(companyDiv);
+
+                    addressDiv.appendTo(wrapper);
+                    companyDiv.appendTo(wrapper);
+
+                    wrapper.appendTo(container);
+                }
+            },
+
+            columns: [
+                {
+                    caption: "Basic Details",
+                    alignment: "center",
+                    columns: [
+                        {
+                            dataField: "id",
+                            caption: "UserId",
+                            width: 60,
+                            alignment: "center"
+                        },
+                        {
+                            dataField: "name",
+                            caption: "Name",
+                            width: 200
+                        },
+                        {
+                            dataField: "userName",
+                            caption: "Username",
+                            width: 150,
+                        },
+                        {
+                            dataField: "email",
+                            caption: "Email",
+                            width: 200,
+                        },
+                        {
+                            dataField: "phone",
+                            caption: "Phone",
+                            width: 200
+                        },
+                        {
+                            dataField: "webSite",
+                            caption: "Website",
+                            width: 130
+                        }
+                    ]
+                },
+            ],
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let store = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/GetAllPost",
+                    method: "GET"
+                }).then((data) => {
+                    return data;
+                });
+            },
+
+            insert: function (values) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/AddRow",
+                    method: "POST",
+                    data: JSON.stringify(values),
+                    contentType: "application/json"
+                });
+            },
+
+            key: "id",
+
+            remove: function (key) {
+                return $.ajax({
+                    url: `https://localhost:7051/api/Data/DeleteRow?id=${key}`,
+                    method: "DELETE"
+                });
+            },
+
+            update: function (key, values) {
+                const payload = {
+                    id: key,
+                    ...values,
+                };
+
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/UpdateRow",
+                    method: "PUT",
+                    data: JSON.stringify(payload),
+                    contentType: "application/json",
+                })
+            }
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: store,
+
+            columns: [
+                {
+                    dataField: "id",
+                    caption: "Post Id",
+                    width: 100,
+                    allowEditing: false,
+
+                    // Specifies the index according to which columns participate in sorting.
+                    sortIndex: 1,
+
+                    // Specifies the sort order of column values.
+                    sortOrder: "asc"
+                },
+                {
+                    dataField: "userId",
+                    caption: "User Id.",
+                    width: 100,
+                    sortIndex: 0,
+                    sortOrder: "desc",
+                },
+                {
+                    dataField: "title",
+                    caption: "Title",
+                    width: 400
+                },
+                {
+                    dataField: "body",
+                    caption: "Post",
+
+                    // Specifies whether a user can sort rows by this column at runtime. Applies only if sorting.mode differs from "none".
+                    allowSorting: false
+                }
+            ],
+
+            paging: {
+                enabled: true,
+                pageSize: 10,
+            },
+
+            pager: {
+                allowedPageSizes: [5, 10, 20],
+                showPageSizeSelector: true,
+            },
+
+            // Configures runtime sorting.
+            sorting: {
+                // Specifies text for the context menu item that sets an ascending sort order in a column.
+                ascendingText: "Sort Ascending",
+
+                // Specifies text for the context menu item that clears sorting settings for a column.
+                clearText: "Clear Sorting",
+
+                // Specifies text for the context menu item that sets a descending sort order in a column.
+                descendingText: "Sort Descending",
+
+                // Specifies the sorting mode.
+                // single: Rows can be sorted by values of a single column only.
+                // multiple: Rows can be sorted by values of several columns.
+                // none: Sorting is disabled.
+                mode: "multiple",
+
+                // Specifies whether to display sort indexes in column headers. Applies only when sorting.mode is "multiple" and data is sorted by two or more columns.
+                showSortIndexes: true,
+            }
+        });
+    </script>
+</body>
+</html>

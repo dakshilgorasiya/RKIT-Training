@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let store = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/GetAllPost",
+                    method: "GET"
+                });
+            }
+        });
+
+        let pagingStore = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: `https://localhost:7051/api/Data/GetPostsWithPage?take=${loadOptions.take}&skip=${loadOptions.skip}`,
+                    method: "GET"
+                });
+            },
+            
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: pagingStore,
+
+            columns: [
+                { dataField: "userId", caption: "User Id.", width: 100 },
+                { dataField: "id", caption: "Post Id", width: 100 },
+                { dataField: "title", caption: "Title", width: 400 },
+                { dataField: "body", caption: "Post" }
+            ],
+
+            remoteOperations: true,
+
+            height: 550,
+
+
+            // Configures scrolling.
+            // Scrolling allows a user to browse data left outside the current viewport. The UI component provides several scrolling modes detailed in the mode property description.
+            scrolling: {
+                // Specifies the rendering mode for columns. Applies when columns are left outside the viewport. Requires the columnWidth, columnAutoWidth, or width (for all columns) property specified.
+                // Default Value: 'standard'
+                // "standard": Renders all columns at once.
+                // "virtual": Renders only those columns that get into the viewport.
+                columnRenderingMode: "standard",
+
+                // Specifies the scrolling mode.
+                // Default Value: 'standard'
+                // Standard: A user scrolls a single page only. Scrolling is available only if all rows of a page do not fit within the UI component's height. In this mode, the pager performs the main navigation and scrolling is auxiliary. If you disable the paging feature, the UI component loads all rows simultaneously. This action can reduce UI component performance. In this case, use another scrolling mode.
+                // Virtual: The component loads pages while they are visible within the viewport and removes them once they leave it. In this mode, users can move to any page instantly. If the component takes time to load and render rows, they display gray boxes.
+                // Infinite: The component loads the next page once the scrollbar reaches the end of its scale. Configure paging.pageSize to change page sizes. In this mode, users scroll data gradually from the first to the last page.
+                // Specify the component's height if you use virtual or infinite scrolling.
+                // Note that the rowRenderingMode property value is "virtual" and cannot be changed if you set the mode property to "virtual" or "infinite".
+                // Regardless of the scrolling mode, you can use the paging.pageSize property to specify the number of rows on a page.
+                mode: "infinite",
+
+                // Specifies whether the UI component should load adjacent pages. Applies only if scrolling.mode is "virtual" or "infinite".
+                //  virtual and infinite scrolling modes, pages are loaded on demand. If you set this property to true, the adjacent pages are loaded in advance for smoother scrolling. This property can reduce the performance on older devices.
+                preloadEnabled: true,
+
+                // Specifies whether to render rows after a user stops scrolling or at the same time as the user scrolls the DataGrid.
+                // true: Rows are rendered after a user stops scrolling.
+                // false: Rows are rendered at the same time as the user scrolls the DataGrid.
+                renderAsync: false,
+
+                // Specifies the rendering mode for loaded rows.
+                // Default Value: 'standard'
+                // "standard": Renders all the loaded rows at once.
+                // "virtual": Renders only those rows that get into the viewport. Use this mode if the pageSize is large. Specify the component's height and height of its container if you use the virtual mode.
+                rowRenderingMode: "standard",
+
+                // Specifies whether a user can scroll the content with a swipe gesture. Applies only if useNative is false.
+                scrollByContent: true,
+
+                // Specifies whether a user can scroll the content with the scrollbar. Applies only if useNative is false.
+                scrollByThumb: true,
+
+                // Specifies when to show scrollbars. Applies only if useNative is false.
+                // Default Value: 'onScroll', 'onHover' (desktop)
+                // Accepted Values: 'always' | 'never' | 'onHover' | 'onScroll'
+                showScrollbar: 'always',
+
+                // Specifies whether DataGrid uses native or simulated scrolling.
+                // When this property is "auto", the component chooses between native and simulated scrolling based on the device:
+                // Desktops (except Mac): simulated scrolling.
+                // Other platforms: native scrolling.
+                useNative: false,
+            }
+        });
+    </script>
+</body>
+</html>

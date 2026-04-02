@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let store = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/GetAllPost",
+                    method: "GET"
+                });
+            }
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: store,
+
+            // The component hides columns in order of hidingPriority. The default DataGrid behavior is to hide rightmost columns first
+            columnHidingEnabled: true,
+            wordWrapEnabled: true,
+
+            // field with lowest hiding Priotiy will be hidden first
+            columns: [
+                {
+                    dataField: "userId",
+                    caption: "User Id.",
+                    width: 100,
+                    hidingPriority: 3,
+                },
+                {
+                    dataField: "id",
+                    caption: "Post Id",
+                    width: 100,
+                    hidingPriority: 2,
+                },
+                {
+                    dataField: "title",
+                    caption: "Title",
+                    width: 400,
+                    hidingPriority: 5,
+                },
+                {
+                    dataField: "body",
+                    caption: "Post",
+                    hidingPriority: 4,
+                }
+            ],
+        })
+    </script>
+</body>
+</html>

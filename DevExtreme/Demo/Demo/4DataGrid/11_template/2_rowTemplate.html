@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.dark.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let store = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/GetAllPost",
+                    method: "GET"
+                }).then((data) => {
+                    return data;
+                });
+            },
+
+            key: "id",
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: store,
+
+            columnAutoWidth: true,
+
+            columns: [
+                {
+                    caption: "Action",
+                    headerCellTemplate: function (container) {
+                        $("<div>")
+                            .text("Action")
+                            .css({
+                                fontWeight: "bold",
+                                textAlign: "center"
+                            })
+                            .appendTo(container);
+                    },
+                    type: "buttons",
+                    visibleIndex: 0,
+                    fixedPosition: "left"
+                },
+                {
+                    dataField: "userId"
+                },
+                {
+                    dataField: "id"
+                },
+                {
+                    dataField: "title"
+                },
+                {
+                    dataField: "body"
+                }
+            ],
+
+            dataRowTemplate: function (container, options) {
+                const data = options.data;
+
+                const card = $("<tr>");
+
+                $("<td>").append("<button>").text("Click").css({
+                    "cursor": "pointer",
+                    "width": "auto"
+                }).on("click",() => {
+                    alert("Clicked");
+                }).appendTo(card);
+
+                $("<td>").text(data.userId).appendTo(card);
+                $("<td>").text(data.id).appendTo(card);
+                $("<td>").text(data.title).appendTo(card);
+                $("<td>").text(data.body).appendTo(card);
+
+                card.appendTo(container);
+            },
+
+            searchPanel: {
+                visible: true,
+            },
+            filterRow: {
+                visible: true
+            },
+            sorting: {
+                mode: "multiple"
+            },
+            stateStoring: {
+                enabled: true,
+                savingTimeout: 2000,
+                storageKey: "gridState",
+                type: "localStorage",
+            },
+        })
+    </script>
+</body>
+</html>

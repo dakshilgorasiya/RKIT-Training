@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let store = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/User/GetAll",
+                    method: "GET"
+                }).then((data) => {
+                    return data;
+                });
+            },
+
+            key: "id",
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: store,
+            editing: {
+                allowAdding: true,
+                allowDeleting: true,
+                allowUpdating: true,
+            },
+            scrolling: {
+                mode: "standard",
+                showScrollbar: "always"
+            },
+            allowColumnResizing: true,
+            columnAutoWidth: true,
+            columnMinWidth: 100,
+            columnResizingMode: "nextColumn",
+
+            columns: [
+                {
+                    caption: "Actions",
+                    alignment: "center",
+                    type: "buttons",
+                    buttons: [
+                        {
+                            // to add custom css class
+                            //cssClass: "btn",
+
+                            disabled: false,
+
+                            // e has {column, component, row}
+                            //disabled: function (e) {
+                            // return true to disable button
+                            //},
+
+                            hint: "Modify",
+
+                            icon: "edit",
+
+                            // to give name of inbuild buttons
+                            //name: "edit",
+
+
+                            // e have {column, component, element, event, row}
+                            // row.data to get actual data object
+                            // row.values to get array of displayed values
+                            onClick: function (e) {
+                                console.log(e);
+                            },
+
+                            //visible: true,
+
+                            // e have {column, component, row}
+                            //visible: function (e) {
+                            //    return true; // to show button
+                            //}
+                        },
+                        {
+                            text: "delete",
+                            onClick: function () {
+                                alert("Not allowed");
+                            },
+                        }
+                    ]
+                },
+                {
+                    caption: "Basic Details",
+                    alignment: "center",
+                    columns: [
+                        {
+                            dataField: "id",
+                            caption: "UserId",
+                            alignment: "center",
+                        },
+                        {
+                            dataField: "name",
+                            caption: "Name",
+                        },
+                        {
+                            dataField: "userName",
+                            caption: "Username",
+                        },
+                        {
+                            dataField: "email",
+                            caption: "Email",
+                        },
+                        {
+                            dataField: "phone",
+                            caption: "Phone",
+                        },
+                        {
+                            dataField: "webSite",
+                            caption: "Website",
+                        }
+                    ]
+                },
+                {
+                    caption: "address",
+                    alignment: "center",
+                    columns: [
+                        {
+                            dataField: "address.street",
+                            caption: "Street",
+                        },
+                        {
+                            dataField: "address.suite",
+                            caption: "Suite",
+                        },
+                        {
+                            dataField: "address.city",
+                            caption: "City",
+                        },
+                        {
+                            dataField: "address.zipCode",
+                            caption: "ZipCode",
+                        },
+                        {
+                            caption: "Geo",
+                            alignment: "center",
+                            columns: [
+                                {
+                                    dataField: "address.geo.lat",
+                                    caption: "Latitude",
+                                    alignment: "center"
+                                },
+                                {
+                                    dataField: "address.geo.lng",
+                                    caption: "Longtitude",
+                                    alignment: "center"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    caption: "company",
+                    alighment: "center",
+                    columns: [
+                        {
+                            dataField: "company.name",
+                            caption: "Name",
+                        },
+                        {
+                            dataField: "company.catchPhrase",
+                            caption: "Catch Phrase",
+                        },
+                        {
+                            dataField: "company.bs",
+                            caption: "Bs",
+                        }
+                    ]
+                }
+            ],
+        })
+    </script>
+</body>
+</html>

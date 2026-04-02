@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.dark.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let store = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/GetAllPost",
+                    method: "GET"
+                }).then((data) => {
+                    return data;
+                });
+            },
+
+            key: "id",
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: store,
+
+            columnAutoWidth: true,
+
+            columns: [
+                {
+                    dataField: "userId"
+                },
+                {
+                    dataField: "id"
+                },
+                {
+                    dataField: "title"
+                },
+                {
+                    dataField: "body"
+                }
+            ],
+
+            summary: {
+                recalculateWhileEditing: true,
+                // Used to calculate summary for whole grid
+                totalItems: [
+                    {
+                        alignment: "center",
+                        column: "id",
+
+                        // Accepted Values: 'avg' | 'count' | 'custom' | 'max' | 'min' | 'sum'
+                        summaryType: "count",
+
+                        //cssClass: ""
+                        customizeText: function (value) {
+                            return "Totals : " + value.value;
+                        },
+                    },
+                    {
+                        column: "id",
+                        summaryType: "sum",
+                        displayFormat: "Sum is {0}",
+
+                        // Use this name to access the summary item in callback functions like calculateCustomSummary.
+                        //name: "",
+
+                        // by default it will appear below id column but we can change it using this property
+                        showInColumn: "title",
+
+                        // Summaries of the count type do not skip empty values regardless of the skipEmptyValues property.
+                        skipEmptyValues: true,
+                    },
+                    {
+                        column: "id",
+                        summaryType: "max",
+                    }
+                ],
+                text: {
+                    avg: "Average value: {0}",
+                    avgOtherColumn: "Average of {1} is {0}"
+                }
+            },
+
+            searchPanel: {
+                visible: true,
+            },
+            filterRow: {
+                visible: true
+            },
+            sorting: {
+                mode: "multiple"
+            },
+            stateStoring: {
+                enabled: true,
+                savingTimeout: 2000,
+                storageKey: "gridState",
+                type: "localStorage",
+            },
+        })
+    </script>
+</body>
+</html>

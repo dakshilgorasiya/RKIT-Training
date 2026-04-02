@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let store = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/User/GetAll",
+                    method: "GET"
+                }).then((data) => {
+                    return data;
+                });
+            },
+
+            key: "id",
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: store,
+
+            scrolling: {
+                mode: "standard",
+                showScrollbar: "always"
+            },
+
+            // When enabled, this property allows users to drag column separators in the header row to update column widths. Initial column widths depend on the component's width and the number of displayed columns.
+            allowColumnResizing: true,
+
+            // When this property is disabled, the component displays data in equal-width columns. DataGrid stretches columns to the component container and cuts off values that do not fit. The component displayes an ellipsis at the end of each cut off value.
+            // When columnAutoWidth is enabled, the component adjusts the width of each column to avoid cutting off long values. If DataGrid content is wider than the component container, DataGrid enables horizontal scrolling to fit content.
+            columnAutoWidth: true,
+
+            // Specifies the minimum width of columns.
+            columnMinWidth: 100,
+
+            // nextColumn(default): When a user resizes a column, the width of the next column changes.
+            // widget: When a user resizes a column, the width of the UI component changes.
+            columnResizingMode: "widget",
+
+            columns: [
+                {
+                    caption: "Basic Details",
+                    alignment: "center",
+                    columns: [
+                        {
+                            dataField: "id",
+                            caption: "UserId",
+                            alignment: "center",
+
+                            // override columnMinWidth property
+                            minWidth: 50,
+                        },
+                        {
+                            dataField: "name",
+                            caption: "Name",
+                        },
+                        {
+                            dataField: "userName",
+                            caption: "Username",
+                        },
+                        {
+                            dataField: "email",
+                            caption: "Email",
+                        },
+                        {
+                            dataField: "phone",
+                            caption: "Phone",
+                        },
+                        {
+                            dataField: "webSite",
+                            caption: "Website",
+                        }
+                    ]
+                },
+                {
+                    caption: "address",
+                    alignment: "center",
+                    columns: [
+                        {
+                            dataField: "address.street",
+                            caption: "Street",
+                        },
+                        {
+                            dataField: "address.suite",
+                            caption: "Suite",
+                        },
+                        {
+                            dataField: "address.city",
+                            caption: "City",
+                        },
+                        {
+                            dataField: "address.zipCode",
+                            caption: "ZipCode",
+                        },
+                        {
+                            caption: "Geo",
+                            alignment: "center",
+                            columns: [
+                                {
+                                    dataField: "address.geo.lat",
+                                    caption: "Latitude",
+                                    alignment: "center"
+                                },
+                                {
+                                    dataField: "address.geo.lng",
+                                    caption: "Longtitude",
+                                    alignment: "center"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    caption: "company",
+                    alighment: "center",
+                    columns: [
+                        {
+                            dataField: "company.name",
+                            caption: "Name",
+                        },
+                        {
+                            dataField: "company.catchPhrase",
+                            caption: "Catch Phrase",
+                        },
+                        {
+                            dataField: "company.bs",
+                            caption: "Bs",
+                        }
+                    ]
+                }
+            ],
+        })
+    </script>
+</body>
+</html>

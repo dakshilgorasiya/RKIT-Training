@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        window.jsPDF = window.jspdf.jsPDF;
+        let store = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/User/GetAll",
+                    method: "GET"
+                }).then((data) => {
+                    return data;
+                });
+            },
+            key: "id",
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: store,
+
+            // column will take as much width as widest value in that column
+            columnAutoWidth: true,
+            //wordWrapEnabled: true,
+
+            selection: {
+                mode: "multiple",
+            },
+
+            grouping: {
+                contextMenuEnabled: true,
+            },
+
+            allowColumnReordering: true,
+            columnChooser: {
+                enabled: true,
+                mode: "select",
+                search: {
+                    enabled: true,
+                    editorOptions: {
+                        placeholder: 'Search column',
+                        mode: 'text',
+                    }
+                },
+                selection: {
+                    allowSelectAll: false,
+                    recursive: true,
+                    selectByClick: true,
+                },
+                title: "Column Chooser",
+            },
+            columns: [
+                {
+                    caption: "Basic Details",
+                    alignment: "center",
+                    columns: [
+                        {
+                            dataField: "id",
+                            caption: "UserId",
+                            width: 60,
+                            alignment: "center"
+                        },
+                        {
+                            dataField: "name",
+                            caption: "Name",
+                            width: 200
+                        },
+                        {
+                            dataField: "userName",
+                            caption: "Username",
+                            width: 150,
+                        },
+                        {
+                            dataField: "email",
+                            caption: "Email",
+                            width: 200,
+                        },
+                        {
+                            dataField: "phone",
+                            caption: "Phone",
+                            width: 200
+                        },
+                        {
+                            dataField: "webSite",
+                            caption: "Website",
+                            width: 130
+                        }
+                    ]
+                },
+                {
+                    caption: "address",
+                    alignment: "center",
+                    columns: [
+                        {
+                            dataField: "address.street",
+                            caption: "Street",
+                            width: 150
+                        },
+                        {
+                            dataField: "address.suite",
+                            caption: "Suite",
+                            width: 100
+                        },
+                        {
+                            dataField: "address.city",
+                            caption: "City",
+                            width: 150
+                        },
+                        {
+                            dataField: "address.zipCode",
+                            caption: "ZipCode",
+                            width: 100
+                        },
+                        {
+                            caption: "Geo",
+                            alignment: "center",
+                            columns: [
+                                {
+                                    dataField: "address.geo.lat",
+                                    caption: "Latitude",
+                                    width: 90,
+                                    alignment: "center",
+
+                                },
+                                {
+                                    dataField: "address.geo.lng",
+                                    caption: "Longtitude",
+                                    width: 90,
+                                    alignment: "center"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    caption: "company",
+                    alighment: "center",
+                    columns: [
+                        {
+                            dataField: "company.name",
+                            caption: "Name",
+                            width: 150
+                        },
+                        {
+                            dataField: "company.catchPhrase",
+                            caption: "Catch Phrase",
+                            width: 300
+                        },
+                        {
+                            dataField: "company.bs",
+                            caption: "Bs",
+                            width: 300
+                        }
+                    ]
+                }
+            ],
+        })
+    </script>
+</body>
+</html>

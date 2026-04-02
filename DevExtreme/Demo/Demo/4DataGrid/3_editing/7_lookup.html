@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let countries = [
+            { id: 1, name: "India" },
+            { id: 2, name: "USA" }
+        ];
+
+        let states = [
+            { id: 1, name: "Gujarat", countryId: 1 },
+            { id: 2, name: "Maharashtra", countryId: 1 },
+            { id: 3, name: "Texas", countryId: 2 },
+            { id: 4, name: "California", countryId: 2 }
+        ];
+
+        $("#grid").dxDataGrid({
+            dataSource: [{
+                countryId: 1,
+                stateId: 1
+            },
+            {
+                countryId: 2,
+                stateId: 3
+            }],
+
+            editing: {
+                mode: "row",
+                allowAdding: true,
+                allowUpdating: true
+            },
+
+            columns: [
+                {
+                    dataField: "countryId",
+                    caption: "Country",
+                    setCellValue: function (rowData, value) {
+                        rowData.countryId = value;
+                        rowData.stateId = null;
+                    },
+                    lookup: {
+                        allowClearing: true,
+                        dataSource: countries,
+                        valueExpr: "id",
+                        displayExpr: "name"
+                    }
+                },
+
+                {
+                    dataField: "stateId",
+                    caption: "State",
+
+                    // A lookup column restricts the set of values that can be chosen when a user edits or filters the column. In a lookup column, each cell is a drop-down menu.
+                    lookup: {
+                        // Specifies whether to display the Clear button in lookup column cells while they are being edited.
+                        allowClearing: true,
+
+                        // Specifies the data source for the lookup column.
+                        dataSource: function (options) {
+                            console.log(options);
+                            return {
+                                store: states,
+                                filter: options.data ? ["countryId", "=", options.data.countryId] : null,
+                            }
+                        },
+
+                        // Specifies the data field whose values should be replaced with values from the displayExpr field.
+                        valueExpr: "id",
+
+                        // Specifies the data source field whose values must be displayed.
+                        displayExpr: "name"
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+</html>

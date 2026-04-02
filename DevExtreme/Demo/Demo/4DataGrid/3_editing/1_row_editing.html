@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let store = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/GetAllPost",
+                    method: "GET"
+                }).then((data) => {
+                    return data;
+                });
+            },
+
+            insert: function (values) {
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/AddRow",
+                    method: "POST",
+                    data: JSON.stringify(values),
+                    contentType: "application/json"
+                });
+            },
+
+            key: "id",
+
+            remove: function (key) {
+                return $.ajax({
+                    url: `https://localhost:7051/api/Data/DeleteRow?id=${key}`,
+                    method: "DELETE"
+                });
+            },
+
+            update: function (key, values) {
+                const payload = {
+                    id: key,
+                    ...values,
+                };
+
+                return $.ajax({
+                    url: "https://localhost:7051/api/Data/UpdateRow",
+                    method: "PUT",
+                    data: JSON.stringify(payload),
+                    contentType: "application/json",
+                })
+            }
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: store,
+
+            columns: [
+                { dataField: "id", caption: "Post Id", width: 100, allowEditing: false },
+                { dataField: "userId", caption: "User Id.", width: 100 },
+                { dataField: "title", caption: "Title", width: 400 },
+                { dataField: "body", caption: "Post" }
+            ],
+
+            paging: {
+                enabled: true,
+                pageSize: 10,
+            },
+
+            pager: {
+                allowedPageSizes: [5, 10, 20],
+                showPageSizeSelector: true,
+            },
+
+            // Configures editing.
+            editing: {
+                // Specifies whether a user can add new rows.
+                allowAdding: true,
+
+                // Specifies whether a user can delete rows. It is called for each data row when defined as a function.
+                //allowDeleting: true,
+
+                allowDeleting: function (e) {
+                    return e.row.data.id % 10 > 5;
+                },
+
+                // Specifies whether a user can update rows. It is called for each data row when defined as a function.
+                //allowUpdating: true,
+                allowUpdating: function(e) {
+                    return e.row.data.id % 10 <= 5;
+                },
+
+                // Specifies if confirmation is required when a user deletes a row.
+                confirmDelete: true,
+
+                // The name of a column being edited. Applies only if editing.mode is "cell" or "batch".
+                //editColumnName:
+
+                // The key(s) of a row being edited.
+                // Values for this property are taken from the data field(s) specified in the keyExpr property or the key property of the store.
+                //editRowKey
+
+                // Configures the form. Used only if editing.mode is "form" or "popup".
+                //form
+
+                // Specifies how a user edits data.
+                // Default Value: 'row'
+                // row: A user edits one row at a time. The UI component saves changes when the row leaves the editing state.
+                // batch: A user edits data cell by cell. The UI component does not save changes until a user clicks the global "Save" button.
+                // cell: Differs from the batch mode in that the UI component saves changes when the cell leaves the editing state.
+                // form: On entering the editing state, a row becomes a form with editable fields. The UI component saves changes after a user clicks the "Save" button.
+                // popup: Differs from the form mode in that the form with editable fields is placed in a popup window.
+                mode: "row",
+
+                // Specifies a position for a new row.
+                //Default Value: 'viewportTop'
+                // Accepted Values: 'first' | 'last' | 'pageBottom' | 'pageTop' | 'viewportBottom' | 'viewportTop'
+                newRowPosition: "viewportTop",
+
+                // Configures the popup. Used only if editing.mode is "popup".
+                //popup
+
+                // Specifies operations that are performed after saving changes.
+                // Default Value: 'full'
+                // full: data reload, data processing operation, ui component repaint
+                // reshape: data processing operation, ui component repaint
+                // repaint: ui component repaint
+                // Data processing operations include paging, filtering, sorting, grouping, and summary calculation (in the DataGrid).
+                //refreshMode: "repaint",
+
+                // Specifies whether to select text in a cell when a user starts editing.
+                selectTextOnEditStart: true,
+
+                // Specifies whether a single or double click should switch a cell to the editing state. Applies if editing.mode is "cell" or "batch".
+                // Accepted Values: 'click' | 'dblClick'
+                // Default Value: 'click'
+                startEditAction: "dblClick",
+
+                texts: {
+                    // Specifies text for a hint that appears when a user pauses on the global "Add" button. Applies only if editing.allowAdding is true.
+                    addRow: "Add a new post",
+
+                    // Specifies text for a hint that appears when a user pauses on the "Discard" button. Applies only if editing.mode is "batch".
+                    cancelAllChanges: 'Discard changes',
+
+                    // Specifies text for a button that cancels changes in a row. Applies only if editing.allowUpdating is true and editing.mode is "row", "popup" or "form".
+                    cancelRowChanges: "Cancel",
+
+                    // Specifies a message that prompts a user to confirm deletion.
+                    confirmDeleteMessage: "Are you sure you want to delete this post?",
+
+                    // Specifies a title for the window that asks a user to confirm deletion.
+                    confirmDeleteTitle: "Warning",
+
+                    // Specifies text for buttons that delete rows. Applies only if allowDeleting is true.
+                    deleteRow: "Remove post",
+
+                    // Specifies text for buttons that switch rows into the editing state. Applies only if allowUpdating is true.
+                    editRow: "Edit post",
+
+                    // Specifies text for a hint that appears when a user pauses on the global "Save" button. Applies only if editing.mode is "batch".
+                    saveAllChanges: "Save to server",
+
+                    // Specifies text for a button that saves changes made in a row. Applies only if allowUpdating is true and editing.mode is "row", "popup" or "form".
+                    saveRowChanges: "Save to server",
+
+                    // Specifies text for buttons that recover deleted rows. Applies only if allowDeleting is true and editing.mode is "batch".
+                    undeleteRow: "Recover",
+
+                    // Specifies text for a hint appearing when a user pauses on the button that cancels changes in a cell. Applies only if editing.mode is "cell" and data validation is enabled.
+                    validationCancelChanges: "Cancel",
+                },
+
+                // Specifies whether the edit column uses icons instead of links.
+                useIcons: true,
+            },
+
+            // Raised after row changes are discarded.
+            // e has {changes, element, component}
+            onEditCanceled: function (e) {
+                console.log("onEditCanceled");
+                console.log(e);
+            },
+
+            // A function that is executed when the edit operation is canceled, but row changes are not yet discarded.
+            // e has {changes, element, component, cancel}
+            onEditCanceling: function (e) {
+                console.log("onEditCanceling");
+                console.log(e);
+            },
+
+            // A function that is executed before a cell or row switches to the editing state.
+            // e has {cancel, column, component, data, element, key}
+            onEditingStart: function (e) {
+                console.log("onEditingStart");
+                console.log(e);
+            },
+
+            // A function that is executed after a new row has been inserted into the data source.
+            // e has {key, error, data, element, component}
+            onRowInserted: function (e) {
+                console.log("onRowInserted");
+                console.log(e);
+            },
+
+            // A function that is executed before a new row is inserted into the data source.
+            // e has {data, cancel, element, component}
+            onRowInserting: function (e) {
+                console.log("onRowInserting");
+                console.log(e);
+            },
+
+            // A function that is executed after a row has been removed from the data source.
+            // e has {key, error, data, element, component}
+            onRowRemoved: function (e) {
+                console.log("onRowRemoved");
+                console.log(e);
+            },
+
+            // A function that is executed before a row is removed from the data source.
+            // e has {key, data, cancel, element, component}
+            onRowRemoving: function (e) {
+                console.log("onRowRemoving");
+                console.log(e);
+                e.cancel = true;
+            },
+
+            // A function that is executed after a row has been updated in the data source.
+            // e has {key, error, data, element, component}
+            onRowUpdated: function (e) {
+                console.log("onRowUpdated");
+                console.log(e);
+            },
+
+            // A function that is executed before a row is updated in the data source.
+            // e has {oldData, newData, key, cancel, element, component}
+            onRowUpdating: function (e) {
+                console.log("onRowUpdating");
+                console.log(e);
+            },
+
+            // A function that is executed after row changes are saved.
+            // e has {changes, element, component}
+            onSaved: function (e) {
+                console.log("onSaved");
+                console.log(e);
+            },
+
+            // A function that is executed before pending row changes are saved.
+            // e has {promise, changes, cancel, element, component}
+            onSaving: function (e) {
+                console.log("onSaving");
+                console.log(e);
+            }
+        });
+    </script>
+</body>
+</html>
