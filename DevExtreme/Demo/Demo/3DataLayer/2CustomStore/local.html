@@ -56,7 +56,7 @@
                     products.push(values);
 
                     result.resolve();
-
+                    console.log("Insert called");
                     return result.promise();
                 },
 
@@ -65,6 +65,7 @@
 
                 // Specifies a custom implementation of the load(options) method.
                 load: (loadOptions) => {
+                    console.log("LOAD METHOD CALLED");
                     let result = $.Deferred();
 
                     let data = products
@@ -78,7 +79,7 @@
                 // Default Value: 'processed'
                 // Accepted Values: 'processed' | 'raw'
                 // Specify this property depending on the behavior you implemented for the load function. If this function sends data shaping properties to the server and fetches processed data, then loadMode should be set to "processed". If the load function simply fetches raw, unprocessed data from the server, set loadMode to "raw". In this case, the raw data will be processed on the client automatically.
-                loadMode: "processed",
+                loadMode: "raw ",
 
                 // Other event methods like
                 // onInserted
@@ -149,7 +150,8 @@
                 Price: 1,
                 Category: "B"
             }).done((result) => {
-                //console.log(result);
+                console.log("Inserted");
+                console.log(result);
             })
 
             // Gets the key property (or properties) as specified in the key property.

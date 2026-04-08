@@ -23,6 +23,13 @@ namespace DataGridDataAPI.Controllers
             return Ok(posts.Skip(skip).Take(take));
         }
 
+        [HttpGet("GetPostById")]
+        public IActionResult GetPostById(int id)
+        {
+            Post res = posts.Where(p => p.id == id).FirstOrDefault();
+            return Ok(res);
+        }
+
         [HttpPost("AddRow")]
         public IActionResult AddRow([FromBody]Post post)
         {

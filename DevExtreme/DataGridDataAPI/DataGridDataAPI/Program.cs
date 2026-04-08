@@ -12,7 +12,7 @@ namespace DataGridDataAPI
             {
                 policy.AddPolicy("MyPolicy", (options =>
                 {
-                    options.WithOrigins("https://localhost:44371");
+                    options.WithOrigins("https://localhost:44375");
                     options.AllowAnyMethod();
                     options.AllowAnyHeader();
                     options.AllowCredentials();
