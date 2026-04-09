@@ -1,5 +1,5 @@
 
-namespace FileUploadPractice
+namespace DataGridFinalDemoAPI
 {
     public class Program
     {
@@ -7,16 +7,17 @@ namespace FileUploadPractice
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("MyPolicy", policy =>
+                options.AddPolicy("MyPolicy", (cors =>
                 {
-                    policy.WithOrigins("https://localhost:44375")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
-                });
+                    cors.AllowAnyMethod();
+                    cors.AllowAnyOrigin();
+                    cors.AllowAnyHeader();
+                }));
             });
+
+            // Add services to the container.
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

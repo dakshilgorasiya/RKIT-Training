@@ -67,6 +67,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="5_Navigation\1_Menu\index.html" />
+    <Content Include="5_Navigation\1_Menu\index.js" />
+    <Content Include="5_Navigation\1_Menu\index2.html" />
+    <Content Include="5_Navigation\1_Menu\index2.js" />
+    <Content Include="Reconsile\aggregate.html" />
+    <Content Include="Reconsile\aggregate.js" />
+    <Content Include="Reconsile\dropDown1.html" />
+    <Content Include="Reconsile\dropDown1.js" />
+    <Content Include="Reconsile\dropDown2.html" />
+    <Content Include="Reconsile\dropDown2.js" />
+    <Content Include="Reconsile\GSTNo.html" />
     <Content Include="1Basics\index.html" />
     <Content Include="1Basics\index.js" />
     <Content Include="2Editors\10Validator\basicValidation.html" />
@@ -147,6 +158,8 @@
     <Content Include="4DataGrid\8_columns\4_column_resizing.html" />
     <Content Include="4DataGrid\8_columns\5_command_column.html" />
     <Content Include="4DataGrid\9_state_persitance\index.html" />
+    <Content Include="4DataGrid\demo\index.html" />
+    <Content Include="4DataGrid\demo\index.js" />
     <Content Include="Content\dx-diagram.css" />
     <Content Include="Content\dx-diagram.min.css" />
     <Content Include="Content\dx-gantt.css" />
@@ -189,6 +202,9 @@
     <Content Include="Content\dx.softblue.compact.css" />
     <Content Include="Content\dx.softblue.css" />
     <Content Include="Content\index.html" />
+    <Content Include="Reconsile\GSTNo.js" />
+    <Content Include="Reconsile\imageGrid.html" />
+    <Content Include="Reconsile\imageGrid.js" />
     <Content Include="Scripts\cldr.js" />
     <Content Include="Scripts\cldr\event.js" />
     <Content Include="Scripts\cldr\supplemental.js" />

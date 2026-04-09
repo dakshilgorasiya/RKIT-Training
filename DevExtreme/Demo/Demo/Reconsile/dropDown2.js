@@ -101,6 +101,7 @@
             onSelectionChanged(args) {
                 e.component.option("value", args.selectedRowKeys[0]);
                 e.component.close();
+                localStorage.setItem("lastSelectedComment", args.selectedRowKeys[0]);
             },
         });
     }
@@ -128,6 +129,7 @@
                 e.component.close();
 
                 localStorage.setItem("lastSelectedPost", postId);
+                localStorage.removeItem("lastSelectedComment");
 
                 await commentStore.load();
                 commentBoxInstance.getDataSource().reload();
@@ -196,6 +198,7 @@
                 await postStore.remove(getSelectedPostId());
                 postBoxInstance.option("value", undefined);
                 localStorage.removeItem("lastSelectedPost");
+                localStorage.removeItem("lastSelectedComment");
                 postBoxInstance.repaint();
                 commentBoxInstance.getDataSource().reload();
                 commentBoxInstance.repaint();
@@ -233,6 +236,13 @@
             displayExpr: "body",
             deferRendering: false,
             contentTemplate: buildCommentGrid,
+            onContentReady: function (e) {
+                const raw = localStorage.getItem("lastSelectedComment");
+                if (raw == null) return;
+
+                const commentId = parseInt(raw);
+                e.component.option("value", commentId);
+            }
         })
         .dxDropDownBox("instance");
 

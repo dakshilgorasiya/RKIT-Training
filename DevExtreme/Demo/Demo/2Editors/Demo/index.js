@@ -15,7 +15,8 @@ $(() => {
         pincode: "",
         state: "",
         city: "",
-        selectedPlan: null
+        selectedPlan: null,
+        collegeName: "",
     };
 
     // Wherether to save data on sessionStorage or not
@@ -34,9 +35,12 @@ $(() => {
         store.state = sessionStorage.getItem("state");
         store.city = sessionStorage.getItem("city");
         store.selectedPlan = sessionStorage.getItem("selectedPlan");
+        store.collegeName = sessionStorage.getItem("collegeName");
 
         // Cast selectedPlan to number as in session value is stored as string but id is number
-        if (store.selectedPlan !== "" && store.selectedPlan !== null || store.selectedPlan != undefined) {
+        if (store.selectedPlan === "" || store.selectedPlan === null || store.selectedPlan === undefined || store.selectedPlan === "NaN") {
+            store.selectedPlan = null;
+        } else {
             store.selectedPlan = Number.parseInt(store.selectedPlan);
         }
     };
@@ -84,6 +88,15 @@ $(() => {
             $("#thirdpage").show();
             currentpage = 3;
             progressbarinstance.option("value", 50);
+
+            if (store?.selectedPlan === 5) {
+                collegeName.option("visible", true);
+                collegeName.option("disabled", false);
+            } else {
+                collegeName.option("visible", false);
+                collegeName.option("disabled", true);
+                collegeNameValidator.reset();
+            }
         }
     }
 
@@ -137,9 +150,15 @@ $(() => {
                 message: "Email is required"
             },
             {
+                type: "stringLength",
+                max: 50,
+                min: 5,
+                message: "Email's length should be between 5 to 50 character"
+            },
+            {
                 type: "email",
                 message: "Invalid email format"
-            }
+            },
         ]
     });
 
@@ -159,6 +178,12 @@ $(() => {
                 type: "required",
                 message: "Username is required"
             },
+            {
+                type: "stringLength",
+                max: 50,
+                min: 5,
+                message: "Username must be between 5 to 50 character"
+            },
         ]
     });
 
@@ -167,6 +192,7 @@ $(() => {
         labelMode: "floating",
         validationMessageMode: "always",
         validationMessagePosition: "right",
+        mode: "password",
         value: store.password,
         onValueChanged: function (e) {
             store.password = e.value;
@@ -192,6 +218,8 @@ $(() => {
         layout: "horizontal",
         hint: "Select a gender",
         value: store.gender,
+        validationMessageMode: "always",
+        validationMessagePosition: "right",
         onValueChanged: function (e) {
             store.gender = e.value;
         }
@@ -217,6 +245,9 @@ $(() => {
         displayFormat: "dd/MM/yyyy",
         openOnFieldClick: true,
         useMaskBehavior: true,
+        disabledDates: function (data) {
+            return data.date > new Date();
+        }
     }).dxValidator({
         validationGroup: "first",
         validationRules: [
@@ -229,12 +260,14 @@ $(() => {
 
 
     // second page
-    $("#address").dxTextBox({
+    $("#address").dxTextArea({
         label: "Address",
         labelMode: "floating",
         validationMessageMode: "always",
         validationMessagePosition: "right",
         value: store.address,
+        autoResizeEnabled: true,
+        maxHeight: 100,
         onValueChanged: function (e) {
             console.log("Address changed");
             store.address = e.value;
@@ -245,6 +278,17 @@ $(() => {
             {
                 type: "required",
                 message: "Address is required"
+            },
+            {
+                type: "stringLength",
+                min: 10,
+                max: 500,
+                message: "Address should contain 10 to 500 characters"
+            },
+            {
+                type: "pattern",
+                pattern: /[a-zA-Z]+/,
+                message: "Address should contains some words"
             }
         ]
     });
@@ -255,7 +299,6 @@ $(() => {
         validationMessageMode: "always",
         validationMessagePosition: "right",
         value: store.pincode,
-        max: 999999,
         onValueChanged: function (e) {
             store.pincode = e.value;
         }
@@ -265,6 +308,11 @@ $(() => {
             {
                 type: "required",
                 message: "Pincode is required"
+            },
+            {
+                type: "pattern",
+                pattern: /^[0-9]{6}$/,
+                message: "Pincode should contain 6 digits"
             }
         ]
     });
@@ -320,13 +368,10 @@ $(() => {
         valueExpr: "id",
         displayExpr: "name",
         contentTemplate: function (e) {
-            //console.log("grid");
-            //console.log(plandetailinstance.getDataSource());
             const $grid = $("<div>").dxDataGrid({
                 dataSource: planDetails,
                 keyExpr: "id",
                 columns: [
-                    "id",
                     "name",
                     "price",
                     "usersAllowed",
@@ -339,6 +384,16 @@ $(() => {
                     console.log(args.selectedRowKeys[0]);
                     e.component.option("value", args.selectedRowKeys[0]);
                     e.component.close();
+
+                    if (args.selectedRowKeys[0] === 5) {
+                        collegeName.option("visible", true);
+                        collegeName.option("disabled", false);
+                    } else {
+                        collegeName.option("visible", false);
+                        collegeName.option("disabled", true);
+                        collegeName.option("value", "");
+                        collegeNameValidator.reset();
+                    }
                 }
             });
 
@@ -366,6 +421,34 @@ $(() => {
             }
         ]
     }).dxDropDownBox("instance");
+
+    let collegeName = $("#collegeName").dxTextBox({
+        label: "College Name",
+        labelMode: "floating",
+        validationMessageMode: "always",
+        validationMessagePosition: "right",
+        mode: "text",
+        value: store.collegeName,
+        onValueChanged: function (e) {
+            store.collegeName = e.value;
+        }
+    }).dxValidator({
+        validationGroup: "third",
+        validationRules: [
+            {
+                type: "required",
+                message: "College name is required",
+            },
+            {
+                type: "stringLength",
+                max: 100,
+                min: 10,
+                message: "College name should be between 10 to 100 characters",
+            }
+        ]
+    }).dxTextBox("instance");
+
+    let collegeNameValidator = $("#collegeName").dxValidator("instance");
 
     // fourth page
     let uploadSuccess = false;
@@ -434,4 +517,7 @@ $(() => {
     $("#secondpage").hide();
     $("#thirdpage").hide();
     $("#fourthpage").hide();
+
+    // By default hide college name text box
+    collegeName.option("visible", false);
 });

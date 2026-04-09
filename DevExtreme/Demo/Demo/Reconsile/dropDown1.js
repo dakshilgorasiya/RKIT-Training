@@ -76,6 +76,8 @@
             onSelectionChanged(args) {
                 e.component.option("value", args.selectedRowKeys[0]);
                 e.component.close();
+
+                localStorage.setItem("lastSelectedComment", args.selectedRowKeys[0]);
             },
         });
     }
@@ -108,6 +110,7 @@
                 e.component.close();
 
                 localStorage.setItem("lastSelectedPost", postId);
+                localStorage.removeItem("lastSelectedComment");
 
                 await loadComments(postId);
             },
@@ -185,6 +188,7 @@
                     method: "DELETE"
                 });
                 localStorage.removeItem("lastSelectedPost");
+                localStorage.removeItem("lastSelectedComment");
                 await postStore.remove(getSelectedPostId());
                 postBoxInstance.repaint();
                 await commentStore.clear();
@@ -223,6 +227,13 @@
             dataSource: commentStore,
             displayExpr: "body",
             contentTemplate: buildCommentGrid,
+            onContentReady: async function (e) {
+                const raw = localStorage.getItem("lastSelectedComment");
+                if (raw == null) return;
+
+                const commentId = parseInt(raw);
+                e.component.option("value", commentId);
+            }
         })
         .dxDropDownBox("instance");
 
