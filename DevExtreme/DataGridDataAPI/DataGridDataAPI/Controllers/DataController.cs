@@ -20,7 +20,13 @@ namespace DataGridDataAPI.Controllers
         [HttpGet("GetPostsWithPage")]
         public IActionResult GetPostsWithPage([FromQuery] int take, [FromQuery] int skip)
         {
-            return Ok(posts.Skip(skip).Take(take));
+            PaginationResponse res = new PaginationResponse()
+            {
+                TotalCount = posts.Count(),
+                Data = posts.Skip(skip).Take(take)
+            };
+
+            return Ok(res);
         }
 
         [HttpGet("GetPostById")]
@@ -68,5 +74,10 @@ namespace DataGridDataAPI.Controllers
 
             return Ok();
         }
+    }
+    public class PaginationResponse
+    {
+        public int TotalCount { get; set; }
+        public IEnumerable<Post> Data { get; set; }
     }
 }

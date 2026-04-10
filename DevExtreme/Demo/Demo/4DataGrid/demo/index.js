@@ -2,25 +2,39 @@
     window.jsPDF = window.jspdf.jsPDF;
 
     let store = new DevExpress.data.CustomStore({
+        load: function (loadOptions) {
+            console.log(loadOptions)
+            let d = $.Deferred();
+            let queryParams = $.extend({}, loadOptions);
+            if (queryParams.filter) queryParams.filter = JSON.stringify(queryParams.filter);
+            if (queryParams.sort) queryParams.sort = JSON.stringify(queryParams.sort);
+            if (queryParams.select) queryParams.select = JSON.stringify(queryParams.select);
+            if (queryParams.group) queryParams.group = JSON.stringify(queryParams.group);
+            if (queryParams.groupSummary) queryParams.groupSummary = JSON.stringify(queryParams.groupSummary);
+            if (queryParams.totalSummary) queryParams.totalSummary = JSON.stringify(queryParams.totalSummary);
+            if (queryParams.searchExpr) queryParams.searchExpr = JSON.stringify(queryParams.searchExpr);
+            if (queryParams.userData) queryParams.userData = JSON.stringify(queryParams.userData);
+            $.getJSON("http://localhost:5203/api/Data/GetRecords", queryParams)
+                .done(res => {
+                    d.resolve({
+                        data: res.data,
+                        totalCount: res.totalCount,
+                        summary: res.summary,
+                        groupCount: res.groupCount
+                    });
+                })
+                .fail((xhr) => {
+                    d.reject("Data Load Error");
+                });
+            return d.promise();
+        },
+
         //load: function (loadOptions) {
-
-        //    let skip = loadOptions.skip;
-        //    let take = loadOptions.take;
-        //    let sortField = loadOptions.sort[0].selector;
-        //    let sortOrder = loadOptions.sort[0].desc ? "desc" : "asc";
-
         //    return $.ajax({
-        //        url: `https://localhost:7059/api/Data/Get?skip=${skip}&take=${take}&sortField=${sortField}&sortOrder=${sortOrder}`,
-        //        method: "GET"
+        //        url: "https://localhost:7059/api/Data/GetAll",
+        //        method: "GET",
         //    });
         //},
-
-        load: function (loadOptions) {
-            return $.ajax({
-                url: "https://localhost:7059/api/Data/GetAll",
-                method: "GET",
-            });
-        },
 
         insert: function (values) {
             values.sale_Date = new Date(values.sale_Date);
@@ -64,6 +78,8 @@
         allowColumnResizing: true,
         allowColumnReordering: true,
         wordWrapEnabled: true,
+
+        remoteOperations: true,
 
         toolbar: {
             visible: true,

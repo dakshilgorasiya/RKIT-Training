@@ -1,8 +1,8 @@
 ﻿using DataGridFinalDemoAPI.DTO;
 using DataGridFinalDemoAPI.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Mvc;
 
 namespace DataGridFinalDemoAPI.Controllers
 {
@@ -12,6 +12,13 @@ namespace DataGridFinalDemoAPI.Controllers
     {
         public static List<Sale_Record> Sale_Records = new DataRepository().Sale_Records;
         public DataController() { }
+
+        [HttpGet("GetRecords")]
+        public object GetRecords([ModelBinder(BinderType = typeof(DataSourceLoadOptionsBinder))] DataSourceLoadOptions loadOptions)
+        {
+            var query = Sale_Records.AsQueryable();
+            return DataSourceLoader.Load(query, loadOptions);
+        }
 
         [HttpGet("GetAll")]
         public IActionResult Get()

@@ -67,10 +67,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="4DataGrid\2_paging\infiniteScrollingDemo.html" />
+    <Content Include="4DataGrid\2_paging\virtualScrollingDemo.html" />
     <Content Include="5_Navigation\1_Menu\index.html" />
     <Content Include="5_Navigation\1_Menu\index.js" />
     <Content Include="5_Navigation\1_Menu\index2.html" />
     <Content Include="5_Navigation\1_Menu\index2.js" />
+    <Content Include="5_Navigation\2_TreeView\index.html" />
+    <Content Include="5_Navigation\2_TreeView\index.js" />
+    <Content Include="5_Navigation\2_TreeView\product.js" />
     <Content Include="Reconsile\aggregate.html" />
     <Content Include="Reconsile\aggregate.js" />
     <Content Include="Reconsile\dropDown1.html" />

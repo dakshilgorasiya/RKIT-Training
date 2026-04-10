@@ -16,10 +16,10 @@ namespace DataGridDataAPI.Repository
         {
             posts = JsonConvert.DeserializeObject<List<Post>>(jsonData);
 
-            //posts.AddRange(posts);
-            //posts.AddRange(posts);
-            //posts.AddRange(posts);
-            //posts.AddRange(posts);
+            posts.AddRange(posts);
+            posts.AddRange(posts);
+            posts.AddRange(posts);
+            posts.AddRange(posts);
         }
     }
 

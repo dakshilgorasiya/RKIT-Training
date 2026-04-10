@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../Content/dx.light.css" />
+    <script src="../../Scripts/dx.all.js"></script>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script>
+        let pagingStore = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                return $.ajax({
+                    url: `https://localhost:7051/api/Data/GetPostsWithPage?take=${loadOptions.take}&skip=${loadOptions.skip}`,
+                    method: "GET"
+                });
+            },
+
+        });
+
+        $("#grid").dxDataGrid({
+            dataSource: pagingStore,
+            columns: [
+                { dataField: "userId", caption: "User Id.", width: 100 },
+                { dataField: "id", caption: "Post Id", width: 100 },
+                { dataField: "title", caption: "Title", width: 400 },
+                { dataField: "body", caption: "Post" }
+            ],
+            remoteOperations: true,
+            height: 550,
+            scrolling: {
+                columnRenderingMode: "standard",
+                mode: "infinite",
+                preloadEnabled: true,
+                renderAsync: false,
+                rowRenderingMode: "standard",
+            }
+        });
+    </script>
+</body>
+</html>
