@@ -67,11 +67,6 @@
         // which data field contains nested items.
         //itemsExpr: "items"
 
-        //itemTemplate: function (data, index, element) {
-        //    // if data is objet containing icon or text or items
-        //    return $("<div>").text("menu");
-        //},
-
         // e has {itemIndex, itemElement, itemData, event, element, component}
         onItemClick: function (e) {
             if (e.itemData.text) {

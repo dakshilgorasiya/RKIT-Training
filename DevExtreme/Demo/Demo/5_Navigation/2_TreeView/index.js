@@ -113,7 +113,7 @@ $(() => {
         selectNodesRecursive: false,
 
         // none(default), normal, selectAll
-        showCheckBoxesMode: "selectAll", 
+        showCheckBoxesMode: "selectAll",
 
         // useNativeScrolling
 

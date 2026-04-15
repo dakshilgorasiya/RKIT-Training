@@ -55,6 +55,7 @@
         },
 
         key: "id",
+        loadMode: "processed",
 
         update: function (key, values) {
             const payload = {
@@ -73,7 +74,7 @@
 
     let gridInstance = $("#grid").dxDataGrid({
         dataSource: store,
-
+        cacheEnabled: true,
         columnAutoWidth: true,
         allowColumnResizing: true,
         allowColumnReordering: true,
@@ -342,24 +343,24 @@
         summary: {
             recalculateWhileEditing: true,
             groupItems: [
-                {
-                    column: "bill",
-                    summaryType: "avg",
-                    showInGroupFooter: true,
-                    valueFormat: {
-                        type: "fixedPoint",
-                        precision: 2
-                    },
-                },
-                {
-                    column: "bill",
-                    summaryType: "sum",
-                    showInGroupFooter: true,
-                    valueFormat: {
-                        type: "fixedPoint",
-                        precision: 2
-                    },
-                },
+                //{
+                //    column: "bill",
+                //    summaryType: "avg",
+                //    showInGroupFooter: true,
+                //    valueFormat: {
+                //        type: "fixedPoint",
+                //        precision: 2
+                //    },
+                //},
+                //{
+                //    column: "bill",
+                //    summaryType: "sum",
+                //    showInGroupFooter: true,
+                //    valueFormat: {
+                //        type: "fixedPoint",
+                //        precision: 2
+                //    },
+                //},
                 {
                     column: "quantity",
                     summaryType: "sum",
@@ -374,24 +375,24 @@
                 }
             ],
             totalItems: [
-                {
-                    column: "bill",
-                    summaryType: "avg",
-                    showInGroupFooter: true,
-                    valueFormat: {
-                        type: "fixedPoint",
-                        precision: 2
-                    },
-                },
-                {
-                    column: "bill",
-                    summaryType: "sum",
-                    showInGroupFooter: true,
-                    valueFormat: {
-                        type: "fixedPoint",
-                        precision: 2
-                    },
-                },
+                //{
+                //    column: "bill",
+                //    summaryType: "avg",
+                //    showInGroupFooter: true,
+                //    valueFormat: {
+                //        type: "fixedPoint",
+                //        precision: 2
+                //    },
+                //},
+                //{
+                //    column: "bill",
+                //    summaryType: "sum",
+                //    showInGroupFooter: true,
+                //    valueFormat: {
+                //        type: "fixedPoint",
+                //        precision: 2
+                //    },
+                //},
                 {
                     column: "quantity",
                     summaryType: "sum",
@@ -577,40 +578,40 @@
                             }
                         ],
                     },
-                    {
-                        dataField: "total",
-                        caption: "Total bill price",
-                        calculateCellValue: function (data) {
-                            return data.sale_Price * data.quantity;
-                        },
-                        format: {
-                            type: "currency",
-                            currency: "INR",
-                            precision: 2,
-                        },
-                        alignment: "center",
-                        allowEditing: false,
-                        headerFilter: {
-                            groupInterval: 1000,
-                        },
-                    },
-                    {
-                        dataField: "bill",
-                        caption: "Bill after discount",
-                        calculateCellValue: function (data) {
-                            return (data.sale_Price * data.quantity) - ((data.discount / 100) * (data.sale_Price * data.quantity));
-                        },
-                        format: {
-                            type: "currency",
-                            currency: "INR",
-                            precision: 2,
-                        },
-                        alignment: "center",
-                        allowEditing: false,
-                        headerFilter: {
-                            groupInterval: 1000,
-                        },
-                    }
+                    //{
+                    //    dataField: "total",
+                    //    caption: "Total bill price",
+                    //    calculateCellValue: function (data) {
+                    //        return data.sale_Price * data.quantity;
+                    //    },
+                    //    format: {
+                    //        type: "currency",
+                    //        currency: "INR",
+                    //        precision: 2,
+                    //    },
+                    //    alignment: "center",
+                    //    allowEditing: false,
+                    //    headerFilter: {
+                    //        groupInterval: 1000,
+                    //    },
+                    //},
+                    //{
+                    //    dataField: "bill",
+                    //    caption: "Bill after discount",
+                    //    calculateCellValue: function (data) {
+                    //        return (data.sale_Price * data.quantity) - ((data.discount / 100) * (data.sale_Price * data.quantity));
+                    //    },
+                    //    format: {
+                    //        type: "currency",
+                    //        currency: "INR",
+                    //        precision: 2,
+                    //    },
+                    //    alignment: "center",
+                    //    allowEditing: false,
+                    //    headerFilter: {
+                    //        groupInterval: 1000,
+                    //    },
+                    //}
                 ]
             },
             {

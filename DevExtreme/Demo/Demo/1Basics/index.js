@@ -3,7 +3,8 @@
         text: "Click me!",
         onClick: function () {
             console.log("Buttton clicked");
-        }
+        },
+        dakshil: "gorasiya",
     });
 
     //! To get instance
